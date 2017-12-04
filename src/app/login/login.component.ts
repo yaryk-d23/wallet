@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
  
-import { AlertService, AuthenticationService } from '../_services/index';
- 
+import { AlertService, AuthenticationService, Base64Service } from '../_services/index';
+
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html'
@@ -17,7 +17,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        private base64Service: Base64Service ) { }
  
     ngOnInit() {
         // reset login status
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
  
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        let authToken = this.getAuthdata(this.model.username, this.model.password);        
+        this.authenticationService.login(authToken)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
@@ -38,5 +40,10 @@ export class LoginComponent implements OnInit {
                     this.alertService.error(error);
                     this.loading = false;
                 });
+    }
+
+    private getAuthdata(username: string, password: string) {
+        let token = this.base64Service.code(username+":"+password);
+        return token;
     }
 }
