@@ -11,22 +11,26 @@ import { UserService } from '../_services/index';
 export class WalletComponent implements OnInit {
 
   currentUser: User;
-  users: User[] = [];
+  data: any = {};
+  loading: boolean = true;
 
   constructor(private userService: UserService) {
-      this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+      this.currentUser = JSON.parse(localStorage.getItem('currentSession'));
   }
 
   ngOnInit() {
-      this.loadAllUsers();
+      this.loadWalletData();
   }
 
-  deleteUser(id: number) {
-      this.userService.delete(id).subscribe(() => { this.loadAllUsers() });
-  }
 
-  private loadAllUsers() {
-      this.userService.getAll().subscribe(users => { this.users = users; });
+  private loadWalletData() {
+    this.userService.getWalletData().subscribe(data => { 
+        this.data =  {
+            wallets: data[0], 
+            transactions: data[1]
+        }; 
+        this.loading = false;
+    });
   }
 
 }

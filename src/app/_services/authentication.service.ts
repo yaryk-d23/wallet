@@ -10,26 +10,28 @@ export class AuthenticationService {
     ) {}
  
     login(authToken: string) {
-        let headers = new Headers({ 'Authorization': 'Basic dXNlckBnbWFpbC5jb206cGFzc3dvcmQ=' });
+        let headers = new Headers({ 
+            'Authorization': 'Basic ' + authToken,
+            "X-Requested-With": "XMLHttpRequest"
+        });
         let option = new RequestOptions({ headers: headers });
         
-        return this.http.get('/api/wallet', option)
+        return this.http.get('/api/v1/wallet', option)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                let user = response.json();
-                /*if (user && user.token) {
+                let wallet = response.json();
+                if (wallet.length && wallet[0].address) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentSesion', JSON.stringify(user));
+                    localStorage.setItem('currentSession', JSON.stringify({token: authToken}));
                 }
  
-                return user;*/
-                console.log(user);
+                return wallet;
             });
     }
  
     logout() {
         // remove user from local storage to log user out
-        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentSession');
     }
 
     
