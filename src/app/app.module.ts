@@ -14,6 +14,9 @@ import { routing }        from './app.routing';
 import { AlertComponent } from './_directives/index';
 import { AuthGuard } from './_guards/index';
 import { AlertService, AuthenticationService, UserService, Base64Service } from './_services/index';
+
+import { AmountTranformPipe } from './pipes/';
+
 import { WalletComponent } from './wallet/wallet.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -27,7 +30,8 @@ import { NavbarComponent } from './navbar/navbar.component'
     WalletComponent,
     LoginComponent,
     RegisterComponent,
-    NavbarComponent
+    NavbarComponent,
+    AmountTranformPipe
   ],
   imports: [
     BrowserModule,
