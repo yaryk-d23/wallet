@@ -6,10 +6,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class AmountTranformPipe  implements PipeTransform {
-    private newAmount: string;
+    private newAmount: string = '';
     constructor() { }
     transform(amount: any, exp: number, currency: string): string {
-        if(amount && amount != 0){
+        if(amount !== undefined ){
             let isPositive =  amount[0] !== '-';
             this.newAmount = isPositive ? (amount / Math.pow(10, exp)).toString() : '-' + (parseInt(amount, 10) / Math.pow(10, exp)).toString();
         }

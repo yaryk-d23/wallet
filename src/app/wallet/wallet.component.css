@@ -2,7 +2,8 @@
 .wallet-container .table td {
     word-break: break-all;
 }
-.wallet-container .table th {
+.wallet-container .table th,
+.wallet-container .table td {
     min-width: 160px;
 }
 hr {
@@ -11,3 +12,9 @@ hr {
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
+@media screen and (max-width: 1200px) {
+    .wallet-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}

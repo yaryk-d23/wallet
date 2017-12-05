@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { forkJoin } from "rxjs/observable/forkJoin";
-import { User } from '../_models/index';
+import { User, Wallet, SendRequest } from '../_models/index';
  
 @Injectable()
 export class UserService {
@@ -22,9 +22,18 @@ export class UserService {
                                     return response.json();
                                 });
 
-        return forkJoin([walletNumber, walletOrders]).map((response: any[]) => {
+        let walletBalance = this.http.get('/api/v1/wallet/balance', this.jwt(true))
+                                .map((response: Response) => {
+                                    return response.json();
+                                });
+
+        return forkJoin([walletNumber, walletOrders, walletBalance]).map((response: any[]) => {
             return response;
         });
+    }
+
+    sendData(data: SendRequest) {
+        return this.http.post('/api/v1/register', data, this.jwt(true)).map((response: Response) => response.json());
     }
 
     /*

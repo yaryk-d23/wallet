@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { Base64Service } from '../_services/index';
 @Component({
   moduleId: module.id,
   selector: 'navbar',
@@ -8,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  constructor(private base64Service: Base64Service) { }
+
+  public currentUser: string = '';
 
   ngOnInit() {
+    this.getCurrentUser();
+  }
+
+  private getCurrentUser(): void {
+    let authData = JSON.parse(localStorage.getItem('currentSession')),
+        userData = this.base64Service.encode(authData.token);
+    this.currentUser = userData.split(':')[0]
   }
 
 }
