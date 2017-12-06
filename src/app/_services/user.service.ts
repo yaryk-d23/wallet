@@ -33,7 +33,7 @@ export class UserService {
     }
 
     sendData(data: SendRequest) {
-        return this.http.post('/api/v1/register', data, this.jwt(true)).map((response: Response) => response.json());
+        return this.http.post('/api/v1/wallet/send', data, this.jwt(true)).map((response: Response) => response.json());
     }
 
     /*

@@ -27,7 +27,7 @@ export class SendRequest {
         this.address = '';
         this.allAvailableBalance = false;
         this.amount = 0;
-        this.paymentId ='';
+       this.paymentId = null;
     }
     address: string;
     allAvailableBalance: boolean;

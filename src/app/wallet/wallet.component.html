@@ -19,10 +19,10 @@
       <h3>Send KRB</h3>
       <form name="sendForm" (ngSubmit)="sendData()" >
         <div class="form-group">
-          <label for="ToAddress">To address:</label>
-          <textarea class="form-control" name="address" 
+          <label for="ToWalletAddress">To address:</label>
+          <textarea class="form-control" name="ToWalletAddress" 
               [(ngModel)]="model.address" #address="ngModel" 
-              id="ToAddress" rows="2" required></textarea>
+              id="ToWalletAddress" rows="2" required></textarea>
         </div>
         <div class="form-group">
           <label for="FromAddress">From address:</label>
@@ -46,7 +46,7 @@
             <span class="input-group-addon">All</span>
           </div>
         </div>
-        <div class="form-group">
+        <!--<div class="form-group">
             <label for="PaymentId">Payment Id:</label>
             <p class="input-group">
               <input type="text" class="form-control" name="paymentId" 
@@ -54,7 +54,7 @@
                   id="PaymentId" placeholder="Enter payment id">                
               <button type="button" class="btn btn-primary">Generate</button>             
             </p> 
-        </div>
+        </div>-->
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Send</button>
           <img *ngIf="sendLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />                
