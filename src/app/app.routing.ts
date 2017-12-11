@@ -7,8 +7,8 @@ import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
     { path: '', component: WalletComponent, canActivate: [AuthGuard], pathMatch: 'full' },
-    { path: 'login', component: LoginComponent, pathMatch: 'full'  },
-    { path: 'register', component: RegisterComponent, pathMatch: 'full'  },
+    { path: 'login', component: LoginComponent},
+    { path: 'register', component: RegisterComponent},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

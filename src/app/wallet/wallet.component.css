@@ -4,7 +4,7 @@
 }
 .wallet-container .table th,
 .wallet-container .table td {
-    min-width: 160px;
+    /*min-width: 50px;*/
 }
 hr {
     margin-top: 1rem;
@@ -12,6 +12,37 @@ hr {
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
+.incoming-transaction b, :host .incoming-transaction ::ng-deep .fa{
+    color: #28a745;
+}
+.outcoming-transaction b, :host .outcoming-transaction ::ng-deep .fa {
+    color: #dc3545;
+}
+.transactions-table td {
+    vertical-align: middle;
+}
+
+.my-wallets-container table td {
+    min-width: 150px;
+}
+
+.send-form-container{}
+.my-wallets-container{}
+
+:host .all-transactions-container ::ng-deep pagination-controls ul.ngx-pagination{
+    padding-left: 0px;
+}
+:host .all-transactions-container ::ng-deep pagination-controls .ngx-pagination .current {
+    background-color: #007bff!important;
+}
+
+.total-count {
+    padding: 5px;
+}
+.transactions-search-control {
+    margin-left: 30px;
+}
+
 @media screen and (max-width: 1200px) {
     .wallet-container {
         max-width: 1200px;

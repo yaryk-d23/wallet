@@ -1,2 +1,19 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+body {
+    background-color: #e9ecef;
+}
+
+.card-container {
+    background: #fff;
+    padding: 10px;
+    border: 0px solid #fff;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px 2px #b8b9b9;
+    margin-bottom: 20px;
+}
+.sort-title {
+    padding-right: 5px;
+    cursor: pointer;
+}

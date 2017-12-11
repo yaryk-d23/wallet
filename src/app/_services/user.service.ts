@@ -8,21 +8,21 @@ export class UserService {
     constructor(private http: Http) { }
     
     register(user: User) {
-        return this.http.post('/api/v1/register', user, this.jwt(false)).map((response: Response) => response.json());
+        return this.http.post('/karbonator/api/v1/register', user, this.jwt(false)).map((response: Response) => response.json());
     }
  
     getWalletData() {
-        let walletNumber = this.http.get('/api/v1/wallet', this.jwt(true))
+        let walletNumber = this.http.get('/karbonator/api/v1/wallet', this.jwt(true))
                                 .map((response: Response) => {
                                     return response.json();
                                 });
 
-        let walletOrders = this.http.get('/api/v1/wallet/transactions', this.jwt(true))
+        let walletOrders = this.http.get('/karbonator/api/v1/wallet/transactions', this.jwt(true))
                                 .map((response: Response) => {
                                     return response.json();
                                 });
 
-        let walletBalance = this.http.get('/api/v1/wallet/balance', this.jwt(true))
+        let walletBalance = this.http.get('/karbonator/api/v1/wallet/balance', this.jwt(true))
                                 .map((response: Response) => {
                                     return response.json();
                                 });
@@ -32,9 +32,26 @@ export class UserService {
         });
     }
 
-    sendData(data: SendRequest) {
-        return this.http.post('/api/v1/wallet/send', data, this.jwt(true)).map((response: Response) => response.json());
+    getWalletNumber() { 
+        return this.http.get('/karbonator/api/v1/wallet/balance', this.jwt(true))
+                .map((response: Response) => {
+                    return response.json();
+                });
     }
+
+    getPaymentId() {
+        return this.http.get('/karbonator/api/v1/wallet/paymentId', this.jwt(true))
+            .map((response: Response) => response.json());
+    };
+
+    sendData(data: SendRequest) {
+        return this.http.post('/karbonator/api/v1/wallet/send', data, this.jwt(true)).map((response: Response) => response.json());
+    };
+
+    getFee() {
+        return this.http.get('/karbonator/api/v1/wallet/send/fee', this.jwt(true))
+            .map((response: Response) => response.json());
+    };
 
     /*
     public getWalletNumber() {

@@ -3,27 +3,77 @@
 <div class="col-lg-12 col-xl-10 offset-xl-1 wallet-container">
   <div class="row">
     <div class="col-lg-8">
-      <h3>My wallets({{data.balance.available | amountTranform: 12 : 'KRB' }})</h3>
-      <table *ngIf="!loading" class="table table-bordered table-striped">
-        <tbody>
-          <tr  *ngFor="let wallet of data.wallets">
-            <td>Wallet address:</td>
-            <td>{{wallet.address}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <div class="row card-container my-wallets-container" style="margin-right: 5px;">
+        <div class="container"><h3>My wallets: </h3></div>
+        <div class="container"><h5>Available: {{data.balance.available | amountTranform: 12 : 'KRB' }} (locked: {{data.balance.locked | amountTranform: 12 : 'KRB' }})</h5></div>
+        <table class="table table-bordered">
+          <tbody>
+            <tr  *ngFor="let wallet of data.wallets" >
+              <td>Wallet address:</td>
+              <td>{{wallet.address}}</td>
+            </tr>
+          </tbody>
+        </table>
         <hr>
-    </div>
-    <div class="col-lg-4">
-      <h3>Send KRB</h3>
-      <form name="sendForm" (ngSubmit)="sendData()" >
-        <div class="form-group">
-          <label for="ToWalletAddress">To address:</label>
-          <textarea class="form-control" name="ToWalletAddress" 
-              [(ngModel)]="model.address" #address="ngModel" 
-              id="ToWalletAddress" rows="2" required></textarea>
+      </div>
+      <div class="row card-container all-transactions-container" style="margin-right: 5px;">
+        <h3>All transactions</h3>
+        <div class="transactions-search-control">
+          <form>
+              <div class="form-group">
+                  <div class="input-group">
+                      <div class="input-group-addon"><fa name="search"></fa></div>
+                      <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
+                  </div>
+              </div>
+          </form>
         </div>
+        <table class="table table-bordered transactions-table">
+          <thead>
+            <tr>
+              <th></th>
+              <th>Transaction</th>
+              <th style="min-width: 160px;"><span class="sort-title" (click)="sortOrder = !sortOrder">Date</span><fa name="sort"></fa></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of sortTable(data.transactions) | 
+                        filter : 'address' : searchString | 
+                        paginate: { itemsPerPage: 5, currentPage: currentPage }; let i = index">
+              <td [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' "><fa *ngIf="transaction.amount > 0" name="sign-in" size="2x"></fa><fa *ngIf="transaction.amount < 0" name="sign-out" size="2x"></fa></td>
+              <td>
+                <div [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' ">Amount: <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b></div>
+                <div><small>Address: {{transaction.address}}</small></div>
+                <!--<div><small>{{transaction.transactionHash}}</small></div>-->
+                <div><small>Payment Id: {{transaction.paymentId}}</small></div>
+              </td>              
+              <td>{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container">
+          <div class="row">
+            <div class="col-xl-4 total-count">
+              <h6>Total: {{(data.transactions | filter : 'address' : searchString).length}}</h6>
+            </div>
+            <div class="col-xl-8">
+              <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4 card-container send-form-container" style="height: 100%;">
+      <h3>Send KRB</h3>
+      <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData()" #f="ngForm">
+        <div class="form-group">
+          <label for="ToWalletAddress" class="required-label">To address:</label>
+          <textarea class="form-control" name="ToWalletAddress" 
+              [(ngModel)]="model.address" #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && !address.valid }"
+              id="ToWalletAddress" rows="3" required pattern="^[K][A-Za-z0-9_]{94}$"></textarea>
+          <div *ngIf="f.submitted && !address.valid" class="invalid-feedback">Address must start from 'K' and have 95 characters</div>
+        </div>
+        <!--
         <div class="form-group">
           <label for="FromAddress">From address:</label>
           <select class="form-control" id="FromAddress" name="FromAddress"  placeholder="Select wallet">
@@ -31,58 +81,43 @@
                 [ngValue]="wallet">{{wallet.address}}</option>
           </select>
         </div>
+        -->
         <div class="form-group">
-          <label for="Amount">Amount</label>
+          <label for="Amount" class="required-label">Amount</label>
           <div class="input-group">
             <input type="number" class="form-control" name="amount" 
+                [ngClass]="{ 'is-invalid': f.submitted && !amount.valid }"
                 [(ngModel)]="model.amount" #amount="ngModel"
                 [disabled]="model.allAvailableBalance"  
-                id="Amount" placeholder="Enter amount">
+                (ngModelChange)="getTotalAmount();"
+                id="Amount" placeholder="0.00" required>
             <span class="input-group-addon">
               <input type="checkbox" name="allAvailableBalance" 
                   [(ngModel)]="model.allAvailableBalance" #allAvailableBalance="ngModel" 
+                  (ngModelChange)="setFullAmount();"
                   aria-label="Amount">
             </span>
             <span class="input-group-addon">All</span>
           </div>
+          <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback">Amount is required!</div>  
+          <div *ngIf="feeInform.baseFee">You enter: {{model.amount}} KRB<br>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}<br>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}</div>                                          
         </div>
-        <!--<div class="form-group">
+        <div class="form-group">
             <label for="PaymentId">Payment Id:</label>
             <p class="input-group">
               <input type="text" class="form-control" name="paymentId" 
                   [(ngModel)]="model.paymentId" #paymentId="ngModel" 
                   id="PaymentId" placeholder="Enter payment id">                
-              <button type="button" class="btn btn-primary">Generate</button>             
+              <button type="button" class="btn btn-primary" (click)="generatePaymentId()">
+                <span>Generate</span>
+              </button>
             </p> 
-        </div>-->
+        </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Send</button>
-          <img *ngIf="sendLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />                
           <button type="reset" class="btn btn-danger">Clear</button>
         </div>
       </form>
-    </div>
-    <div class="col-lg-12">
-      <h3>All transactions</h3>
-      <table *ngIf="!loading" class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Amount</th>
-            <th>Address</th>
-            <th>Hash</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr  *ngFor="let transaction of data.transactions">
-            <td>{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</td>
-            <td>{{transaction.amount | amountTranform: 12 : 'KRB'}}</td>
-            <td>{{transaction.address}}</td>
-            <td>{{transaction.transactionHash}}</td>
-          </tr>
-        </tbody>
-      </table>
-      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />      
     </div>
   </div>
 </div>

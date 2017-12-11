@@ -34,3 +34,15 @@ export class SendRequest {
     amount: number;
     paymentId?: string;
 }
+export class Fee {
+    constructor(){
+        this.baseFee = 0;
+        this.additionalFeeCoefficient = 0;
+        this.address = null;
+        this.comment = null;
+    }
+    baseFee: number;
+    additionalFeeCoefficient: number;
+    address: string;
+    comment?: string;
+}
