@@ -75,6 +75,7 @@ export class WalletComponent implements OnInit {
     let tmpData = {...this.model};
     tmpData.amount = tmpData.amount * 1000000000000;
     this.userService.sendData(tmpData).subscribe(data => { 
+        this.loadWalletData();
         this.preloaderService.hide();
     },
     error => {
