@@ -23,7 +23,7 @@ export class RegisterComponent {
             .subscribe(
                 data => {
                     // set success message and pass true paramater to persist the message after redirecting to the login page
-                    this.alertService.success('Registration successful', true);
+                    this.alertService.success('Registration successful. Check your email '+this.model.email+' for confirm registration!', true);
                     this.router.navigate(['/login']);
                 },
                 error => {

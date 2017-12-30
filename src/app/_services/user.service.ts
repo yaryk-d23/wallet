@@ -8,7 +8,7 @@ export class UserService {
     constructor(private http: Http) { }
     
     register(user: User) {
-        return this.http.post('/karbonator/api/v1/register', user, this.jwt(false)).map((response: Response) => response.json());
+        return this.http.post('/karbonator/api/v1/user/register', user, this.jwt(false)).map((response: Response) => response);
     }
  
     getWalletData() {
@@ -51,6 +51,16 @@ export class UserService {
     getFee() {
         return this.http.get('/karbonator/api/v1/wallet/send/fee', this.jwt(true))
             .map((response: Response) => response.json());
+    };
+
+    confirmRegistration(token: string) {
+        return this.http.get('/karbonator/api/v1/user/confirm?token=' + token, this.jwt(false))
+            .map((response: Response) => {return response;});
+    };
+
+    confirmSend(token: string) {
+        return this.http.get('/karbonator/api/v1/send/confirm?token=' + token, this.jwt(false))
+            .map((response: Response) => {return response;});
     };
 
     /*

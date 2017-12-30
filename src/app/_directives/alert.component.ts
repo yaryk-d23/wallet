@@ -14,6 +14,6 @@ export class AlertComponent {
    constructor(private alertService: AlertService) { }
 
    ngOnInit() {
-       this.alertService.getMessage().subscribe(message => { this.message = message; setTimeout(() => {this.message = undefined},3000)});
+       this.alertService.getMessage().subscribe(message => { this.message = message; setTimeout(() => {this.message = undefined},5000)});
    }
 }

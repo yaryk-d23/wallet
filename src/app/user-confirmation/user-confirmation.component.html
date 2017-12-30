@@ -1,0 +1,11 @@
+<br>
+<div class="container col-md-3">
+  <div class="text-center" *ngIf="message.ok">
+    <p>Registration has been successfully.</p>
+    <p>Click <a [routerLink]="['/login']">this</a> for login.</p>
+  </div>
+  <div class="text-center" *ngIf="!message.ok">
+    <p>Registration is failed.</p>
+    <p>Click <a [routerLink]="['/register']">this</a> for registration again.</p>
+  </div>
+</div>

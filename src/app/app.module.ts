@@ -21,7 +21,10 @@ import { FilterPipe } from './pipes/';
 import { WalletComponent } from './wallet/wallet.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { NavbarComponent } from './navbar/navbar.component'
+import { NavbarComponent } from './navbar/navbar.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { SendConfirmationComponent } from './send-confirmation/send-confirmation.component';
+import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component'
 
 
 @NgModule({
@@ -34,7 +37,10 @@ import { NavbarComponent } from './navbar/navbar.component'
     RegisterComponent,
     NavbarComponent,
     AmountTranformPipe,
-    FilterPipe
+    FilterPipe,
+    ConfirmationComponent,
+    SendConfirmationComponent,
+    UserConfirmationComponent
     
   ],
   imports: [
