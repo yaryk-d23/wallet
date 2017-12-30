@@ -59,7 +59,7 @@ export class UserService {
     };
 
     confirmSend(token: string) {
-        return this.http.get('/karbonator/api/v1/send/confirm?token=' + token, this.jwt(false))
+        return this.http.get('/karbonator/api/v1/wallet/send/confirm?token=' + token, this.jwt(false))
             .map((response: Response) => {return response;});
     };
 
