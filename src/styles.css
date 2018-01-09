@@ -1,10 +1,27 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~bootstrap/dist/css/bootstrap.min.css';
+@import "~materialize-css/dist/css/materialize.css";
 
-body {
-    background-color: #e9ecef;
+.main-footer {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
 }
-
+.main-footer .row {
+    margin-bottom: 0;
+}
+.main-footer .tab a.active{
+    background-color: rgba(0, 0, 0, 0.1);
+}
+.main-footer .tab a>i{
+    line-height: 32px;
+    height: 32px;
+}
+.main-footer .tab a>span{
+    display: block;
+    line-height: 32px;
+}
 .card-container {
     background: #fff;
     padding: 10px;
@@ -16,4 +33,60 @@ body {
 .sort-title {
     padding-right: 5px;
     cursor: pointer;
+}
+
+/* form controls global style*/
+/* label color */
+.input-field label {
+    color: #2196f3;
+}
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #2196f3;
+}
+/*color for active prefix-icon*/
+.input-field .prefix.active {
+    color: #2196f3;
+}
+/* label underline focus color */
+input:not([type]):focus:not([readonly]), 
+input[type=text]:not(.browser-default):focus:not([readonly]), 
+input[type=password]:not(.browser-default):focus:not([readonly]), 
+input[type=email]:not(.browser-default):focus:not([readonly]), 
+input[type=url]:not(.browser-default):focus:not([readonly]), 
+input[type=time]:not(.browser-default):focus:not([readonly]), 
+input[type=date]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime]:not(.browser-default):focus:not([readonly]), 
+input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
+ input[type=tel]:not(.browser-default):focus:not([readonly]), 
+ input[type=number]:not(.browser-default):focus:not([readonly]), 
+ input[type=search]:not(.browser-default):focus:not([readonly]),
+  textarea.materialize-textarea:focus:not([readonly]) {
+    border-bottom: 1px solid #2196f3;
+    box-shadow: 0 1px 0 0 #2196f3;
+}
+
+.tabs .indicator {
+    background-color: #fff;
+}
+
+/*style for postfix element*/
+.input-field .postfix ~ input { 
+    width: 80%; 
+    width:calc(100% - 12rem);  
+    margin-left:0px; 
+    margin-right: 3rem!important; 
+}
+.input-field .postfix {
+    position: absolute;
+    width: 10rem;
+    right: 0px;
+    -webkit-transition: color .2s;
+    transition: color .2s;
+}
+.input-field .postfix.active {
+    color: #26a69a;
+}
+.input-field input[type="checkbox"] + label, .input-field input[type="radio"] + label {
+    pointer-events: auto;
 }

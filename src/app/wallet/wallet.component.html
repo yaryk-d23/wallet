@@ -1,8 +1,8 @@
 <navbar></navbar>
-<br>
-<div class="col-lg-12 col-xl-10 offset-xl-1 wallet-container">
-  <div class="row">
-    <div class="col-lg-8">
+<div class="container wallet-container">
+  <br>
+  <div class="row" >
+    <div id="receive">
       <div class="row card-container my-wallets-container" style="margin-right: 5px;">
         <div class="container"><h3>My wallets: </h3></div>
         <div class="container"><h5>Available: {{data.balance.available | amountTranform: 12 : 'KRB' }} (locked: {{data.balance.locked | amountTranform: 12 : 'KRB' }})</h5></div>
@@ -16,108 +16,142 @@
         </table>
         <hr>
       </div>
-      <div class="row card-container all-transactions-container" style="margin-right: 5px;">
-        <h3>All transactions</h3>
-        <div class="transactions-search-control">
+    </div>
+    <div id="history">
+      <div class="">
+          <h5>Transactions</h5>
           <form>
-              <div class="form-group">
-                  <div class="input-group">
-                      <div class="input-group-addon"><fa name="search"></fa></div>
-                      <input type="text" class="form-control" name="searchString" placeholder="Type to search..." [(ngModel)]="searchString">
-                  </div>
+              <div class="input-field">
+                  <i class="material-icons prefix">search</i>
+                  <label for="SearchString">Type to search...</label>
+                  <input type="text" class="form-control" 
+                    name="searchString" id="SearchString"
+                    [(ngModel)]="searchString"
+                  >
               </div>
           </form>
-        </div>
-        <table class="table table-bordered transactions-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th>Transaction</th>
-              <th style="min-width: 160px;"><span class="sort-title" (click)="sortOrder = !sortOrder">Date</span><fa name="sort"></fa></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let transaction of sortTable(data.transactions) | 
-                        filter : 'address' : searchString | 
-                        paginate: { itemsPerPage: 5, currentPage: currentPage }; let i = index">
-              <td [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' "><fa *ngIf="transaction.amount > 0" name="sign-in" size="2x"></fa><fa *ngIf="transaction.amount < 0" name="sign-out" size="2x"></fa></td>
-              <td>
-                <div [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' ">Amount: <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b></div>
-                <div><small>Address: {{transaction.address}}</small></div>
-                <!--<div><small>{{transaction.transactionHash}}</small></div>-->
-                <div><small>Payment Id: {{transaction.paymentId}}</small></div>
-              </td>              
-              <td>{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="container">
-          <div class="row">
-            <div class="col-xl-4 total-count">
+          <ul class="collection">
+            <li class="collection-item avatar" 
+              *ngFor="let transaction of sortTable(data.transactions) | 
+              filter : 'address' : searchString | 
+              paginate: { itemsPerPage: 2, currentPage: currentPage }; let i = index"
+            >
+              <i *ngIf="transaction.amount > 0" 
+                class="material-icons circle medium green" 
+              >vertical_align_bottom</i>
+              <i *ngIf="transaction.amount < 0" 
+                class="material-icons circle medium red" 
+              >vertical_align_top</i>
+              <p>
+                <span class="title">{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</span>                  
+                <span><small>Address: {{transaction.address}}</small></span>
+                <span><small *ngIf="transaction.paymentId">Payment Id: {{transaction.paymentId}}</small></span>
+                <span><small>Hash: {{transaction.transactionHash}}</small></span>
+                <span><small [ngClass]="(transaction.confirmations < 10) ? 'red-text' : 'green-text' ">
+                  Confirmations: {{transaction.confirmations}}
+                </small></span>
+              </p>
+              <span href="#!" class="secondary-content" 
+                [ngClass]="(transaction.amount < 0) ? 'red-text' : 'green-text' "
+              >
+                <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b>
+              </span>
+            </li>
+          </ul>
+          <!-- <table class="table table-bordered transactions-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Transaction</th>
+                <th style="min-width: 160px;"><span class="sort-title" (click)="sortOrder = !sortOrder">Date</span><i class="material-icons">sort</i></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let transaction of sortTable(data.transactions) | 
+                          filter : 'address' : searchString | 
+                          paginate: { itemsPerPage: 5, currentPage: currentPage }; let i = index">
+                <td [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' ">
+                  <i *ngIf="transaction.amount > 0" class="material-icons" size="2x">input</i>
+                  <i *ngIf="transaction.amount < 0" class="material-icons" size="2x">output</i>
+                </td>
+                <td>
+                  <div [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' ">Amount: <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b></div>
+                  <div><small>Address: {{transaction.address}}</small></div>
+                  <div><small>Payment Id: {{transaction.paymentId}}</small></div>
+                </td>              
+                <td>{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</td>
+              </tr>
+            </tbody>
+          </table> -->
+          <div class="">
+            <div class="col s4 total-count">
               <h6>Total: {{(data.transactions | filter : 'address' : searchString).length}}</h6>
             </div>
-            <div class="col-xl-8">
+            <div class="col s8">
               <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
           </div>
         </div>
-      </div>
     </div>
-    <div class="col-lg-4 card-container send-form-container" style="height: 100%;">
-      <h3>Send KRB</h3>
-      <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData()" #f="ngForm">
-        <div class="form-group">
-          <label for="ToWalletAddress" class="required-label">To address:</label>
-          <textarea class="form-control" name="ToWalletAddress" 
-              [(ngModel)]="model.address" #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && !address.valid }"
-              id="ToWalletAddress" rows="3" required pattern="^[K][A-Za-z0-9_]{94}$"></textarea>
-          <div *ngIf="f.submitted && !address.valid" class="invalid-feedback">Address must start from 'K' and have 95 characters</div>
-        </div>
-        <!--
-        <div class="form-group">
-          <label for="FromAddress">From address:</label>
-          <select class="form-control" id="FromAddress" name="FromAddress"  placeholder="Select wallet">
-            <option *ngFor="let wallet of data.wallets" 
-                [ngValue]="wallet">{{wallet.address}}</option>
-          </select>
-        </div>
-        -->
-        <div class="form-group">
-          <label for="Amount" class="required-label">Amount</label>
-          <div class="input-group">
-            <input type="number" class="form-control" name="amount" 
-                [ngClass]="{ 'is-invalid': f.submitted && !amount.valid }"
-                [(ngModel)]="model.amount" #amount="ngModel"
-                [disabled]="model.allAvailableBalance"  
-                (ngModelChange)="getTotalAmount();"
-                id="Amount" placeholder="0.00" required>
-            <span class="input-group-addon">
-              <input type="checkbox" name="allAvailableBalance" 
-                  [(ngModel)]="model.allAvailableBalance" #allAvailableBalance="ngModel" 
-                  (ngModelChange)="setFullAmount();"
-                  aria-label="Amount">
-            </span>
-            <span class="input-group-addon">All</span>
+    <div id="send">
+      <div class="col s12 m8 l6 offset-m2 offset-l3">
+        <h5>Send KRB</h5>
+        <hr>
+        <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData()" #f="ngForm">
+          <div class="input-field">
+            <label for="ToWalletAddress" class="required-label">To address:</label>
+            <textarea class="materialize-textarea" name="ToWalletAddress" 
+                [(ngModel)]="model.address" #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && !address.valid }"
+                id="ToWalletAddress" required pattern="^[K][A-Za-z0-9_]{94}$"></textarea>
+            <div *ngIf="f.submitted && !address.valid" class="invalid-feedback">Address must start from 'K' and have 95 characters</div>
           </div>
+          <!--
+          <div class="form-group">
+            <label for="FromAddress">From address:</label>
+            <select class="form-control" id="FromAddress" name="FromAddress"  placeholder="Select wallet">
+              <option *ngFor="let wallet of data.wallets" 
+                  [ngValue]="wallet">{{wallet.address}}</option>
+            </select>
+          </div>
+          -->
+            <div class="input-field">
+                <div class="postfix">
+                    <input type="checkbox" class="filled-in" name="allAvailableBalance"  id="AllAvailableBalance"
+                        [(ngModel)]="model.allAvailableBalance" #allAvailableBalance="ngModel" 
+                        (ngModelChange)="setFullAmount();">
+                    <label for="AllAvailableBalance" >Select All</label >
+                  </div>
+              <label for="Amount" class="required-label">Amount</label>
+              <input type="number" name="amount" 
+                  [ngClass]="{ 'is-invalid': f.submitted && !amount.valid }"
+                  [(ngModel)]="model.amount" #amount="ngModel"
+                  [disabled]="model.allAvailableBalance"  
+                  (ngModelChange)="getTotalAmount();"
+                  id="Amount" placeholder="0.00" required>
+            </div>
           <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback">Amount is required!</div>  
-          <div *ngIf="feeInform.baseFee">You enter: {{model.amount}} KRB<br>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}<br>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}</div>                                          
-        </div>
-        <div class="form-group">
-            <label for="PaymentId">Payment Id:</label>
-            <p class="input-group">
-              <input type="text" class="form-control" name="paymentId" 
+          <div *ngIf="feeInform.baseFee">You enter: {{model.amount}} KRB
+            <br>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}
+            <br>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}
+          </div>           
+          <div class="input-field">
+              <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
+                  <span>Generate</span>
+                </button>
+              <label for="PaymentId">Payment Id:</label>
+              <input type="text" name="paymentId" 
                   [(ngModel)]="model.paymentId" #paymentId="ngModel" 
-                  id="PaymentId" placeholder="Enter payment id">                
-              <button type="button" class="btn btn-primary" (click)="generatePaymentId()">
-                <span>Generate</span>
-              </button>
-            </p> 
-        </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-primary">Send</button>
-          <button type="reset" class="btn btn-danger">Clear</button>
-        </div>
-      </form>
+                  id="PaymentId">                
+              
+          </div>
+          <hr>
+          <div class="center">
+            <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button>
+            <button type="submit" class="btn blue">Send<i class="material-icons right">send</i></button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
+

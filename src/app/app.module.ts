@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
-import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { NgxPaginationModule } from 'ngx-pagination';
 // used to create fake backend
 import { BaseRequestOptions } from '@angular/http';
@@ -26,6 +25,8 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
 import { SendConfirmationComponent } from './send-confirmation/send-confirmation.component';
 import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component'
 
+// style
+import { MaterializeModule } from 'angular2-materialize';
 
 @NgModule({
   declarations: [
@@ -49,8 +50,8 @@ import { UserConfirmationComponent } from './user-confirmation/user-confirmation
     HttpModule,
     routing,
     LoadingModule,
-    AngularFontAwesomeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    MaterializeModule
   ],
   providers: [
     AuthGuard,

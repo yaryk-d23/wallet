@@ -12,12 +12,7 @@ hr {
     border: 0;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
   }
-.incoming-transaction b, :host .incoming-transaction ::ng-deep .fa{
-    color: #28a745;
-}
-.outcoming-transaction b, :host .outcoming-transaction ::ng-deep .fa {
-    color: #dc3545;
-}
+
 .transactions-table td {
     vertical-align: middle;
 }
@@ -39,13 +34,17 @@ hr {
 .total-count {
     padding: 5px;
 }
-.transactions-search-control {
-    margin-left: 30px;
+
+.collection .collection-item p>span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1200px) {
     .wallet-container {
-        max-width: 1200px;
-        margin: 0 auto;
+        /* max-width: 1200px;
+        margin: 0 auto; */
     }
 }
