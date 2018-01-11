@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
  
-import { AlertService, AuthenticationService, Base64Service } from '../_services/index';
-
+import { AlertService, AuthenticationService, Base64Service } from '../../_services/index';
+declare var Materialize:any;
 @Component({
     moduleId: module.id,
     templateUrl: 'login.component.html'
@@ -26,7 +26,10 @@ export class LoginComponent implements OnInit {
  
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+
+        setTimeout(() => {Materialize.updateTextFields();},100);
     }
+    
  
     login() {
         this.loading = true;

@@ -2,17 +2,6 @@
 .wallet-container .table td {
     word-break: break-all;
 }
-.wallet-container .table th,
-.wallet-container .table td {
-    /*min-width: 50px;*/
-}
-hr {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
 .transactions-table td {
     vertical-align: middle;
 }
@@ -20,9 +9,6 @@ hr {
 .my-wallets-container table td {
     min-width: 150px;
 }
-
-.send-form-container{}
-.my-wallets-container{}
 
 :host .all-transactions-container ::ng-deep pagination-controls ul.ngx-pagination{
     padding-left: 0px;

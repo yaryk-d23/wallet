@@ -1,25 +1,30 @@
 <navbar></navbar>
+<div class="container">
+  <div class="row" >
+    <div class="">
+      <h5 class="blue-text">Address</h5>
+      <p style="word-wrap: break-word;" 
+        *ngFor="let wallet of data.wallets; let i = index">
+        <span *ngIf="i==0">{{wallet.address}}</span>
+      </p>
+      <h5 class="blue-text">Balance</h5>
+      <p style="word-wrap: break-word;" >
+        <span>Available: {{data.balance.available | amountTranform: 12 : 'KRB' }} 
+            (locked: {{data.balance.locked | amountTranform: 12 : 'KRB' }})
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
 <div class="container wallet-container">
-  <br>
   <div class="row" >
     <div id="receive">
-      <div class="row card-container my-wallets-container" style="margin-right: 5px;">
-        <div class="container"><h3>My wallets: </h3></div>
-        <div class="container"><h5>Available: {{data.balance.available | amountTranform: 12 : 'KRB' }} (locked: {{data.balance.locked | amountTranform: 12 : 'KRB' }})</h5></div>
-        <table class="table table-bordered">
-          <tbody>
-            <tr  *ngFor="let wallet of data.wallets" >
-              <td>Wallet address:</td>
-              <td>{{wallet.address}}</td>
-            </tr>
-          </tbody>
-        </table>
-        <hr>
-      </div>
+      <receive [wallets]="data.wallets"></receive>
     </div>
     <div id="history">
       <div class="">
-          <h5>Transactions</h5>
+          <h5 class="blue-text center">Transactions</h5>
+          <hr>
           <form>
               <div class="input-field">
                   <i class="material-icons prefix">search</i>
@@ -58,31 +63,6 @@
               </span>
             </li>
           </ul>
-          <!-- <table class="table table-bordered transactions-table">
-            <thead>
-              <tr>
-                <th></th>
-                <th>Transaction</th>
-                <th style="min-width: 160px;"><span class="sort-title" (click)="sortOrder = !sortOrder">Date</span><i class="material-icons">sort</i></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let transaction of sortTable(data.transactions) | 
-                          filter : 'address' : searchString | 
-                          paginate: { itemsPerPage: 5, currentPage: currentPage }; let i = index">
-                <td [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' ">
-                  <i *ngIf="transaction.amount > 0" class="material-icons" size="2x">input</i>
-                  <i *ngIf="transaction.amount < 0" class="material-icons" size="2x">output</i>
-                </td>
-                <td>
-                  <div [ngClass]="(transaction.amount < 0) ? 'outcoming-transaction' : 'incoming-transaction' ">Amount: <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b></div>
-                  <div><small>Address: {{transaction.address}}</small></div>
-                  <div><small>Payment Id: {{transaction.paymentId}}</small></div>
-                </td>              
-                <td>{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</td>
-              </tr>
-            </tbody>
-          </table> -->
           <div class="">
             <div class="col s4 total-count">
               <h6>Total: {{(data.transactions | filter : 'address' : searchString).length}}</h6>
@@ -95,7 +75,7 @@
     </div>
     <div id="send">
       <div class="col s12 m8 l6 offset-m2 offset-l3">
-        <h5>Send KRB</h5>
+        <h5 class="blue-text center">Send KRB</h5>
         <hr>
         <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData()" #f="ngForm">
           <div class="input-field">
@@ -146,7 +126,7 @@
           </div>
           <hr>
           <div class="center">
-            <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button>
+            <!-- <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button> -->
             <button type="submit" class="btn blue">Send<i class="material-icons right">send</i></button>
           </div>
         </form>
@@ -154,4 +134,21 @@
     </div>
   </div>
 </div>
+<nav class="main-footer blue">
+  <div class="nav-wrapper">
+      <div class="container">
+      <div class="row">
+          <div class="col s1 m3 l4"></div>
+          <div class="col s10 m6 l4">
+            <ul class="center" materialize="tabs">
+              <li class="tab col s4"><a class="active"  href="#receive"><i class="material-icons">input</i><span>Receive</span></a></li>
+              <li class="tab col s4"><a class="" href="#history"><i class="material-icons">list</i><span>History</span></a></li>
+              <li class="tab col s4"><a class="" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
+            </ul>
+          </div>
+          <div class="col s1 m3 l4"></div>
+        </div>
+    </div>
+  </div>
+</nav>
 

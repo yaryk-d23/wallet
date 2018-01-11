@@ -10,12 +10,16 @@ export class UserService {
     register(user: User) {
         return this.http.post('/karbonator/api/v1/user/register', user, this.jwt(false)).map((response: Response) => response);
     }
+
+    getBalance() {
+        return this.http.get('/karbonator/api/v1/wallet', this.jwt(true))
+                .map((response: Response) => {
+                    return response.json();
+                });
+    };
  
     getWalletData() {
-        let walletNumber = this.http.get('/karbonator/api/v1/wallet', this.jwt(true))
-                                .map((response: Response) => {
-                                    return response.json();
-                                });
+        let walletNumber = this.getBalance();
 
         let walletOrders = this.http.get('/karbonator/api/v1/wallet/transactions', this.jwt(true))
                                 .map((response: Response) => {

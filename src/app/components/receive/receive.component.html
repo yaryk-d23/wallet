@@ -1,0 +1,60 @@
+<div class="">
+  <h5 class="blue-text center">Receive</h5>
+  <!-- <div class=""><p style="word-wrap: break-word;" *ngFor="let wallet of wallets; let i = index"><span *ngIf="i==0">{{wallet.address}}</span></p></div> -->
+  <hr>
+  <form name="receiveForm" class="" (ngSubmit)="f.form.valid && generateQRcode()" #f="ngForm">
+    <div class="col s12 m6">
+      <div class="input-field">
+        <label for="Amount">Amount</label>
+        <input type="number" name="amount" 
+            [ngClass]="{ 'is-invalid': f.submitted && !amount.valid }"
+            [(ngModel)]="receiveData.amount" #amount="ngModel"
+            id="Amount" placeholder="0.00" required>
+        <span *ngIf="f.submitted && !amount.valid" 
+              class="invalid-feedback">
+              Amount is required!
+        </span>
+      </div>
+    </div>
+    <div class="col s12 m6">
+      <div class="input-field">
+        <label for="Label">Label:</label>
+        <input type="text" name="Label" 
+              [ngClass]="{ 'is-invalid': f.submitted && !label.valid }"
+              [(ngModel)]="receiveData.label" #label="ngModel"
+              id="Label"  placeholder="Enter label">
+      </div>
+    </div>
+    <div class="col s12 m12 l12">
+      <div class="input-field">
+          <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
+              <span>Generate</span>
+            </button>
+          <label for="PaymentId">Payment Id:</label>
+          <input type="text" name="paymentId" 
+              [(ngModel)]="receiveData.paymentId" #paymentId="ngModel" 
+              id="PaymentId"  placeholder="Enter Payment Id or click on generate button">                
+          
+      </div>
+    </div>
+    <br>
+    <div class="center col s12 m12 l12">
+        <button type="submit" class="btn blue">Receive<i class="material-icons right">input</i></button>
+    </div>
+  </form>
+</div>
+<br>
+<hr>
+<div class="col s12 m4">
+  <div class="center">
+      <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "qrValue">
+        </ngx-qrcode>
+  </div>
+   
+</div>
+<div class="col s12 m8">
+    <p style="word-wrap: break-word;" *ngIf="qrValue.length > 11">
+      <a href="{{qrValue}}">{{qrValue}}</a>
+    </p>
+</div>
+

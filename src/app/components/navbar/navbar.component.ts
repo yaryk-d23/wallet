@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Base64Service } from '../_services/index';
+import { Base64Service } from '../../_services/index';
 @Component({
   moduleId: module.id,
   selector: 'navbar',

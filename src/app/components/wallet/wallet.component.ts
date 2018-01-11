@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
 
-import { User, Wallet, SendRequest, Fee } from '../_models/index';
-import { AlertService, UserService, PreloaderService } from '../_services/index';
+import { User, Wallet, SendRequest, Fee } from '../../_models/index';
+import { AlertService, UserService, PreloaderService } from '../../_services/index';
 
 
 @Component({

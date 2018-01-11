@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, UserService, PreloaderService } from '../_services/index';
+import { AlertService, UserService, PreloaderService } from '../../_services/index';
 import { error } from 'util';
 
 @Component({
-  selector: 'app-send-confirmation',
-  templateUrl: './send-confirmation.component.html',
-  styleUrls: ['./send-confirmation.component.css']
+  selector: 'app-user-confirmation',
+  templateUrl: './user-confirmation.component.html',
+  styleUrls: ['./user-confirmation.component.css']
 })
-export class SendConfirmationComponent implements OnInit {
+export class UserConfirmationComponent implements OnInit {
 
   token: string;
   message: any;
@@ -25,11 +25,11 @@ export class SendConfirmationComponent implements OnInit {
 
   ngOnInit() {
     this.preloaderService.show(); 
-    this.confirmSend();
+    this.confirmRegistration();
   }
 
-  public confirmSend(): void {
-    this.userService.confirmSend(this.token).subscribe(res => {
+  public confirmRegistration(): void {
+    this.userService.confirmRegistration(this.token).subscribe(res => {
       this.preloaderService.hide(); 
       this.message = res;
     }, error => {

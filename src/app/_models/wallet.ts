@@ -26,7 +26,7 @@ export class SendRequest {
     constructor(){
         this.address = '';
         this.allAvailableBalance = false;
-        this.amount = 0;
+        this.amount = null;
        this.paymentId = null;
     }
     address: string;
@@ -34,6 +34,22 @@ export class SendRequest {
     amount: number;
     paymentId?: string;
 }
+
+export class ReceiveRequest {
+    constructor(){
+        this.address = '';
+        this.label = '';
+        this.amount = null;
+        this.paymentId = null;
+        this.message = '';
+    }
+    address: string;
+    label?: string;
+    amount: number;
+    paymentId?: string;
+    message?: string;
+}
+
 export class Fee {
     constructor(){
         this.baseFee = 0;

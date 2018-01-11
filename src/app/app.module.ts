@@ -4,6 +4,7 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgxQRCodeModule } from 'ngx-qrcode3';
 // used to create fake backend
 import { BaseRequestOptions } from '@angular/http';
 
@@ -17,16 +18,17 @@ import { AlertService, AuthenticationService, UserService, Base64Service, Preloa
 import { AmountTranformPipe } from './pipes/';
 import { FilterPipe } from './pipes/';
 
-import { WalletComponent } from './wallet/wallet.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { ConfirmationComponent } from './confirmation/confirmation.component';
-import { SendConfirmationComponent } from './send-confirmation/send-confirmation.component';
-import { UserConfirmationComponent } from './user-confirmation/user-confirmation.component'
-
+import { WalletComponent } from './components/wallet/wallet.component';
+import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { ConfirmationComponent } from './components/confirmation/confirmation.component';
+import { SendConfirmationComponent } from './components/send-confirmation/send-confirmation.component';
+import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component'
+import { ReceiveComponent } from './components/receive/receive.component';
 // style
 import { MaterializeModule } from 'angular2-materialize';
+import { SendComponent } from './components/send/send.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { MaterializeModule } from 'angular2-materialize';
     FilterPipe,
     ConfirmationComponent,
     SendConfirmationComponent,
-    UserConfirmationComponent
+    UserConfirmationComponent,
+    ReceiveComponent,
+    SendComponent
     
   ],
   imports: [
@@ -51,7 +55,8 @@ import { MaterializeModule } from 'angular2-materialize';
     routing,
     LoadingModule,
     NgxPaginationModule,
-    MaterializeModule
+    MaterializeModule,
+    NgxQRCodeModule
   ],
   providers: [
     AuthGuard,

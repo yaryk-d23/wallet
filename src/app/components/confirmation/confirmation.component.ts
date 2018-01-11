@@ -1,15 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AlertService, UserService, PreloaderService } from '../_services/index';
+import { AlertService, UserService, PreloaderService } from '../../_services/index';
 import { error } from 'util';
-
 @Component({
-  selector: 'app-user-confirmation',
-  templateUrl: './user-confirmation.component.html',
-  styleUrls: ['./user-confirmation.component.css']
+  selector: 'app-confirmation',
+  templateUrl: './confirmation.component.html',
+  styleUrls: ['./confirmation.component.css']
 })
-export class UserConfirmationComponent implements OnInit {
-
+export class ConfirmationComponent implements OnInit {
   token: string;
   message: any;
 

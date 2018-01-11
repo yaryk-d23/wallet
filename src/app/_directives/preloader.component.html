@@ -1,3 +1,26 @@
-<div class="my-container">
-    <ngx-loading [show]="loading.show" [config]="{ backdropBorderRadius: '14px', primaryColour: '#ffffff', secondaryColour: '#ffffff', tertiaryColour: '#ffffff' }"></ngx-loading>
+    <!-- <ngx-loading [show]="loading.show" 
+        [config]="{  
+                    backdropBackgroundColour: 'rgba(0,0,0,0.3)', 
+                    backdropBorderRadius: '14px',
+                    primaryColour: '#818181', 
+                    secondaryColour: '#818181', 
+                    tertiaryColour: '#818181'                   
+                }">
+    </ngx-loading> -->
+    
+<div class="pr-conteiner preloader" *ngIf="loading.show">' +
+    <div class="pr-bg"></div>
+    <div class="pr-img">
+        <div class="preloader-wrapper big active">
+            <div class="spinner-layer spinner-blue-only">
+                <div class="circle-clipper left">
+                <div class="circle"></div>
+                </div><div class="gap-patch">
+                <div class="circle"></div>
+                </div><div class="circle-clipper right">
+                <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

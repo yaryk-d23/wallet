@@ -1,6 +1,13 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~materialize-css/dist/css/materialize.css";
 
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
 .main-footer {
     top: auto;
     left: 0;
@@ -21,6 +28,9 @@
 .main-footer .tab a>span{
     display: block;
     line-height: 32px;
+}
+.main-footer li.tab {
+    min-width: 80px;
 }
 .card-container {
     background: #fff;
@@ -89,4 +99,45 @@ input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
 }
 .input-field input[type="checkbox"] + label, .input-field input[type="radio"] + label {
     pointer-events: auto;
+}
+
+/*preloader style*/
+.pr-conteiner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999999;
+  }
+  .pr-conteiner .pr-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.3;
+  }
+  .pr-conteiner .pr-img {
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 1px;
+    margin: auto;
+  }
+
+  /*error input*/
+.required-label::after {
+    content: ' *';
+    color: #dc3545;
+}
+.invalid-feedback {
+    display: block;
+    margin-top: .25rem;
+    font-size: .875rem;
+    color: #dc3545;
 }
