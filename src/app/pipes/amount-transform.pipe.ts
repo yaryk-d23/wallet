@@ -6,15 +6,30 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 
 export class AmountTranformPipe  implements PipeTransform {
-    private newAmount: any = '';
     constructor() { }
     transform(amount: any, exp: number, currency: string): string {
-        if(amount !== undefined ){
-            let isPositive =  amount[0] !== '-';
-            this.newAmount = isPositive ? (amount / Math.pow(10, exp)).toFixed(12) : '-' + ((-amount / Math.pow(10, exp)).toFixed(12));
+        let newAmount: any = '0';
+        if(amount != undefined && amount != null) {
+            newAmount = amount;
+            let isPositive =  newAmount [0] !== '-';
+            newAmount = isPositive ? (newAmount / Math.pow(10, exp)).toFixed(12) : 
+                        '-' + ((-newAmount / Math.pow(10, exp)).toFixed(12));
         }
-        currency ? this.newAmount += ' ' + currency : null;
-        return this.newAmount;
+        newAmount = this.clear(newAmount);
+        currency ? newAmount += ' ' + currency : null;
+        return newAmount;
+    }
+    clear(amount: string): string {
+        let input = amount;
+        for(let i=input.length-1;i>0;i--)
+        {
+            if(input[i-3] == '.')
+              break;
+          else if(input[i] == '0')
+            input = input.slice(0, -1)
+          else break;
+        }
+        return input;
     }
 
 }

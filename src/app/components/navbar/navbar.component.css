@@ -1,0 +1,9 @@
+nav.nav-extended {
+    line-height: 32px;
+}
+.wallet-balance div {
+    display: inline-block;
+}
+.wallet-balance div:first-child {
+    margin-top: 10px;
+}

@@ -75,7 +75,10 @@ input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
     border-bottom: 1px solid #2196f3;
     box-shadow: 0 1px 0 0 #2196f3;
 }
-
+[type="checkbox"].filled-in:checked + label:after {
+    border: 2px solid #2196f3;
+    background-color: #2196f3;
+}
 .tabs .indicator {
     background-color: #fff;
 }
@@ -137,7 +140,36 @@ input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
 }
 .invalid-feedback {
     display: block;
-    margin-top: .25rem;
-    font-size: .875rem;
-    color: #dc3545;
+    font-size: 12px;
+    margin-top: -15px;
+    padding-bottom: 15px;
+}
+
+/*alert service*/
+.alert {
+    position: fixed;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    z-index: 99;
+}
+
+/*validation form control style*/
+.ng-invalid .has-error.input-field input,
+.ng-invalid .has-error.input-field input:focus,
+.ng-invalid .input-field textarea.materialize-textarea.is-invalid,
+.ng-invalid .input-field textarea.materialize-textarea.is-invalid:focus {
+    border-bottom: 1px solid #f44336;
+    box-shadow: 0 1px 0 0 #f44336;
+}
+.ng-invalid .has-error.input-field label {
+    color: #f44336;
+}
+
+/*transactions style*/
+.collection .collection-item.avatar .secondary-content {
+    top: 10px;
+    right: 5px;
 }

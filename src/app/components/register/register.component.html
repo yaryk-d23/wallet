@@ -1,22 +1,40 @@
-<div class="container col-md-3">
-    <div class="col-md-12">
-    <h2>Register</h2>
-    <form name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
-            <label for="email">Email</label>
-            <input type="text" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" required />
-            <div *ngIf="f.submitted && !email.valid" class="help-block">Email is required</div>
+<div class="row">
+        <div class="col s12">
+            <div class="container">
+                <div class="col s12 m6 l5 offset-m2 offset-l4">
+                    <h2>Register</h2>
+                    <form name="form" (ngSubmit)="f.form.valid && model.password == model.confirmPassword && register()" #f="ngForm" novalidate>
+                        <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                            <label for="email">Email</label>
+                            <input type="email" name="email" [(ngModel)]="model.email" #email="ngModel" required /><!--placeholder="Enter email" -->
+                            <div *ngIf="f.submitted && !email.valid" class="invalid-feedback red-text">Email is required</div>
+                        </div>
+                        <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
+                            <label for="UserName">User name</label>
+                            <input type="text" name="UserName" [(ngModel)]="model.username" #username="ngModel" required /><!--placeholder=" Enter user name" -->
+                            <div *ngIf="f.submitted && !username.valid" class="invalid-feedback red-text">User name is required</div>
+                        </div>
+                        <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                            <label for="password">Password</label>
+                            <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" required /><!-- placeholder="Enter password"  -->
+                            <div *ngIf="f.submitted && !password.valid" class="invalid-feedback red-text">Password is required</div>
+                        </div>
+                        <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                            <label for="ConfirmPassword">Password</label>
+                            <input type="password" name="ConfirmPassword" [(ngModel)]="model.confirmPassword" 
+                                    #confirmPassword="ngModel" required 
+                                    [pattern]="'^'+model.password+'$'"/> <!--placeholder="Confirm password"-->
+                            <div *ngIf="f.submitted && !confirmPassword.valid" class="invalid-feedback red-text">Password not match</div>
+                        </div>
+                        <div class="input-field">
+                            <button [disabled]="loading" class="btn waves-effect waves-light blue">
+                                Register
+                                <i class="material-icons right">send</i>
+                            </button>
+                            <a [routerLink]="['/login']" class="btn waves-effect waves-light blue">Cancel</a>
+                        </div>
+                    </form>
+            </div>
         </div>
-        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-            <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-        </div>
-        <div class="form-group">
-            <button [disabled]="loading" class="btn btn-primary">Register</button>
-            <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-            <a [routerLink]="['/login']" class="btn btn-link">Cancel</a>
-        </div>
-    </form>
     </div>
 </div>

@@ -25,7 +25,8 @@ export class WalletComponent implements OnInit {
   sortOrder: boolean = false;
   currentPage: any;
   searchString: string;
-    
+  coeficient: number = 1000000000000;
+  
   constructor(
     private userService: UserService,
     private alertService: AlertService,
@@ -61,26 +62,29 @@ export class WalletComponent implements OnInit {
         this.userService.getWalletNumber().subscribe(data => { 
             if(this.data.balance.available !== data.available || this.data.balance.locked !== data.locked) {
                 this.loadWalletData();
-                this.alertService.success("Wallet balance has been update!");
+                this.alertService.success({message:"Wallet balance has been updated!", status: "SUCCESS"});
            }
         },
         error => {
-            this.alertService.error(error);
+            this.alertService.error(JSON.parse(error._body));
         });
     },30000);
   }
 
-  public sendData(): void {
+  public sendData(form: any): void {
     this.preloaderService.show();
     let tmpData = {...this.model};
-    tmpData.amount = tmpData.amount * 1000000000000;
+    tmpData.amount = tmpData.amount * this.coeficient;
     this.userService.sendData(tmpData).subscribe(data => { 
         this.loadWalletData();
+        this.alertService.success(data);
+        //this.model = new SendRequest();
+        form.onReset();
         this.preloaderService.hide();
     },
     error => {
         this.preloaderService.hide();
-        this.alertService.error(error);
+        this.alertService.error(JSON.parse(error._body));
     });
   };
 
@@ -92,7 +96,7 @@ export class WalletComponent implements OnInit {
     },
     error => {
         this.preloaderService.hide();
-        this.alertService.error(error);
+        this.alertService.error(JSON.parse(error._body));
     });
   };
 
@@ -101,25 +105,24 @@ export class WalletComponent implements OnInit {
         this.feeInform = data;
     },
     error => {
-        this.alertService.error(error);
+        this.alertService.error(JSON.parse(error._body));
     });
     };
 
   public getTotalAmount(): void {
-    let coeficient = 1000000000000;
     let maxAmount = 0;
     let feeForMaxAmount = 0;
     if(this.model.amount !== null || this.feeInform.baseFee) {
         feeForMaxAmount = this.feeInform.baseFee + (this.data.balance.available * this.feeInform.additionalFeeCoefficient);
         maxAmount = this.data.balance.available - feeForMaxAmount;        
-        if(maxAmount < (this.model.amount * coeficient) || this.model.allAvailableBalance) {
+        if(maxAmount < (this.model.amount * this.coeficient) || this.model.allAvailableBalance) {
             this.amountWithFee.fee = +(feeForMaxAmount.toFixed(12));
             this.amountWithFee.amount = +((maxAmount + this.amountWithFee.fee).toFixed(12));
-            this.model.amount = +((maxAmount / coeficient).toFixed(12));
+            this.model.amount = +((maxAmount / this.coeficient).toFixed(12));
         }
         else{
-            this.amountWithFee.fee = +((this.feeInform.baseFee + ((this.model.amount * coeficient) * this.feeInform.additionalFeeCoefficient)).toFixed(12));                    
-            this.amountWithFee.amount = +((this.model.amount * coeficient + this.amountWithFee.fee).toFixed(12));
+            this.amountWithFee.fee = +((this.feeInform.baseFee + ((this.model.amount * this.coeficient) * this.feeInform.additionalFeeCoefficient)).toFixed(12));                    
+            this.amountWithFee.amount = +((this.model.amount * this.coeficient + this.amountWithFee.fee).toFixed(12));
         }
     }
   }

@@ -7,14 +7,16 @@
                     <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                         <label for="username">Username</label>
                         <input type="text" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-                        <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
+                        <div *ngIf="f.submitted && !username.valid" class="invalid-feedback red-text">Username is required</div>
                     </div>
                     <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                         <label for="password">Password</label>
-                        <input type="password" name="user-password" [(ngModel)]="model.password" #password="ngModel" autofocus required />
-                        <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
+                        <input type="password" name="user-password" 
+                            [(ngModel)]="model.password" #password="ngModel" 
+                            autofocus required />
+                        <div *ngIf="f.submitted && !password.valid" class="invalid-feedback red-text">Password is required</div>
                     </div>
-                    <div class="form-group">
+                    <div class="input-field">
                         <button [disabled]="loading" class="btn waves-effect waves-light blue">
                             Login
                             <i class="material-icons right">send</i>

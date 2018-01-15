@@ -8,7 +8,8 @@ export class UserService {
     constructor(private http: Http) { }
     
     register(user: User) {
-        return this.http.post('/karbonator/api/v1/user/register', user, this.jwt(false)).map((response: Response) => response);
+        return this.http.post('/karbonator/api/v1/user/register', user, this.jwt(false))
+        .map((response: Response) => response.json());
     }
 
     getBalance() {
@@ -49,7 +50,7 @@ export class UserService {
     };
 
     sendData(data: SendRequest) {
-        return this.http.post('/karbonator/api/v1/wallet/send', data, this.jwt(true)).map((response: Response) => response.json());
+        return this.http.post('/karbonator/api/v1/wallet/send', data, this.jwt(true)).map((response: Response) => {return response.json();});
     };
 
     getFee() {
@@ -59,29 +60,13 @@ export class UserService {
 
     confirmRegistration(token: string) {
         return this.http.get('/karbonator/api/v1/user/confirm?token=' + token, this.jwt(false))
-            .map((response: Response) => {return response;});
+            .map((response: Response) => {return response.json();});
     };
 
     confirmSend(token: string) {
         return this.http.get('/karbonator/api/v1/wallet/send/confirm?token=' + token, this.jwt(false))
-            .map((response: Response) => {return response;});
+            .map((response: Response) => {return response.json();});
     };
-
-    /*
-    public getWalletNumber() {
-        return this.http.get('/api/v1/wallet', this.jwt(true))
-            .map((response: Response) => {
-                return response.json();
-            });
-    }
-
-    public getWalletOrders() {
-        return this.http.get('/api/v1/transactions', this.jwt(true))
-            .map((response: Response) => {
-                return response.json();
-            });
-    }
-    */
  
     // private helper methods
  

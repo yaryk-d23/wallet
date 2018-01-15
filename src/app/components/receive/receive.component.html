@@ -4,14 +4,13 @@
   <hr>
   <form name="receiveForm" class="" (ngSubmit)="f.form.valid && generateQRcode()" #f="ngForm">
     <div class="col s12 m6">
-      <div class="input-field">
+      <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amount.valid }">
         <label for="Amount">Amount</label>
         <input type="number" name="amount" 
-            [ngClass]="{ 'is-invalid': f.submitted && !amount.valid }"
             [(ngModel)]="receiveData.amount" #amount="ngModel"
             id="Amount" placeholder="0.00" required>
         <span *ngIf="f.submitted && !amount.valid" 
-              class="invalid-feedback">
+              class="invalid-feedback red-text">
               Amount is required!
         </span>
       </div>
@@ -20,7 +19,6 @@
       <div class="input-field">
         <label for="Label">Label:</label>
         <input type="text" name="Label" 
-              [ngClass]="{ 'is-invalid': f.submitted && !label.valid }"
               [(ngModel)]="receiveData.label" #label="ngModel"
               id="Label"  placeholder="Enter label">
       </div>

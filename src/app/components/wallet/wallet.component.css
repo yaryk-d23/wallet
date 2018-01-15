@@ -27,6 +27,12 @@
     display: block;
     overflow: hidden;
 }
+.send-amount-inform {
+    padding-bottom: 5px;
+}
+.send-amount-inform div {
+    padding-bottom: 10px;
+}
 
 @media screen and (max-width: 1200px) {
     .wallet-container {

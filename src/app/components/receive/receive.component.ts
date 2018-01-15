@@ -24,20 +24,26 @@ export class ReceiveComponent implements OnInit {
   @Input() wallets: any[];
 
   elementType : 'url' | 'canvas' | 'img' = 'url';
-  qrValue: string = "karbowanec:";
+  qrValue: string = "";
 
-  private generateQRcode():void {
-    this.qrValue += this.wallets[0].address + '?';
+  public generateQRcode():void {
+    this.preloaderService.show();  
+    let newQRLink = 'karbowanec:';    
+    newQRLink += this.wallets[0].address + '?';
     if(this.receiveData.amount)
-      this.qrValue += 'amount=' + this.receiveData.amount + '&';
+      newQRLink += 'amount=' + this.receiveData.amount + '&';
     if(this.receiveData.paymentId)
-      this.qrValue += 'payment_id=' + this.receiveData.paymentId + '&';
+      newQRLink += 'payment_id=' + this.receiveData.paymentId + '&';
     if(this.receiveData.label)
-      this.qrValue += 'label=' + this.receiveData.label;
+      newQRLink += 'label=' + this.receiveData.label;
+    setTimeout(() => {
+      this.qrValue = newQRLink;
+      this.preloaderService.hide();
+    }, 1000);
   }
 
-  private generatePaymentId(): void {
-    this.preloaderService.show();    
+  public generatePaymentId(): void {
+    this.preloaderService.show();   
     this.userService.getPaymentId().subscribe(data => { 
       this.receiveData.paymentId = data.paymentId;
       this.preloaderService.hide();

@@ -20,7 +20,10 @@ export class UserConfirmationComponent implements OnInit {
     private alertService: AlertService,
     private preloaderService: PreloaderService) { 
       this.token = this.route.snapshot.queryParams['token'] || '/';
-      this.message = {ok: false};
+      this.message = {
+        message: "",
+        status: ""
+      };
     }
 
   ngOnInit() {
@@ -31,10 +34,12 @@ export class UserConfirmationComponent implements OnInit {
   public confirmRegistration(): void {
     this.userService.confirmRegistration(this.token).subscribe(res => {
       this.preloaderService.hide(); 
-      this.message = res;
+      this.message.message = res.message;
+      this.message.status = "OK";
     }, error => {
+      this.message.message = JSON.parse(error._body).message;
+      this.message.status = "ERROR";
       this.preloaderService.hide(); 
-      this.message = error;
     });
   }
 

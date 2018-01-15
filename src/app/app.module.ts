@@ -1,5 +1,6 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { FormsModule }    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
@@ -50,6 +51,7 @@ import { SendComponent } from './components/send/send.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     routing,

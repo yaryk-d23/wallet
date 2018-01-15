@@ -1,12 +1,7 @@
-<navbar></navbar>
-<div class="container">
+<navbar [balance]="data.balance"></navbar>
+<!-- <div class="container">
   <div class="row" >
     <div class="">
-      <h5 class="blue-text">Address</h5>
-      <p style="word-wrap: break-word;" 
-        *ngFor="let wallet of data.wallets; let i = index">
-        <span *ngIf="i==0">{{wallet.address}}</span>
-      </p>
       <h5 class="blue-text">Balance</h5>
       <p style="word-wrap: break-word;" >
         <span>Available: {{data.balance.available | amountTranform: 12 : 'KRB' }} 
@@ -15,10 +10,15 @@
       </p>
     </div>
   </div>
-</div>
+</div> -->
 <div class="container wallet-container">
   <div class="row" >
     <div id="receive">
+      <h5 class="blue-text">Address</h5>
+      <p style="word-wrap: break-word;" 
+        *ngFor="let wallet of data.wallets; let i = index">
+        <span *ngIf="i==0">{{wallet.address}}</span>
+      </p>
       <receive [wallets]="data.wallets"></receive>
     </div>
     <div id="history">
@@ -39,7 +39,7 @@
             <li class="collection-item avatar" 
               *ngFor="let transaction of sortTable(data.transactions) | 
               filter : 'address' : searchString | 
-              paginate: { itemsPerPage: 2, currentPage: currentPage }; let i = index"
+              paginate: { itemsPerPage: 3, currentPage: currentPage, maxSize: 5 }; let i = index"
             >
               <i *ngIf="transaction.amount > 0" 
                 class="material-icons circle medium green" 
@@ -63,8 +63,8 @@
               </span>
             </li>
           </ul>
-          <div class="">
-            <div class="col s4 total-count">
+          <div class="row">
+            <div class="col s2 total-count">
               <h6>Total: {{(data.transactions | filter : 'address' : searchString).length}}</h6>
             </div>
             <div class="col s8">
@@ -77,13 +77,13 @@
       <div class="col s12 m8 l6 offset-m2 offset-l3">
         <h5 class="blue-text center">Send KRB</h5>
         <hr>
-        <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData()" #f="ngForm">
-          <div class="input-field">
+        <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData(f)" #f="ngForm">
+          <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
             <label for="ToWalletAddress" class="required-label">To address:</label>
-            <textarea class="materialize-textarea" name="ToWalletAddress" 
-                [(ngModel)]="model.address" #address="ngModel" [ngClass]="{ 'is-invalid': f.submitted && !address.valid }"
+            <textarea class="materialize-textarea" name="ToWalletAddress"  
+                [(ngModel)]="model.address" #address="ngModel" 
                 id="ToWalletAddress" required pattern="^[K][A-Za-z0-9_]{94}$"></textarea>
-            <div *ngIf="f.submitted && !address.valid" class="invalid-feedback">Address must start from 'K' and have 95 characters</div>
+            <div *ngIf="f.submitted && !address.valid" class="invalid-feedback red-text">Address must start from 'K' and have 95 characters</div>
           </div>
           <!--
           <div class="form-group">
@@ -94,25 +94,25 @@
             </select>
           </div>
           -->
-            <div class="input-field">
+            <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amount.valid }">
                 <div class="postfix">
-                    <input type="checkbox" class="filled-in" name="allAvailableBalance"  id="AllAvailableBalance"
+                    <input type="checkbox" class="filled-in blue" name="allAvailableBalance"  id="AllAvailableBalance"
                         [(ngModel)]="model.allAvailableBalance" #allAvailableBalance="ngModel" 
                         (ngModelChange)="setFullAmount();">
                     <label for="AllAvailableBalance" >Select All</label >
                   </div>
               <label for="Amount" class="required-label">Amount</label>
               <input type="number" name="amount" 
-                  [ngClass]="{ 'is-invalid': f.submitted && !amount.valid }"
                   [(ngModel)]="model.amount" #amount="ngModel"
                   [disabled]="model.allAvailableBalance"  
                   (ngModelChange)="getTotalAmount();"
                   id="Amount" placeholder="0.00" required>
             </div>
-          <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback">Amount is required!</div>  
-          <div *ngIf="feeInform.baseFee">You enter: {{model.amount}} KRB
-            <br>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}
-            <br>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}
+          <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback red-text">Amount is required!</div>  
+          <div *ngIf="feeInform.baseFee" class="send-amount-inform">
+            <div>You enter: {{model.amount * coeficient | amountTranform: 12 : 'KRB'}}</div>
+            <div>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}</div>
+            <div>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}</div>
           </div>           
           <div class="input-field">
               <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
@@ -120,6 +120,7 @@
                 </button>
               <label for="PaymentId">Payment Id:</label>
               <input type="text" name="paymentId" 
+                  placeholder="Enter Payment Id or click on generate button"
                   [(ngModel)]="model.paymentId" #paymentId="ngModel" 
                   id="PaymentId">                
               
@@ -138,15 +139,15 @@
   <div class="nav-wrapper">
       <div class="container">
       <div class="row">
-          <div class="col s1 m3 l4"></div>
-          <div class="col s10 m6 l4">
+          <div class="col s1 m3 l3"></div>
+          <div class="col s10 m6 l6">
             <ul class="center" materialize="tabs">
-              <li class="tab col s4"><a class="active"  href="#receive"><i class="material-icons">input</i><span>Receive</span></a></li>
+              <li class="tab col s4"><a class=""  href="#receive"><i class="material-icons">input</i><span>Receive</span></a></li>
               <li class="tab col s4"><a class="" href="#history"><i class="material-icons">list</i><span>History</span></a></li>
-              <li class="tab col s4"><a class="" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
+              <li class="tab col s4"><a class="active" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
             </ul>
           </div>
-          <div class="col s1 m3 l4"></div>
+          <div class="col s1 m3 l3"></div>
         </div>
     </div>
   </div>

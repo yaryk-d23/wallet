@@ -1,1 +1,14 @@
-<div *ngIf="message" [ngClass]="{ 'alert': message, 'alert-success': message.type === 'success', 'alert-danger': message.type === 'error' }">{{message.text}}</div>
+<div *ngIf="message" @ngIfAnimation
+    class="lighten-4"
+    [ngClass]="{ 
+                'alert': message, 
+                'green ': message.status === 'SUCCESS', 
+                'red': message.status === 'ERROR' 
+            }">
+    <span [ngClass]="{ 
+            'green-text': message.status === 'SUCCESS', 
+            'red-text': message.status === 'ERROR' 
+        }">
+        {{message.message}}
+    </span>
+</div>

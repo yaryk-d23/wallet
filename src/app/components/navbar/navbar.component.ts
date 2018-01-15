@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Base64Service } from '../../_services/index';
 @Component({
   moduleId: module.id,
@@ -15,6 +15,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
   }
+  @Input() balance: any;
 
   private getCurrentUser(): void {
     let authData = JSON.parse(localStorage.getItem('currentSession')),

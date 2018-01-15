@@ -1,11 +1,44 @@
-<nav class="nav-extended blue">
-  <div class="container nav-wrapper">
-    <a class="logo" href="#">Wallet Logo</a>
+<nav class="nav-extended blue hide-on-med-and-down">
+  <div class="container nav-wrapper center">
+    <a class="logo hide-on-small-and-down left" href="#">Wallet Logo</a>
+    <span class="">
+        Available: {{balance.available | amountTranform: 12 : 'KRB' }} 
+        <small>({{balance.locked | amountTranform: 12 : 'KRB' }} - locked)</small>
+      </span>
     <ul class="right">
+      <li>
+        <span>{{currentUser}}</span>
+      </li>
       <li>
         <a class="btn white black-text" [routerLink]="['/login']">Logout</a>
       </li>
     </ul>
   </div>
+</nav>
+
+<nav class="nav-extended blue hide-on-large-only">
+    <div class="container nav-wrapper center">
+      <ul id="slide-out" class="side-nav fixed blue">
+        <li class="logo center">
+            <a class="" href="#">Wallet Logo</a>
+        </li>
+        <li class="no-padding">
+          <ul>
+            <li><span>{{currentUser}}</span></li>
+            <li><a class="btn white black-text" [routerLink]="['/login']">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="#" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="slide-out"
+          class="button-collapse">
+          <i class="material-icons">menu</i>
+      </a>
+      <div class="wallet-balance">
+          <div>Available: {{balance.available | amountTranform: 12 : 'KRB' }}</div>
+          <div>
+            <small>({{balance.locked | amountTranform: 12 : 'KRB' }} - locked)</small>
+          </div>
+      </div>
+    </div>
 </nav>
 
