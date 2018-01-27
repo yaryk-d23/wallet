@@ -31,10 +31,7 @@ export class AlertService {
     error(message: any, keepAfterNavigationChange = false) {
         this.keepAfterNavigationChange = keepAfterNavigationChange;
         this.subject.next({ type: 'error', text: message });
-        if(message.status === 401)
-            setTimeout(() => {
-                this.router.navigateByUrl('/login');
-            },3000);
+        
     }
  
     getMessage(): Observable<any> {

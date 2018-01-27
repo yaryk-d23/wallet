@@ -16,7 +16,7 @@ export class AuthenticationService {
         });
         let option = new RequestOptions({ headers: headers });
         
-        return this.http.get('/karbonator/api/v1/wallet', option)
+        return this.http.get('/api/v1/wallet', option)
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let wallet = response.json();
