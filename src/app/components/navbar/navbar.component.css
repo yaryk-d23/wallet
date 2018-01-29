@@ -1,6 +1,14 @@
 nav.nav-extended {
     line-height: 32px;
 }
+.logo {
+	font-size: 100px;
+    color: lightblue;
+}
+nav i.balance-lock {
+    display: inline-block;
+    font-size: 12px;
+}
 .wallet-balance div {
     display: inline-block;
 }
