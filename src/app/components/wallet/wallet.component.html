@@ -48,7 +48,12 @@
                 class="material-icons circle medium red" 
               >vertical_align_top</i>
               <p>
-                <span class="title" title="">{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</span>                  
+                <span class="title" title="">{{transaction.time ? (transaction.time | date: 'dd/MM/yyyy HH:MM' ): 'Unconfirmed'}}</span>                  
+                <span href="#!" class="secondary-content" 
+                  [ngClass]="(transaction.amount < 0) ? 'red-text' : 'green-text' "
+                >
+                  <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b>
+                </span>
                 <span title="{{transaction.address}}"><small>Address: {{transaction.address}}</small></span>
                 <span title="{{transaction.paymentId}}"><small *ngIf="transaction.paymentId">Payment Id: {{transaction.paymentId}}</small></span>
                 <span title="{{transaction.transactionHash}}"><small>Hash: {{transaction.transactionHash}}</small></span>
@@ -56,18 +61,14 @@
                   Confirmations: {{transaction.confirmations}}
                 </small></span>
               </p>
-              <span href="#!" class="secondary-content" 
-                [ngClass]="(transaction.amount < 0) ? 'red-text' : 'green-text' "
-              >
-                <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b>
-              </span>
+              
             </li>
           </ul>
           <div class="row">
-            <div class="col s2 total-count">
+            <div class="col s12 total-count center">
               <h6>Total: {{(data.transactions | filter : 'address' : searchString).length}}</h6>
             </div>
-            <div class="col s8 center">
+            <div class="col s12 center">
               <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
           </div>

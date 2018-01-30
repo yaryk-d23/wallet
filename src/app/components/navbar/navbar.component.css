@@ -1,3 +1,16 @@
+.main-nav .logo,
+.second-nav .logo {
+    font-size: 40px;
+    color: #53B2FD;
+    display: block;
+    width: 49px;
+    height: 48px;
+    font-family: Roboto,sans-serif;
+    line-height: 48px;
+    margin-top: 10px;
+    border-radius: 50%;
+    padding: 0;
+}
 nav.second-nav {
     line-height: 32px;
 }
