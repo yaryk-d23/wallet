@@ -48,10 +48,10 @@
                 class="material-icons circle medium red" 
               >vertical_align_top</i>
               <p>
-                <span class="title">{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</span>                  
-                <span><small>Address: {{transaction.address}}</small></span>
-                <span><small *ngIf="transaction.paymentId">Payment Id: {{transaction.paymentId}}</small></span>
-                <span><small>Hash: {{transaction.transactionHash}}</small></span>
+                <span class="title" title="">{{transaction.time | date: 'dd/MM/yyyy HH:MM'}}</span>                  
+                <span title="{{transaction.address}}"><small>Address: {{transaction.address}}</small></span>
+                <span title="{{transaction.paymentId}}"><small *ngIf="transaction.paymentId">Payment Id: {{transaction.paymentId}}</small></span>
+                <span title="{{transaction.transactionHash}}"><small>Hash: {{transaction.transactionHash}}</small></span>
                 <span><small [ngClass]="(transaction.confirmations < 10) ? 'red-text' : 'green-text' ">
                   Confirmations: {{transaction.confirmations}}
                 </small></span>
@@ -67,7 +67,7 @@
             <div class="col s2 total-count">
               <h6>Total: {{(data.transactions | filter : 'address' : searchString).length}}</h6>
             </div>
-            <div class="col s8">
+            <div class="col s8 center">
               <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
             </div>
           </div>
@@ -143,8 +143,8 @@
           <div class="col s10 m6 l6">
             <ul class="center" materialize="tabs">
               <li class="tab col s4"><a class=""  href="#receive"><i class="material-icons">input</i><span>Receive</span></a></li>
-              <li class="tab col s4"><a class="" href="#history"><i class="material-icons">list</i><span>History</span></a></li>
-              <li class="tab col s4"><a class="active" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
+              <li class="tab col s4"><a class="active" href="#history"><i class="material-icons">list</i><span>History</span></a></li>
+              <li class="tab col s4"><a class="" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
             </ul>
           </div>
           <div class="col s1 m3 l3"></div>

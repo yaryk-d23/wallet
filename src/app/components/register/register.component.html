@@ -6,24 +6,32 @@
                     <form name="form" (ngSubmit)="f.form.valid && model.password == model.confirmPassword && register()" #f="ngForm" novalidate>
                         <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
                             <label for="email">Email</label>
-                            <input type="email" name="email" [(ngModel)]="model.email" #email="ngModel" required /><!--placeholder="Enter email" -->
+                            <input type="email" name="email" 
+                                [(ngModel)]="model.email" #email="ngModel" 
+                                placeholder="Enter email" required /><!--placeholder="Enter email" -->
                             <div *ngIf="f.submitted && !email.valid" class="invalid-feedback red-text">Email is required</div>
                         </div>
                         <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
                             <label for="UserName">User name</label>
-                            <input type="text" name="UserName" [(ngModel)]="model.username" #username="ngModel" required /><!--placeholder=" Enter user name" -->
+                            <input type="text" name="UserName" 
+                                [(ngModel)]="model.username" #username="ngModel" 
+                                placeholder=" Enter user name" required /><!--placeholder=" Enter user name" -->
                             <div *ngIf="f.submitted && !username.valid" class="invalid-feedback red-text">User name is required</div>
                         </div>
                         <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label for="password">Password</label>
-                            <input type="password" name="password" [(ngModel)]="model.password" #password="ngModel" required /><!-- placeholder="Enter password"  -->
+                            <input type="password" name="password" 
+                                [(ngModel)]="model.password" #password="ngModel" 
+                                placeholder="Enter password" required /><!-- placeholder="Enter password"  -->
                             <div *ngIf="f.submitted && !password.valid" class="invalid-feedback red-text">Password is required</div>
                         </div>
                         <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
                             <label for="ConfirmPassword">Password</label>
-                            <input type="password" name="ConfirmPassword" [(ngModel)]="model.confirmPassword" 
-                                    #confirmPassword="ngModel" required 
-                                    [pattern]="'^'+model.password+'$'"/> <!--placeholder="Confirm password"-->
+                            <input type="password" name="ConfirmPassword" 
+                                [(ngModel)]="model.confirmPassword" 
+                                #confirmPassword="ngModel" required 
+                                placeholder="Confirm password"
+                                [pattern]="'^'+model.password+'$'"/> <!--placeholder="Confirm password"-->
                             <div *ngIf="f.submitted && !confirmPassword.valid" class="invalid-feedback red-text">Password not match</div>
                         </div>
                         <div class="input-field">

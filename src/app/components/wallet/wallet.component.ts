@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChildren } from '@angular/core';
-
 import { User, Wallet, SendRequest, Fee } from '../../_models/index';
 import { AlertService, UserService, PreloaderService } from '../../_services/index';
 
@@ -52,7 +51,10 @@ export class WalletComponent implements OnInit {
         this.preloaderService.hide();
     },
     error => {
-        this.alertService.error(error);
+        if(error._body == ""){
+            error._body = {status: 'ERROR', message: error.statusText}; 
+        }
+        this.alertService.error(error._body);
         this.preloaderService.hide();
     });
   }
@@ -66,7 +68,10 @@ export class WalletComponent implements OnInit {
            }
         },
         error => {
-            this.alertService.error(JSON.parse(error._body));
+            if(error._body == ""){
+                error._body = {status: 'ERROR', message: error.statusText}; 
+            }
+            this.alertService.error(error._body);
         });
     },30000);
   }
@@ -84,20 +89,27 @@ export class WalletComponent implements OnInit {
     },
     error => {
         this.preloaderService.hide();
-        this.alertService.error(JSON.parse(error._body));
+        if(error._body == ""){
+            error._body = {status: 'ERROR', message: error.statusText}; 
+        }
+        this.alertService.error(error._body);;
     });
   };
 
   public generatePaymentId(): void {
     this.preloaderService.show();    
-    this.userService.getPaymentId().subscribe(data => { 
-      this.model.paymentId = data.paymentId;
-      this.preloaderService.hide();
-    },
-    error => {
-        this.preloaderService.hide();
-        this.alertService.error(JSON.parse(error._body));
-    });
+    this.userService.getPaymentId().subscribe(
+        data => { 
+            this.model.paymentId = data.paymentId;
+            this.preloaderService.hide();
+        },
+        error => {
+            this.preloaderService.hide();
+            if(error._body == ""){
+                error._body = {status: 'ERROR', message: error.statusText}; 
+            }
+            this.alertService.error(error._body);
+        });
   };
 
   public getCurrentFee(): void {
@@ -105,7 +117,10 @@ export class WalletComponent implements OnInit {
         this.feeInform = data;
     },
     error => {
-        this.alertService.error(JSON.parse(error._body));
+        if(error._body == ""){
+            error._body = {status: 'ERROR', message: error.statusText}; 
+        }
+        this.alertService.error(error._body);
     });
     };
 
