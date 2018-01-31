@@ -4,8 +4,8 @@
       Ҝ
     </a>
     <span class="">
-        Available: {{balance.available | amountTranform: 12 : 'KRB' }} 
-        <small>({{balance.locked | amountTranform: 12 : 'KRB' }} - locked)</small>
+        {{balance.available | amountTranform: 12 : 'KRB' }} 
+        <small>(<i class="material-icons balance-lock">lock</i> {{balance.locked | amountTranform: 12 : 'KRB' }})</small>
       </span>
     <ul class="right">
       <li>
@@ -38,9 +38,9 @@
           <i class="material-icons">menu</i>
       </a>
       <div class="wallet-balance">
-          <div>Available: {{balance.available | amountTranform: 12 : 'KRB' }}</div>
+          <div>{{balance.available | amountTranform: 12 : 'KRB' }}</div>
           <div>
-            <small>({{balance.locked | amountTranform: 12 : 'KRB' }} - locked)</small>
+            <small>(<i class="material-icons balance-lock">lock</i> {{balance.locked | amountTranform: 12 : 'KRB' }})</small>
           </div>
       </div>
     </div>

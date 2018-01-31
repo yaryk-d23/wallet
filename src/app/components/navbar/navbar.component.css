@@ -14,6 +14,10 @@
 nav.second-nav {
     line-height: 32px;
 }
+nav i.balance-lock {
+    display: inline-block;
+    font-size: 12px;
+}
 .wallet-balance div {
     display: inline-block;
 }
