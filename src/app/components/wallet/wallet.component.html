@@ -48,7 +48,7 @@
                 class="material-icons circle medium red" 
               >vertical_align_top</i>
               <p>
-                <span class="title" title="">{{transaction.time ? (transaction.time | date: 'dd/MM/yyyy HH:MM' ): 'Unconfirmed'}}</span>                  
+                <span class="" title="">{{transaction.time ? (transaction.time | date: 'dd/MM/yyyy HH:MM' ): 'Unconfirmed'}}</span>                  
                 <span href="#!" class="secondary-content" 
                   [ngClass]="(transaction.amount < 0) ? 'red-text' : 'green-text' "
                 >

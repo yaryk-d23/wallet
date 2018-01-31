@@ -1,15 +1,15 @@
 <nav class="nav-extended blue hide-on-med-and-down main-nav">
   <div class="container nav-wrapper center">
-    <a class="logo btn hide-on-small-and-down left material-icons circle medium white" href="#">
+    <a class="logo btn hide-on-small-and-down left material-icons circle medium" href="#">
       Ҝ
     </a>
-    <span class="">
+    <span class="wallet-balance">
         {{balance.available | amountTranform: 12 : 'KRB' }} 
         <small>(<i class="material-icons balance-lock">lock</i> {{balance.locked | amountTranform: 12 : 'KRB' }})</small>
       </span>
     <ul class="right">
       <li>
-        <span>{{currentUser}}</span>
+        <div class="chip blue darken-1 white-text"><span>{{currentUser}}</span></div>
       </li>
       <li>
         <a class="btn white black-text" [routerLink]="['/login']">Logout</a>
@@ -21,15 +21,18 @@
 <nav class="nav-extended blue hide-on-large-only second-nav">
     <div class="container nav-wrapper center">
       <ul id="slide-out" class="side-nav fixed blue">
-        <li class="logo center">
-          <a class="logo btn hide-on-small-and-down left material-icons circle medium white" href="#">
+        <li class="center">
+          <a class="logo btn center material-icons circle medium" href="#">
             Ҝ
           </a>
         </li>
         <li class="no-padding">
           <ul>
-            <li><span>{{currentUser}}</span></li>
+            <li><div class="chip blue darken-1 white-text"><span>{{currentUser}}</span></div></li>
             <li><a class="btn white black-text" [routerLink]="['/login']">Logout</a></li>
+			
+			<li><a class="white-text" href="/help">Help</a></li>
+			
           </ul>
         </li>
       </ul>

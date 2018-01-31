@@ -1,12 +1,14 @@
 .main-nav .logo,
 .second-nav .logo {
     font-size: 40px;
-    color: #53B2FD;
+    color: #ffed00;
+	background-color: #1E87DA!important;
+	border: 2px solid #ffed00;
     display: block;
     width: 49px;
     height: 48px;
     font-family: Roboto,sans-serif;
-    line-height: 48px;
+    line-height: 45px;
     margin-top: 10px;
     border-radius: 50%;
     padding: 0;
@@ -14,9 +16,23 @@
 nav.second-nav {
     line-height: 32px;
 }
+.second-nav .logo {
+	margin: 20px auto 10px;
+	width: 109px;
+    height: 108px;
+	font-size: 80px;
+    font-family: Roboto,sans-serif;
+    line-height: 108px;
+    margin-top: 10px;
+    border-radius: 50%;
+    padding: 0;
+}
 nav i.balance-lock {
     display: inline-block;
     font-size: 12px;
+}
+.wallet-balance {
+	font-size: 1.6em;
 }
 .wallet-balance div {
     display: inline-block;
