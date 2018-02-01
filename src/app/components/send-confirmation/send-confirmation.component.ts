@@ -34,9 +34,13 @@ export class SendConfirmationComponent implements OnInit {
   public confirmSend(): void {
     this.userService.confirmSend(this.token).subscribe(res => {
       this.message.message = res.message;
-      this.message.status = "OK";
+      this.message.status = "SUCCESS";
+      this.preloaderService.hide();
     }, error => {
-      this.message.message = JSON.parse(error._body).message;
+      if(error._body == ""){
+        error._body = error.statusText; 
+      }
+      this.message.message = error._body;
       this.message.status = "ERROR";
       this.preloaderService.hide(); 
     });

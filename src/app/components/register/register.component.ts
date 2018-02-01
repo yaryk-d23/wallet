@@ -26,7 +26,7 @@ export class RegisterComponent {
                 data => {
                     console.log(data);
                     this.loading = false;
-                    // set success message and pass true paramater to persist the message after redirecting to the login page
+                    // set success message and pass true parameter to persist the message after redirecting to the login page
                     this.alertService.success(data, true);
                     this.router.navigate(['/login']);
                 },

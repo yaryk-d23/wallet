@@ -40,8 +40,13 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.log(error);
-                    this.alertService.error(error);
+                    if(error.status == 401 && error._body == '') {
+                        error._body = {
+                            message: 'Email or password is not correct',
+                            status: 'ERROR'
+                        };
+                    }
+                    this.alertService.error(error._body);
                     this.loading = false;
                 });
     }

@@ -1,22 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import 'rxjs/add/operator/catch';
 import { forkJoin } from "rxjs/observable/forkJoin";
 import { User, Wallet, SendRequest } from '../_models/index';
- 
+import { Router } from '@angular/router';
+import { error } from 'util';
+
 @Injectable()
 export class UserService {
-    constructor(private http: Http) { }
+    constructor(
+        private http: Http,
+        private router: Router
+    ) { }
     
     register(user: User) {
-        return this.http.post('/karbonator/api/v1/user/register', user, this.jwt(false))
+        return this.http.post('/api/v1/user/register', user, this.jwt(false))
         .map((response: Response) => {
-            return response.json()
+            // this.logoutAfterError(response.status);        
+            return response.json();
+        }).catch((response: Response) => {
+            this.logoutAfterError(response); 
+            return response.json();
         });
     }
 
     getBalance() {
-        return this.http.get('/karbonator/api/v1/wallet', this.jwt(true))
+        return this.http.get('/api/v1/wallet', this.jwt(true))
                 .map((response: Response) => {
+                    // this.logoutAfterError(response.status);        
+                    return response.json();
+                }).catch((response: Response) => {
+                    this.logoutAfterError(response); 
                     return response.json();
                 });
     };
@@ -24,13 +38,21 @@ export class UserService {
     getWalletData() {
         let walletNumber = this.getBalance();
 
-        let walletOrders = this.http.get('/karbonator/api/v1/wallet/transactions', this.jwt(true))
+        let walletOrders = this.http.get('/api/v1/wallet/transactions', this.jwt(true))
                                 .map((response: Response) => {
+                                    // this.logoutAfterError(response.status);                                            
+                                    return response.json();
+                                }).catch((response: Response) => {
+                                    this.logoutAfterError(response); 
                                     return response.json();
                                 });
 
-        let walletBalance = this.http.get('/karbonator/api/v1/wallet/balance', this.jwt(true))
+        let walletBalance = this.http.get('/api/v1/wallet/balance', this.jwt(true))
                                 .map((response: Response) => {
+                                    // this.logoutAfterError(response.status);                                            
+                                    return response.json();
+                                }).catch((response: Response) => {
+                                    this.logoutAfterError(response); 
                                     return response.json();
                                 });
 
@@ -40,34 +62,70 @@ export class UserService {
     }
 
     getWalletNumber() { 
-        return this.http.get('/karbonator/api/v1/wallet/balance', this.jwt(true))
+        return this.http.get('/api/v1/wallet/balance', this.jwt(true))
                 .map((response: Response) => {
+                    // this.logoutAfterError(response.status);                            
+                    return response.json();
+                }).catch((response: Response) => {
+                    this.logoutAfterError(response); 
                     return response.json();
                 });
     }
 
     getPaymentId() {
-        return this.http.get('/karbonator/api/v1/wallet/paymentId', this.jwt(true))
-            .map((response: Response) => response.json());
+        console.log("p-id");
+        return this.http.get('/api/v1/wallet/paymentId', this.jwt(true))
+            .map((response: Response) => {
+                return response.json();
+            })
+            .catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
     };
 
     sendData(data: SendRequest) {
-        return this.http.post('/karbonator/api/v1/wallet/send', data, this.jwt(true)).map((response: Response) => {return response.json();});
+        return this.http.post('/api/v1/wallet/send', data, this.jwt(true))
+        .map((response: Response) => {
+            // this.logoutAfterError(response.status);                    
+            return response.json();
+        }).catch((response: Response) => {
+            this.logoutAfterError(response); 
+            return response.json();
+        });
     };
 
     getFee() {
-        return this.http.get('/karbonator/api/v1/wallet/send/fee', this.jwt(true))
-            .map((response: Response) => response.json());
+        return this.http.get('/api/v1/wallet/send/fee', this.jwt(true))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                        
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
     };
 
     confirmRegistration(token: string) {
-        return this.http.get('/karbonator/api/v1/user/confirm?token=' + token, this.jwt(false))
-            .map((response: Response) => {return response.json();});
+        return this.http.get('/api/v1/user/confirm?token=' + token, this.jwt(false))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                        
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
     };
 
     confirmSend(token: string) {
-        return this.http.get('/karbonator/api/v1/wallet/send/confirm?token=' + token, this.jwt(false))
-            .map((response: Response) => {return response.json();});
+        return this.http.get('/api/v1/wallet/send/confirm?token=' + token, this.jwt(false))
+            .map((response: Response) => {
+                // this.logoutAfterError(response);                        
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
     };
  
     // private helper methods
@@ -91,5 +149,13 @@ export class UserService {
             return new RequestOptions({ headers: headers });
         }
         
+    }
+
+    public logoutAfterError(res: Response): any{
+        if(res.status === 401){
+            setTimeout(() => {
+                this.router.navigateByUrl('/login');
+            },3000);}
+        return res;
     }
 }

@@ -34,6 +34,10 @@
     padding-bottom: 10px;
 }
 
+.main-footer {
+	height: auto;
+}
+
 @media screen and (max-width: 1200px) {
     .wallet-container {
         /* max-width: 1200px;
