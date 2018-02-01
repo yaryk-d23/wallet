@@ -9,7 +9,9 @@ export class UserService {
     
     register(user: User) {
         return this.http.post('/karbonator/api/v1/user/register', user, this.jwt(false))
-        .map((response: Response) => response.json());
+        .map((response: Response) => {
+            return response.json()
+        });
     }
 
     getBalance() {

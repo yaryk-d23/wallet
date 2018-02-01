@@ -1,6 +1,6 @@
 {
     "/karbonator/api/*":{
-        "target": "http://krb.rublin.org:8081/karbonator",
+        "target": "http://krb.rublin.org:8081/karbonator/",
         "secure": false,
         "logLevel": "debug"
     }
