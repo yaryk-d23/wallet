@@ -8,6 +8,13 @@ hr {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.gradient-blue {
+	background-color: #127CC6;
+    background-image: linear-gradient(180deg,#0057B8 0%, #55C4F7 37%,#FFFFFF 100%);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
 .main-footer {
     top: auto;
     left: 0;
