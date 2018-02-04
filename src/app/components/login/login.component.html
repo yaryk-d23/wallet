@@ -1,9 +1,7 @@
 <div class="gradient-blue">
-	<div class="row">
-		<div class="col s12">
 			<div class="container">			
 				<div class="row">
-					<div class="col s12 m6 l5 offset-m2 offset-l4">
+					<div class="login">
 					  <div class="card">
 						<div class="card-image">
 						  <img src="assets/images/login.jpg">
@@ -35,7 +33,7 @@
 									<button [disabled]="loading" class="btn waves-effect waves-light blue">
 										Login
 									</button>
-									<a [routerLink]="['/register']">Register</a>
+									<button [routerLink]="['/register']" [disabled]="loading" class="btn waves-effect waves-light blue lighten-2">Register</button>
 								</div>
 							</div>
 						</form>
@@ -43,11 +41,9 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col s12 m6 l5 offset-m2 offset-l4">
+					<div class="login">
 						<a href="/tos">Terms and Conditions</a> | <a href="/help">Support</a>
 					</div>
 				</div>
 			</div>
-		</div>
-	</div>
 </div>

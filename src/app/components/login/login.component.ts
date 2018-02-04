@@ -5,7 +5,8 @@ import { AlertService, AuthenticationService, Base64Service } from '../../_servi
 declare var Materialize:any;
 @Component({
     moduleId: module.id,
-    templateUrl: 'login.component.html'
+    templateUrl: 'login.component.html',
+	styleUrls: ['./login.component.css']
 })
  
 export class LoginComponent implements OnInit {
