@@ -29,12 +29,14 @@ export class LoginComponent implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
 
         setTimeout(() => {Materialize.updateTextFields();},100);
+
+        window.clearInterval(0);
     }
     
  
     login() {
         this.loading = true;
-        let authToken = this.getAuthdata(this.model.username, this.model.password);        
+        let authToken = this.getAuthdata(this.model.email, this.model.password);        
         this.authenticationService.login(authToken)
             .subscribe(
                 data => {

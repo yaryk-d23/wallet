@@ -37,6 +37,11 @@
 .main-footer {
 	height: auto;
 }
+.copy-to-clipboard {
+    cursor: pointer;
+    position: absolute;
+    margin-left: 5px;
+}
 
 @media screen and (max-width: 1200px) {
     .wallet-container {

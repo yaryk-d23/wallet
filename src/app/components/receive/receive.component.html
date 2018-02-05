@@ -8,11 +8,11 @@
         <label for="Amount">Amount</label>
         <input type="number" name="amount" 
             [(ngModel)]="receiveData.amount" #amount="ngModel"
-            id="Amount" placeholder="0.00" required>
-        <span *ngIf="f.submitted && !amount.valid" 
+            id="Amount" placeholder="0.00">
+        <!-- <span *ngIf="f.submitted && !amount.valid" 
               class="invalid-feedback red-text">
               Amount is required!
-        </span>
+        </span> -->
       </div>
     </div>
     <div class="col s12 m6">
@@ -52,7 +52,7 @@
 </div>
 <div class="col s12 m8">
     <p style="word-wrap: break-word;" *ngIf="qrValue.length > 11">
-      <a href="{{qrValue}}">{{qrValue}}</a>
+      <a [href]="sanitize(qrValue)">{{qrValue}}</a>
     </p>
 </div>
 

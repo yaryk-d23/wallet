@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ReceiveRequest } from '../../_models/index';
 import { AlertService, UserService, PreloaderService } from '../../_services/index';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   moduleId: module.id,
@@ -15,7 +16,8 @@ export class ReceiveComponent implements OnInit {
   constructor(
     private userService: UserService,
     private alertService: AlertService,
-    private preloaderService: PreloaderService) { }
+    private preloaderService: PreloaderService,
+    private sanitizer:DomSanitizer) { }
 
   ngOnInit() {
     //this.receiveData.address = this.wallet;
@@ -53,5 +55,10 @@ export class ReceiveComponent implements OnInit {
         this.alertService.error(error);
     });
   };
+
+  public sanitize(url:string){
+    return this.sanitizer.bypassSecurityTrustUrl(url);
+  }
+  
 
 }

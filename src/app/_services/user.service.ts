@@ -19,6 +19,7 @@ export class UserService {
             // this.logoutAfterError(response.status);        
             return response.json();
         }).catch((response: Response) => {
+            console.log(response.json());
             this.logoutAfterError(response); 
             return response.json();
         });

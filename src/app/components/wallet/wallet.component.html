@@ -18,6 +18,7 @@
       <p style="word-wrap: break-word;" 
         *ngFor="let wallet of data.wallets; let i = index">
         <span *ngIf="i==0">{{wallet.address}}</span>
+        <i *ngIf="i==0" class="material-icons prefix copy-to-clipboard" (click)="copyToClipboard(wallet.address)">&#xE14D;</i>
       </p>
       <receive [wallets]="data.wallets"></receive>
     </div>
@@ -83,7 +84,7 @@
             <label for="ToWalletAddress" class="required-label">To address:</label>
             <textarea class="materialize-textarea" name="ToWalletAddress"  
                 [(ngModel)]="model.address" #address="ngModel" 
-                id="ToWalletAddress" required pattern="^[K][A-Za-z0-9_]{94}$"></textarea>
+                id="ToWalletAddress" required pattern="^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$"></textarea>
             <div *ngIf="f.submitted && !address.valid" class="invalid-feedback red-text">Address must start from 'K' and have 95 characters</div>
           </div>
           <!--

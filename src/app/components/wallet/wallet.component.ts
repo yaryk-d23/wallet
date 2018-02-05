@@ -125,6 +125,7 @@ export class WalletComponent implements OnInit {
     };
 
   public getTotalAmount(): void {
+    if(!this.data.balance.available) return;
     let maxAmount = 0;
     let feeForMaxAmount = 0;
     if(this.model.amount !== null || this.feeInform.baseFee) {
@@ -145,6 +146,16 @@ export class WalletComponent implements OnInit {
   public setFullAmount(): void {
     this.model.amount = this.data.balance.available * 1000000000000;
     this.getTotalAmount();
+  }
+
+  public copyToClipboard(text: string): void {
+    var textarea = document.createElement("textarea");
+    textarea.textContent = text;
+    textarea.style.position = "fixed"; 
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("Copy");
+    document.body.removeChild(textarea);
   }
 
   public sortTable(array: any[], field: string = 'time'): any {
