@@ -18,7 +18,7 @@
       <p style="word-wrap: break-word;" 
         *ngFor="let wallet of data.wallets; let i = index">
         <span *ngIf="i==0">{{wallet.address}}</span>
-        <i *ngIf="i==0" class="material-icons prefix copy-to-clipboard" (click)="copyToClipboard(wallet.address)">&#xE14D;</i>
+        <i *ngIf="i==0" class="material-icons prefix copy-to-clipboard waves-effect" (click)="copyToClipboard(wallet.address)">&#xE14D;</i>
       </p>
       <receive [wallets]="data.wallets"></receive>
     </div>
