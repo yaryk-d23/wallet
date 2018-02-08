@@ -27,10 +27,10 @@ export class LoginComponent implements OnInit {
  
         // get return url from route parameters or default to '/'
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-
-        setTimeout(() => {Materialize.updateTextFields();},100);
-
-        window.clearInterval(0);
+        setTimeout(() => {
+            Materialize.updateTextFields();
+        },500);
+       
     }
     
  

@@ -31,6 +31,7 @@ import { ReceiveComponent } from './components/receive/receive.component';
 import { MaterializeModule } from 'angular2-materialize';
 import { SendComponent } from './components/send/send.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
+import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { ManageAccountComponent } from './components/manage-account/manage-accou
     UserConfirmationComponent,
     ReceiveComponent,
     SendComponent,
-    ManageAccountComponent
+    ManageAccountComponent,
+    RestorePasswordComponent
     
   ],
   imports: [

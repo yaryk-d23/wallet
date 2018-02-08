@@ -67,7 +67,6 @@ export class UserService {
     }
 
     getPaymentId() {
-        console.log("p-id");
         return this.http.get('/api/v1/wallet/paymentId', this.jwt(true))
             .map((response: Response) => {
                 return response.json();
