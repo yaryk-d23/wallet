@@ -1,0 +1,34 @@
+<navbar></navbar>
+<div class="container wallet-container">
+  <div class="row" >
+    <div id="manage-form">
+        <div class="col s12 m8 l6 offset-m2 offset-l3">
+          <h5 class="blue-text center">Change password</h5>
+          <hr>
+          <form name="changePasswordForm" class="" (ngSubmit)="f.form.valid && changePassword()" #f="ngForm">
+            <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="password" class="required-label">Password</label>
+                <input type="password" name="password" 
+                  [(ngModel)]="newPassword.newPassword" #password="ngModel" 
+                  required minlength="8"/><!-- placeholder="Enter password"  -->
+                <div *ngIf="f.submitted && password.errors?.required" class="invalid-feedback red-text">Password is required</div>
+                <div *ngIf="f.submitted && password.errors?.minlength" class="invalid-feedback red-text">Min length 8</div>
+              </div>
+              <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                <label for="ConfirmPassword" class="required-label">Confirm Password</label>
+                <input type="password" name="ConfirmPassword" 
+                  [(ngModel)]="confirmNewPassword" 
+                  #confirmPassword="ngModel" required 
+                  [pattern]="'^'+newPassword.newPassword+'$'"/> <!--placeholder="Confirm password"-->
+                <div *ngIf="f.submitted && !confirmPassword.valid" class="invalid-feedback red-text">Password not match</div>
+              </div>
+            <hr>
+            <div class="center">
+              <!-- <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button> -->
+              <button type="submit" class="btn blue">Save<i class="material-icons right">send</i></button>
+            </div>
+          </form>
+        </div>
+    </div>
+  </div>
+</div>

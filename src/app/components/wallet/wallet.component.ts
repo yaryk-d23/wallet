@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChildren } from '@angular/core';
 import { User, Wallet, SendRequest, Fee } from '../../_models/index';
 import { AlertService, UserService, PreloaderService } from '../../_services/index';
 
-
+declare var Materialize:any;
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
@@ -37,11 +37,10 @@ export class WalletComponent implements OnInit {
     this.preloaderService.show();      
     this.loadWalletData();
     this.getCurrentFee();
-    this.walletListen();
   }
 
 
-  private loadWalletData() {
+  public loadWalletData() {
     this.userService.getWalletData().subscribe(data => { 
         this.data =  {
             wallets: data[0], 
@@ -57,23 +56,6 @@ export class WalletComponent implements OnInit {
         this.alertService.error(error._body);
         this.preloaderService.hide();
     });
-  }
-
-  private walletListen():void {
-    setInterval(() => {
-        this.userService.getWalletNumber().subscribe(data => { 
-            if(this.data.balance.available !== data.available || this.data.balance.locked !== data.locked) {
-                this.loadWalletData();
-                this.alertService.success({message:"Wallet balance has been updated!", status: "SUCCESS"});
-           }
-        },
-        error => {
-            if(error._body == ""){
-                error._body = {status: 'ERROR', message: error.statusText}; 
-            }
-            this.alertService.error(error._body);
-        });
-    },30000);
   }
 
   public sendData(form: any): void {
@@ -156,6 +138,7 @@ export class WalletComponent implements OnInit {
     textarea.select();
     document.execCommand("Copy");
     document.body.removeChild(textarea);
+    Materialize.toast('Copied!', 1000)
   }
 
   public sortTable(array: any[], field: string = 'time'): any {

@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { UserConfirmationComponent } from './components/user-confirmation/user-confirmation.component';
 import { SendConfirmationComponent } from './components/send-confirmation/send-confirmation.component';
+import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
@@ -13,7 +14,7 @@ const appRoutes: Routes = [
     { path: 'register', component: RegisterComponent},
     { path: 'userconfirmation', component: UserConfirmationComponent},
     { path: 'sendconfirmation', component: SendConfirmationComponent},
-
+    { path: 'account', component: ManageAccountComponent, canActivate: [AuthGuard], pathMatch: 'full' },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

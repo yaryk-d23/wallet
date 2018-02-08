@@ -30,6 +30,7 @@ import { ReceiveComponent } from './components/receive/receive.component';
 // style
 import { MaterializeModule } from 'angular2-materialize';
 import { SendComponent } from './components/send/send.component';
+import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { SendComponent } from './components/send/send.component';
     SendConfirmationComponent,
     UserConfirmationComponent,
     ReceiveComponent,
-    SendComponent
+    SendComponent,
+    ManageAccountComponent
     
   ],
   imports: [

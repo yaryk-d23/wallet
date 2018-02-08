@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import { forkJoin } from "rxjs/observable/forkJoin";
-import { User, Wallet, SendRequest } from '../_models/index';
+import { User, Wallet, SendRequest, NewPassword } from '../_models/index';
 import { Router } from '@angular/router';
 import { error } from 'util';
 
@@ -25,7 +25,7 @@ export class UserService {
         });
     }
 
-    getBalance() {
+    getWallet() {
         return this.http.get('/api/v1/wallet', this.jwt(true))
                 .map((response: Response) => {
                     // this.logoutAfterError(response.status);        
@@ -37,7 +37,7 @@ export class UserService {
     };
  
     getWalletData() {
-        let walletNumber = this.getBalance();
+        let walletNumber = this.getWallet();
 
         let walletOrders = this.http.get('/api/v1/wallet/transactions', this.jwt(true))
                                 .map((response: Response) => {
@@ -48,21 +48,14 @@ export class UserService {
                                     return response.json();
                                 });
 
-        let walletBalance = this.http.get('/api/v1/wallet/balance', this.jwt(true))
-                                .map((response: Response) => {
-                                    // this.logoutAfterError(response.status);                                            
-                                    return response.json();
-                                }).catch((response: Response) => {
-                                    this.logoutAfterError(response); 
-                                    return response.json();
-                                });
+        let walletBalance = this.getBalance();
 
         return forkJoin([walletNumber, walletOrders, walletBalance]).map((response: any[]) => {
             return response;
         });
     }
 
-    getWalletNumber() { 
+    getBalance() { 
         return this.http.get('/api/v1/wallet/balance', this.jwt(true))
                 .map((response: Response) => {
                     // this.logoutAfterError(response.status);                            
@@ -87,13 +80,13 @@ export class UserService {
 
     sendData(data: SendRequest) {
         return this.http.post('/api/v1/wallet/send', data, this.jwt(true))
-        .map((response: Response) => {
-            // this.logoutAfterError(response.status);                    
-            return response.json();
-        }).catch((response: Response) => {
-            this.logoutAfterError(response); 
-            return response.json();
-        });
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                    
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
     };
 
     getFee() {
@@ -128,6 +121,17 @@ export class UserService {
                 return response.json();
             });
     };
+
+    changePassword(data: NewPassword){
+        return this.http.put('/api/v1/user/password', data, this.jwt(true))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                    
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
+    }
  
     // private helper methods
  

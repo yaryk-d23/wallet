@@ -40,3 +40,16 @@ nav i.balance-lock {
 .wallet-balance div:first-child {
     margin-top: 10px;
 }
+
+.current-account i {
+    line-height: inherit;
+}
+.current-account ul {
+    background-color: inherit;
+}
+.dropdown-content li:hover, .dropdown-content li.active, .dropdown-content li.selected {
+    background-color: inherit;
+}
+.current-account .dropdown-content {
+    top: 55px!important;
+}

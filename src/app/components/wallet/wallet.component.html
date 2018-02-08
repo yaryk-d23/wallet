@@ -1,16 +1,4 @@
-<navbar [balance]="data.balance"></navbar>
-<!-- <div class="container">
-  <div class="row" >
-    <div class="">
-      <h5 class="blue-text">Balance</h5>
-      <p style="word-wrap: break-word;" >
-        <span>Available: {{data.balance.available | amountTranform: 12 : 'KRB' }} 
-            (locked: {{data.balance.locked | amountTranform: 12 : 'KRB' }})
-        </span>
-      </p>
-    </div>
-  </div>
-</div> -->
+<navbar (updateWalletData)="loadWalletData()"></navbar>
 <div class="container wallet-container">
   <div class="row" >
     <div id="receive">
@@ -18,7 +6,10 @@
       <p style="word-wrap: break-word;" 
         *ngFor="let wallet of data.wallets; let i = index">
         <span *ngIf="i==0">{{wallet.address}}</span>
-        <i *ngIf="i==0" class="material-icons prefix copy-to-clipboard waves-effect" (click)="copyToClipboard(wallet.address)">&#xE14D;</i>
+        <i *ngIf="i==0" class="material-icons prefix copy-to-clipboard waves-effect tooltipped" 
+          (click)="copyToClipboard(wallet.address)"
+          data-position="bottom" data-delay="50" data-tooltip="Copy to clipboard"
+          materialize="tooltip">&#xE14D;</i>
       </p>
       <receive [wallets]="data.wallets"></receive>
     </div>

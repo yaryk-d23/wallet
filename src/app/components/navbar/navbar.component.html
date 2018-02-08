@@ -4,15 +4,24 @@
       Ҝ
     </a>
     <span class="wallet-balance">
-        {{balance.available | amountTranform: 12 : 'KRB' }} 
-        <small>(<i class="material-icons balance-lock">lock</i> {{balance.locked | amountTranform: 12 : 'KRB' }})</small>
+        {{currentBalance.available | amountTranform: 12 : 'KRB' }} 
+        <small>(<i class="material-icons balance-lock">lock</i> {{currentBalance.locked | amountTranform: 12 : 'KRB' }})</small>
       </span>
     <ul class="right">
-      <li>
-        <div class="chip blue darken-1 white-text"><span>{{currentUser}}</span></div>
-      </li>
-      <li>
-        <a class="btn white black-text" [routerLink]="['/login']">Logout</a>
+      <li class="current-account">
+        <a class="dropdown-button chip blue darken-1 white-text" href="#!" materialize="dropdown" data-activates="account-dropdown">
+          {{currentUser}}
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+        <ul id="account-dropdown" class="dropdown-content blue">
+            <li>
+              <a class="white-text" [routerLink]="['/account']">Manage account</a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a class="white-text" [routerLink]="['/login']">Logout</a>
+            </li>
+          </ul>
       </li>
     </ul>
   </div>
@@ -41,9 +50,9 @@
           <i class="material-icons">menu</i>
       </a>
       <div class="wallet-balance">
-          <div>{{balance.available | amountTranform: 12 : 'KRB' }}</div>
+          <div>{{currentBalance.available | amountTranform: 12 : 'KRB' }}</div>
           <div>
-            <small>(<i class="material-icons balance-lock">lock</i> {{balance.locked | amountTranform: 12 : 'KRB' }})</small>
+            <small>(<i class="material-icons balance-lock">lock</i> {{currentBalance.locked | amountTranform: 12 : 'KRB' }})</small>
           </div>
       </div>
     </div>
