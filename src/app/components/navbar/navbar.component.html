@@ -5,7 +5,14 @@
     </a>
     <span class="wallet-balance">
         {{currentBalance.available | amountTranform: 12 : 'KRB' }} 
-        <small>(<i class="material-icons balance-lock">lock</i> {{currentBalance.locked | amountTranform: 12 : 'KRB' }})</small>
+        <small>
+          (<i class="material-icons balance-lock">lock</i> 
+          {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
+          <i class="material-icons qr-code waves-effect tooltipped" 
+            data-position="bottom" data-delay="50" 
+            data-tooltip="Scan QRCode"
+            materialize="tooltip"></i>
+        </small>
       </span>
     <ul class="right">
       <li class="current-account">

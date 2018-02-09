@@ -33,7 +33,7 @@ export class RestorePasswordComponent implements OnInit {
           if(error._body == ""){
               error._body = {status: 'ERROR', message: error.statusText}; 
           }
-          this.alertService.error(error._body);;
+          this.alertService.error(error._body);
     });
   }
 

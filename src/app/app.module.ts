@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxQRCodeModule } from 'ngx-qrcode3';
+import { NgxZxingModule } from 'ngx-zxing';
 // used to create fake backend
 import { BaseRequestOptions } from '@angular/http';
 
@@ -32,6 +33,7 @@ import { MaterializeModule } from 'angular2-materialize';
 import { SendComponent } from './components/send/send.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
+import { QrcodeScanerComponent } from './components/qrcode-scaner/qrcode-scaner.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { RestorePasswordComponent } from './components/restore-password/restore-
     ReceiveComponent,
     SendComponent,
     ManageAccountComponent,
-    RestorePasswordComponent
+    RestorePasswordComponent,
+    QrcodeScanerComponent
     
   ],
   imports: [
@@ -62,7 +65,8 @@ import { RestorePasswordComponent } from './components/restore-password/restore-
     LoadingModule,
     NgxPaginationModule,
     MaterializeModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    NgxZxingModule.forRoot()
   ],
   providers: [
     AuthGuard,

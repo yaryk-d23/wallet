@@ -29,7 +29,9 @@
     "ngx-loading": "^1.0.9",
     "ngx-pagination": "^3.0.3",
     "ngx-qrcode3": "^0.3.0",
+    "ngx-zxing": "^0.3.4",
     "rxjs": "^5.4.2",
+    "text-encoding": "^0.6.4",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

@@ -38,6 +38,8 @@ export class ReceiveComponent implements OnInit {
       newQRLink += 'payment_id=' + this.receiveData.paymentId + '&';
     if(this.receiveData.label)
       newQRLink += 'label=' + this.receiveData.label;
+    if(newQRLink[newQRLink.length -1] == '?' || newQRLink[newQRLink.length -1] == '&')
+      newQRLink = newQRLink.slice(0, -1);
     setTimeout(() => {
       this.qrValue = newQRLink;
       this.preloaderService.hide();

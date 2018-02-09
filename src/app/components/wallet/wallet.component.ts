@@ -67,6 +67,7 @@ export class WalletComponent implements OnInit {
         this.alertService.success(data);
         //this.model = new SendRequest();
         form.onReset();
+        this.switchActiveTab('History');
         this.preloaderService.hide();
     },
     error => {
@@ -149,6 +150,16 @@ export class WalletComponent implements OnInit {
         return result * sortOrder;
     });
     return sortebleArray;
+  }
+
+  public switchActiveTab(tabName: string): void{
+    let tabs: any = document.querySelectorAll("ul[materialize=tabs]>li>a");
+    let newActiveTab: any;
+    tabs.forEach(element => {
+        if(element.children[1].innerText === tabName)
+            newActiveTab = element;
+    });
+    newActiveTab.click();
   }
 
 }
