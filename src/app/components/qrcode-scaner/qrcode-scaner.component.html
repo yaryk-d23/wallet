@@ -1,1 +1,16 @@
-<ngx-zxing [start]="cameraStarted" [device]="selectedDevice" (onCamsFound)="displayCameras($event)" (onScan)="handleQrCodeResult($event)"></ngx-zxing>
+<div class="scan-container" *ngIf="visible">
+    <div class="input-field">
+        <select (change)="onChange($event.target.value)" name="devices" materialize="material_select">
+            <option *ngFor="let device of availableDevices" value="{{device.deviceId}}">{{device.label}}</option>
+        </select>
+        <label>Select camera</label>
+    </div>
+    <br>
+    <div>
+        <ngx-zxing [start]="cameraStarted" 
+            [device]="selectedDevice" 
+            (onCamsFound)="displayCameras($event)" 
+            (onScan)="handleQrCodeResult($event)">
+        </ngx-zxing>
+    </div>
+</div>

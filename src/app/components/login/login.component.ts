@@ -36,26 +36,30 @@ export class LoginComponent implements OnInit {
  
     login() {
         this.loading = true;
-        let authToken = this.getAuthdata(this.model.email, this.model.password);        
-        this.authenticationService.login(authToken)
+        // let authToken = this.getAuthdata(this.model.login, this.model.password);        
+        this.authenticationService.login(this.model)
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
+                    console.log(error);
                     if(error.status == 401 && error._body == '') {
                         error._body = {
-                            message: 'Email or password is not correct',
+                            message: 'Login or password is not correct',
                             status: 'ERROR'
                         };
                     }
-                    this.alertService.error(error._body);
+                    if(typeof error._body === 'string')
+                        this.alertService.error(JSON.parse(error._body));
+                    else
+                        this.alertService.error(error._body);
                     this.loading = false;
                 });
     }
 
-    private getAuthdata(username: string, password: string) {
-        let token = this.base64Service.code(username+":"+password);
-        return token;
-    }
+    // private getAuthdata(username: string, password: string) {
+    //     let token = this.base64Service.code(username+":"+password);
+    //     return token;
+    // }
 }

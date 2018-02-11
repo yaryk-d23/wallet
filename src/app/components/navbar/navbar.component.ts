@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Base64Service, UserService, AlertService } from '../../_services/index';
 import { error } from 'util';
+import {MaterializeAction} from 'angular2-materialize';
 @Component({
   moduleId: module.id,
   selector: 'navbar',
@@ -8,7 +9,7 @@ import { error } from 'util';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  modalActions = new EventEmitter<string|MaterializeAction>();
   constructor(
               private base64Service: Base64Service,
               private userService: UserService,
@@ -19,6 +20,7 @@ export class NavbarComponent implements OnInit {
     available: 0,
     locked: 0
   };
+  public showScanModal = false;
   ngOnInit() {
     this.getWalletBalance();
     this.getCurrentUser();
@@ -26,11 +28,36 @@ export class NavbarComponent implements OnInit {
   
   @Output()
     updateWalletData = new EventEmitter();
+  @Output()
+    setSendFormFromQRCode = new EventEmitter();
+
+  public openScanModal(){
+    this.modalActions.emit({action:"modal",params:['open']});
+    this.showScanModal = true;
+    
+  }
+  public closeScanModal(){
+    this.modalActions.emit({action:"modal",params:['close']});
+    this.showScanModal = false;
+  }
+
+  public getQRCodeData(qrCode: any) {
+    this.setSendFormFromQRCode.emit(qrCode);
+    this.closeScanModal();
+  }
 
   private getCurrentUser(): void {
-    let authData = JSON.parse(localStorage.getItem('currentSession')),
-        userData = this.base64Service.encode(authData.token);
-    this.currentUser = userData.split(':')[0]
+    // let authData = JSON.parse(localStorage.getItem('currentSession')),
+    //     userData = this.base64Service.encode(authData.token);
+    this.userService.getCurrentUser().subscribe(data => {
+      this.currentUser = data.email;
+      
+      },error=>{
+        if(error._body == ""){
+          error._body = {status: 'ERROR', message: error.statusText}; 
+        }
+        this.alertService.error(error._body);
+    });
   }
 
   private getWalletBalance(){

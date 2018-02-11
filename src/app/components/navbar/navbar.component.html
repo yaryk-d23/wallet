@@ -8,10 +8,13 @@
         <small>
           (<i class="material-icons balance-lock">lock</i> 
           {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
-          <i class="material-icons qr-code waves-effect tooltipped" 
-            data-position="bottom" data-delay="50" 
-            data-tooltip="Scan QRCode"
-            materialize="tooltip"></i>
+          <div class="qr-code">
+            <i class="material-icons waves-effect tooltipped" 
+              data-position="bottom" data-delay="50" 
+              data-tooltip="Scan QRCode"
+              materialize="tooltip"
+              (click)="openScanModal()"></i>
+          </div>
         </small>
       </span>
     <ul class="right">
@@ -59,9 +62,32 @@
       <div class="wallet-balance">
           <div>{{currentBalance.available | amountTranform: 12 : 'KRB' }}</div>
           <div>
-            <small>(<i class="material-icons balance-lock">lock</i> {{currentBalance.locked | amountTranform: 12 : 'KRB' }})</small>
+            <small>
+              (<i class="material-icons balance-lock">lock</i> 
+              {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
+              <div class="qr-code">
+                  <i class="material-icons waves-effect tooltipped" 
+                    data-position="bottom" data-delay="50" 
+                    data-tooltip="Scan QRCode"
+                    materialize="tooltip"
+                    (click)="openScanModal()"></i>
+                </div>
+            </small>
           </div>
       </div>
     </div>
 </nav>
+
+<div id="qr-modal" class="modal scan-modal" 
+  materialize="modal" [materializeParams]="[{dismissible: false}]" 
+  [materializeActions]="modalActions">
+  <div class="modal-content">
+    <h4>Scan QR-Code</h4>
+    <qrcode-scaner [visible]="showScanModal" (scanQRCode)="getQRCodeData($event)"></qrcode-scaner>
+  </div>
+  <div class="modal-footer">
+    <a class="waves-effect waves-green btn-flat" (click)="closeScanModal()">Close</a>
+    <a class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+  </div>
+</div>
 

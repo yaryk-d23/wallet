@@ -25,6 +25,17 @@ export class UserService {
         });
     }
 
+    getCurrentUser(){
+        return this.http.get('/api/v1/user/current', this.jwt(true))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);        
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
+    }
+
     getWallet() {
         return this.http.get('/api/v1/wallet', this.jwt(true))
                 .map((response: Response) => {
@@ -140,7 +151,7 @@ export class UserService {
         if (needAuth && authData && authData.token) {
             let headers = new Headers({ 
                 "content-type": "application/json;charset=UTF-8",
-                'Authorization': 'Basic ' + authData.token,
+                'x-auth-session': authData.token,
                 "X-Requested-With": "XMLHttpRequest"
             });
             return new RequestOptions({ headers: headers });

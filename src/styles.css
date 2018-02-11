@@ -181,14 +181,28 @@ input[type=datetime-local]:not(.browser-default):focus:not([readonly]),
     right: 5px;
 }
 
-nav .nav-wrapper i.qr-code {
+nav .nav-wrapper .qr-code{
+    position: relative;
+    display: inline-block;
+    width: auto;
+    line-height: normal;
+    background-color: #eee;
+}
+
+nav .nav-wrapper .qr-code i {
     display: inline-block;
     width: 24px;
     height: 24px;
-    border: 2px solid #fff;
-    border-radius: 5px;
     background-image: url('./assets/images/qrcode.svg');
     background-size: cover;
     background-position: center;
     cursor: pointer;
 }
+
+.scan-modal {
+    max-width: 350px;
+}
+.scan-container video{
+    width: 100%;
+}
+
