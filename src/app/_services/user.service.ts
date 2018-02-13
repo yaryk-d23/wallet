@@ -18,11 +18,7 @@ export class UserService {
         .map((response: Response) => {
             // this.logoutAfterError(response.status);        
             return response.json();
-        }).catch((response: Response) => {
-            console.log(response.json());
-            this.logoutAfterError(response); 
-            return response.json();
-        });
+        })
     }
 
     getCurrentUser(){

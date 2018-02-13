@@ -21,10 +21,12 @@ export class NavbarComponent implements OnInit {
     available: 0,
     locked: 0
   };
+  public showScanIcon = false;
   public showScanModal = false;
   ngOnInit() {
     this.getWalletBalance();
     this.getCurrentUser();
+    this.walletListen();
   }
   
   @Output()
@@ -93,6 +95,17 @@ export class NavbarComponent implements OnInit {
             this.alertService.error(error._body);
         });
     },30000);
+  }
+
+  private checkVideoDevice(){
+    navigator.mediaDevices.enumerateDevices()
+      .then(function(MediaDeviceInfo) { 
+        MediaDeviceInfo.map(device=>{
+          if(device.kind == "videoinput") 
+            this.showScanIcon = true;
+          }
+        );
+      })
   }
 
 }

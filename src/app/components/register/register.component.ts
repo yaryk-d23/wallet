@@ -25,7 +25,6 @@ export class RegisterComponent {
         this.userService.register(newUser)
             .subscribe(
                 data => {
-                    console.log(data);
                     this.loading = false;
                     // set success message and pass true parameter to persist the message after redirecting to the login page
                     this.alertService.success(data, true);
@@ -33,8 +32,17 @@ export class RegisterComponent {
                 },
                 error => {
                     console.log(error);
+                    if(error.status == 401 && error._body == '') {
+                        error._body = {
+                            message: 'Data is not correct',
+                            status: 'ERROR'
+                        };
+                    }
+                    if(typeof error._body === 'string')
+                        this.alertService.error(JSON.parse(error._body));
+                    else
+                        this.alertService.error(error._body);
                     this.loading = false;
-                    this.alertService.error(JSON.parse(error._body));
                 });
     }
 }
