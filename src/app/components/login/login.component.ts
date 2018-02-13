@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
                     this.router.navigate([this.returnUrl]);
                 },
                 error => {
-                    console.log(error);
                     if(error.status == 401 && error._body == '') {
                         error._body = {
                             message: 'Login or password is not correct',

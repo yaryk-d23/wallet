@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Base64Service, UserService, AlertService } from '../../_services/index';
+import { Base64Service, UserService, AlertService, PreloaderService } from '../../_services/index';
 import { error } from 'util';
 import {MaterializeAction} from 'angular2-materialize';
 @Component({
@@ -13,7 +13,8 @@ export class NavbarComponent implements OnInit {
   constructor(
               private base64Service: Base64Service,
               private userService: UserService,
-              private alertService: AlertService,) { }
+              private alertService: AlertService,
+              private preloaderService: PreloaderService) { }
 
   public currentUser: string = '';
   public currentBalance: any = {
@@ -37,13 +38,18 @@ export class NavbarComponent implements OnInit {
     
   }
   public closeScanModal(){
+    this.showScanModal = false;    
     this.modalActions.emit({action:"modal",params:['close']});
-    this.showScanModal = false;
   }
 
   public getQRCodeData(qrCode: any) {
-    this.setSendFormFromQRCode.emit(qrCode);
-    this.closeScanModal();
+    this.preloaderService.show();
+    
+    setTimeout(() => {
+      this.setSendFormFromQRCode.emit(qrCode);
+      this.closeScanModal();
+      this.preloaderService.hide();
+    }, 3000);
   }
 
   private getCurrentUser(): void {

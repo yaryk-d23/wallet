@@ -26,7 +26,7 @@ export class SendRequest {
     constructor(){
         this.address = '';
         this.allAvailableBalance = false;
-        this.amount = null;
+        this.amount = 0;
        this.paymentId = null;
     }
     address: string;

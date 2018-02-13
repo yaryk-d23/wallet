@@ -36,6 +36,9 @@ export class SendConfirmationComponent implements OnInit {
       this.message.message = res.message;
       this.message.status = "SUCCESS";
       this.preloaderService.hide();
+      setTimeout(() => {
+        this.router.navigateByUrl("/");
+      }, 3000);
     }, error => {
       if(error._body == ""){
         error._body = error.statusText; 

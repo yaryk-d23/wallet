@@ -1,9 +1,12 @@
 <div class="scan-container" *ngIf="visible">
-    <div class="input-field">
+    <div class="input-field" *ngIf="availableDevices && availableDevices.length">
         <select (change)="onChange($event.target.value)" name="devices" materialize="material_select">
             <option *ngFor="let device of availableDevices" value="{{device.deviceId}}">{{device.label}}</option>
         </select>
         <label>Select camera</label>
+    </div>
+    <div *ngIf="!availableDevices && !availableDevices.length">
+        <h5>No devise to scan qr-code</h5>
     </div>
     <br>
     <div>

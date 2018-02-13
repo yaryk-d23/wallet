@@ -36,6 +36,9 @@ export class UserConfirmationComponent implements OnInit {
       this.preloaderService.hide(); 
       this.message.message = res.message;
       this.message.status = "OK";
+      setTimeout(() => {
+        this.router.navigateByUrl("/");
+      }, 3000);
     }, error => {
       if(error._body == ""){
         error._body = error.statusText; 

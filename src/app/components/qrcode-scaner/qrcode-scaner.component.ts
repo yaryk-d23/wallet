@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./qrcode-scaner.component.css']
 })
 export class QrcodeScanerComponent implements OnInit {
-  cameraStarted: boolean;
+  cameraStarted: boolean = false;
   qrResult: string;
   selectedDevice: any;
   availableDevices: object = [];
@@ -33,7 +33,6 @@ export class QrcodeScanerComponent implements OnInit {
   }
 
   handleQrCodeResult(result: string) {
-
       this.qrResult = result;
       this.scanQRCode.emit(this.qrResult);
 

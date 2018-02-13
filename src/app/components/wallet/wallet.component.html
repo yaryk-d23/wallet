@@ -75,7 +75,8 @@
             <label for="ToWalletAddress" class="required-label">To address:</label>
             <textarea class="materialize-textarea" name="ToWalletAddress"  
                 [(ngModel)]="model.address" #address="ngModel" 
-                id="ToWalletAddress" required pattern="^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$"></textarea>
+                id="ToWalletAddress" required placeholder="Enter address" 
+                pattern="^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$"></textarea>
             <div *ngIf="f.submitted && !address.valid" class="invalid-feedback red-text">Address must start from 'K' and have 95 characters</div>
           </div>
           <!--

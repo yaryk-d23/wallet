@@ -18,7 +18,7 @@
 											[(ngModel)]="model.email" #email="ngModel" 
 											required pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"><!--placeholder="Enter email" -->
 										<div *ngIf="f.submitted && email.errors?.required" class="invalid-feedback red-text">Email is required</div>
-										<div *ngIf="f.submitted && email.errors?.pattern" class="invalid-feedback red-text">Email mast same mask</div>
+										<div *ngIf="f.submitted && email.errors?.pattern" class="invalid-feedback red-text">It is not valid email</div>
 									</div>
 									<div class="input-field" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
 										<label for="UserName" class="required-label">User name</label>

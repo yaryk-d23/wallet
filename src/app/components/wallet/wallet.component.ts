@@ -165,7 +165,8 @@ export class WalletComponent implements OnInit {
   public setSendForm(qrData:string){
     this.switchActiveTab("Send");
     this.model = {...this.parseQRStringToObject(qrData)};
-    this.getTotalAmount();
+    if(this.model.amount)
+        this.getTotalAmount();
   }
 
   private parseQRStringToObject(qrString: string): SendRequest{
@@ -174,15 +175,17 @@ export class WalletComponent implements OnInit {
     let tmoObj: any = {};
     tmoObj[tmpString.split(":")[0]] = tmpString.split(":")[1].split("?")[0];
     tmpString = tmpString.split(":")[1].split("?")[1];
-    tmpString.split("&").forEach((param) => {
-        let name = param.split("=")[0],
-            value = param.split("=")[1];
-        if(name && value)
-            tmoObj[name] = value;
-    })
-    newSendData.address = tmoObj.karbowanec;
-    newSendData.amount = tmoObj.amount;
-    newSendData.paymentId = tmoObj.payment_id;
+    if(tmpString){
+        tmpString.split("&").forEach((param) => {
+            let name = param.split("=")[0],
+                value = param.split("=")[1];
+            if(name && value)
+                tmoObj[name] = value;
+        })
+    }
+    newSendData.address = tmoObj.karbowanec ? tmoObj.karbowanec : "";
+    newSendData.amount = tmoObj.amount ? tmoObj.amount : 0;
+    newSendData.paymentId = tmoObj.payment_id ? tmoObj.payment_id : "";
     return newSendData;
   }
 
