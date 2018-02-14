@@ -8,7 +8,7 @@
         <small>
           (<i class="material-icons balance-lock">lock</i> 
           {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
-          <div class="qr-code" *ngIf="showScanIcon">
+          <div class="qr-code" *ngIf="showScanIcon && false">
             <i class="material-icons waves-effect tooltipped" 
               data-position="bottom" data-delay="50" 
               data-tooltip="Scan QRCode"
@@ -65,7 +65,7 @@
             <small>
               (<i class="material-icons balance-lock">lock</i> 
               {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
-              <div class="qr-code" *ngIf="showScanIcon">
+              <div class="qr-code" *ngIf="showScanIcon && false">
                   <i class="material-icons waves-effect tooltipped" 
                     data-position="bottom" data-delay="50" 
                     data-tooltip="Scan QRCode"
