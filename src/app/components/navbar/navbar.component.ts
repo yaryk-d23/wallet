@@ -89,6 +89,8 @@ export class NavbarComponent implements OnInit {
     this.timer = setInterval(() => {
         this.userService.getBalance().subscribe(data => { 
             if(this.currentBalance.available !== data.available || this.currentBalance.locked !== data.locked) {
+                this.currentBalance.available = data.available;
+                this.currentBalance.locked = data.locked;
                 this.updateWalletData.emit();
                 this.alertService.success({message:"Wallet balance has been updated!", status: "SUCCESS"});
            }
