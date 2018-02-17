@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import { Base64Service, UserService, AlertService, PreloaderService } from '../../_services/index';
 import { error } from 'util';
 import {MaterializeAction} from 'angular2-materialize';
@@ -23,10 +23,15 @@ export class NavbarComponent implements OnInit {
   };
   public showScanIcon = false;
   public showScanModal = false;
+  private timer: any;
   ngOnInit() {
     this.getWalletBalance();
     this.getCurrentUser();
     this.walletListen();
+  }
+  ngOnDestroy() {
+    window.clearInterval(this.timer);
+    console.log("timer: "+this.timer);
   }
   
   @Output()
@@ -81,7 +86,7 @@ export class NavbarComponent implements OnInit {
   }
 
   private walletListen():void {
-    setInterval(() => {
+    this.timer = setInterval(() => {
         this.userService.getBalance().subscribe(data => { 
             if(this.currentBalance.available !== data.available || this.currentBalance.locked !== data.locked) {
                 this.updateWalletData.emit();
