@@ -6,7 +6,7 @@ import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxQRCodeModule } from 'ngx-qrcode3';
-import { NgxZxingModule } from 'ngx-zxing';
+import { NgQrScannerModule } from 'angular2-qrscanner';
 // used to create fake backend
 import { BaseRequestOptions } from '@angular/http';
 
@@ -66,7 +66,7 @@ import { QrcodeScanerComponent } from './components/qrcode-scaner/qrcode-scaner.
     NgxPaginationModule,
     MaterializeModule,
     NgxQRCodeModule,
-    NgxZxingModule.forRoot()
+    NgQrScannerModule
   ],
   providers: [
     AuthGuard,

@@ -10,10 +10,20 @@
     </div>
     <br>
     <div>
-        <ngx-zxing [start]="cameraStarted" 
+        <!-- <ngx-zxing [start]="cameraStarted" 
             [device]="selectedDevice" 
             (onCamsFound)="displayCameras($event)" 
             (onScan)="handleQrCodeResult($event)">
-        </ngx-zxing>
+        </ngx-zxing> -->
+        <qr-scanner
+            [canvasWidth]="100"                    
+            [canvasHeight]="100"                   
+            [debug]="false"                               
+            [updateTime]="500"                     
+            [stopAfterScan]="true"                 
+            [chooseCamera]="chosenCameraSubject"   
+            (foundCameras)="listCameras($event)"
+            (capturedQr)="handleQrCodeResult($event)">
+        </qr-scanner>
     </div>
 </div>

@@ -8,7 +8,7 @@
         <small>
           (<i class="material-icons balance-lock">lock</i> 
           {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
-          <div class="qr-code" *ngIf="showScanIcon && false">
+          <div class="qr-code" *ngIf="showScanIcon">
             <i class="material-icons waves-effect tooltipped" 
               data-position="bottom" data-delay="50" 
               data-tooltip="Scan QRCode"
@@ -49,9 +49,7 @@
           <ul>
             <li><div class="chip blue darken-1 white-text"><span>{{currentUser}}</span></div></li>
             <li><a class="btn white black-text" [routerLink]="['/login']">Logout</a></li>
-			
-			<li><a class="white-text" href="/help">Help</a></li>
-			
+			      <li><a class="white-text" href="/help">Help</a></li>
           </ul>
         </li>
       </ul>
@@ -65,7 +63,7 @@
             <small>
               (<i class="material-icons balance-lock">lock</i> 
               {{currentBalance.locked | amountTranform: 12 : 'KRB' }})
-              <div class="qr-code" *ngIf="showScanIcon && false">
+              <div class="qr-code" *ngIf="showScanIcon">
                   <i class="material-icons waves-effect tooltipped" 
                     data-position="bottom" data-delay="50" 
                     data-tooltip="Scan QRCode"

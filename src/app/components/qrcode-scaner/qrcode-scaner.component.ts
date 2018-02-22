@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Subject} from 'rxjs/Subject';
 
 @Component({
   selector: 'qrcode-scaner',
@@ -10,7 +11,9 @@ export class QrcodeScanerComponent implements OnInit {
   qrResult: string;
   selectedDevice: any;
   availableDevices: object = [];
-  
+
+  chosenCameraSubject = new Subject();
+
   constructor() { }
 
   ngOnInit() {
@@ -36,6 +39,10 @@ export class QrcodeScanerComponent implements OnInit {
       this.qrResult = result;
       this.scanQRCode.emit(this.qrResult);
 
+  }
+
+  listCameras($event: MediaDeviceInfo[]) {
+    this.chosenCameraSubject.next($event.filter(device => device.kind === 'videoinput')[0])
   }
 
   onChange(selectedValue: string) {
