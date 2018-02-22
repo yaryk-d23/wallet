@@ -29,7 +29,7 @@
           </form>
           <ul class="collection">
             <li class="collection-item avatar" 
-              *ngFor="let transaction of sortTable(data.transactions) | 
+              *ngFor="let transaction of data.transactions | 
               filter : 'address' : searchString | 
               paginate: { itemsPerPage: 3, currentPage: currentPage, maxSize: 5 }; let i = index"
             >

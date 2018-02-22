@@ -21,17 +21,17 @@ export class NavbarComponent implements OnInit {
     available: 0,
     locked: 0
   };
-  public showScanIcon = false;
+  public showScanIcon = this.checkVideoDevice();
   public showScanModal = false;
   private timer: any;
   ngOnInit() {
     this.getWalletBalance();
     this.getCurrentUser();
     this.walletListen();
+    this.checkVideoDevice();
   }
   ngOnDestroy() {
     window.clearInterval(this.timer);
-    console.log("timer: "+this.timer);
   }
   
   @Output()
@@ -104,15 +104,17 @@ export class NavbarComponent implements OnInit {
     },30000);
   }
 
-  private checkVideoDevice(){
-    navigator.mediaDevices.enumerateDevices()
+  private checkVideoDevice() {
+    return new Promise((resolve,reject) => {
+      navigator.mediaDevices.enumerateDevices()
       .then(function(MediaDeviceInfo) { 
         MediaDeviceInfo.map(device=>{
           if(device.kind == "videoinput") 
-            this.showScanIcon = true;
+            resolve(true);
           }
         );
       })
+    });
   }
 
 }
