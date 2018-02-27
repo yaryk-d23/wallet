@@ -45,18 +45,18 @@ export class NavbarComponent implements OnInit {
     
   }
   public closeScanModal(){
-    this.showScanModal = false;    
+    //this.showScanModal = false;    
     this.modalActions.emit({action:"modal",params:['close']});
   }
 
   public getQRCodeData(qrCode: any) {
-    this.preloaderService.show();
+    // this.preloaderService.show();
     
-    setTimeout(() => {
+    // setTimeout(() => {
       this.setSendFormFromQRCode.emit(qrCode);
       this.closeScanModal();
-      this.preloaderService.hide();
-    }, 3000);
+    //   this.preloaderService.hide();
+    // }, 3000);
   }
 
   private getCurrentUser(): void {

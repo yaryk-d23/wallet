@@ -42,6 +42,7 @@ export class QrcodeScanerComponent implements OnInit {
   }
 
   listCameras($event: MediaDeviceInfo[]) {
+    console.log($event);
     this.chosenCameraSubject.next($event.filter(device => device.kind === 'videoinput')[0])
   }
 
