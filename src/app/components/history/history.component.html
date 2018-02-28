@@ -1,0 +1,51 @@
+<div class="">
+  <h5 class="blue-text center">Transactions</h5>
+  <hr>
+  <form>
+      <div class="input-field">
+          <i class="material-icons prefix">search</i>
+          <label for="SearchString">Type to search...</label>
+          <input type="text" class="form-control" 
+            name="searchString" id="SearchString"
+            [(ngModel)]="searchString"
+          >
+      </div>
+  </form>
+  <ul class="collection">
+    <li class="collection-item avatar" 
+      *ngFor="let transaction of transactions | 
+      filter : 'address' : searchString | 
+      paginate: { itemsPerPage: 3, currentPage: currentPage, maxSize: 5 }; let i = index"
+    >
+      <i *ngIf="transaction.amount > 0" 
+        class="material-icons circle medium green" 
+      >vertical_align_bottom</i>
+      <i *ngIf="transaction.amount < 0" 
+        class="material-icons circle medium red" 
+      >vertical_align_top</i>
+      <p>
+        <span class="" title="">{{transaction.time ? (transaction.time | date: 'dd/MM/yyyy HH:MM' ): 'Unconfirmed'}}</span>                  
+        <span href="#!" class="secondary-content" 
+          [ngClass]="(transaction.amount < 0) ? 'red-text' : 'green-text' "
+        >
+          <b>{{transaction.amount | amountTranform: 12 : 'KRB'}}</b>
+        </span>
+        <span title="{{transaction.address}}"><small>Address: {{transaction.address}}</small></span>
+        <span title="{{transaction.paymentId}}"><small *ngIf="transaction.paymentId">Payment Id: {{transaction.paymentId}}</small></span>
+        <span title="{{transaction.transactionHash}}"><small>Hash: {{transaction.transactionHash}}</small></span>
+        <span><small [ngClass]="(transaction.confirmations < 10) ? 'red-text' : 'green-text' ">
+          Confirmations: {{transaction.confirmations}}
+        </small></span>
+      </p>
+      
+    </li>
+  </ul>
+  <div class="row">
+    <div class="col s12 total-count center">
+      <h6>Total: {{(transactions | filter : 'address' : searchString).length}}</h6>
+    </div>
+    <div class="col s12 center">
+      <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+    </div>
+  </div>
+</div>

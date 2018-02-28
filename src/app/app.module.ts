@@ -34,6 +34,7 @@ import { SendComponent } from './components/send/send.component';
 import { ManageAccountComponent } from './components/manage-account/manage-account.component';
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { QrcodeScanerComponent } from './components/qrcode-scaner/qrcode-scaner.component';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { QrcodeScanerComponent } from './components/qrcode-scaner/qrcode-scaner.
     SendComponent,
     ManageAccountComponent,
     RestorePasswordComponent,
-    QrcodeScanerComponent
+    QrcodeScanerComponent,
+    HistoryComponent
     
   ],
   imports: [

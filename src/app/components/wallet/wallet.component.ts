@@ -22,8 +22,6 @@ export class WalletComponent implements OnInit {
       fee: 0
   };
   sortOrder: boolean = false;
-  currentPage: any;
-  searchString: string;
   coeficient: number = 1000000000000;
   
   constructor(
