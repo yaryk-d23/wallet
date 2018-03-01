@@ -28,17 +28,17 @@ hr {
 .main-footer .tab a.active{
     background-color: rgba(0, 0, 0, 0.1);
 }
-.main-footer .tab a>i{
+.main-footer .footer-nav a>i{
     line-height: 32px;
     height: 32px;
 }
-.main-footer .tab a>span{
+.main-footer .footer-nav a>span{
     display: block;
     line-height: 32px;
 }
-.main-footer li.tab {
+/* .main-footer li.tab {
     min-width: 80px;
-}
+} */
 .card-container {
     background: #fff;
     padding: 10px;

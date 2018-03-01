@@ -17,73 +17,15 @@
       <history [transactions]="data.transactions"></history>
     </div>
     <div id="send">
-      <div class="col s12 m8 l6 offset-m2 offset-l3">
-        <h5 class="blue-text center">Send KRB</h5>
-        <hr>
-        <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData(f)" #f="ngForm">
-          <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
-            <label for="ToWalletAddress" class="required-label">To address:</label>
-            <textarea class="materialize-textarea" name="ToWalletAddress"  
-                [(ngModel)]="model.address" #address="ngModel" 
-                id="ToWalletAddress" required placeholder="Enter address" 
-                pattern="^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$"></textarea>
-            <div *ngIf="f.submitted && !address.valid" class="invalid-feedback red-text">Address must start from 'K' and have 95 characters</div>
-          </div>
-          <!--
-          <div class="form-group">
-            <label for="FromAddress">From address:</label>
-            <select class="form-control" id="FromAddress" name="FromAddress"  placeholder="Select wallet">
-              <option *ngFor="let wallet of data.wallets" 
-                  [ngValue]="wallet">{{wallet.address}}</option>
-            </select>
-          </div>
-          -->
-            <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amount.valid }">
-                <div class="postfix">
-                    <input type="checkbox" class="filled-in blue" name="allAvailableBalance"  id="AllAvailableBalance"
-                        [(ngModel)]="model.allAvailableBalance" #allAvailableBalance="ngModel" 
-                        (ngModelChange)="setFullAmount();">
-                    <label for="AllAvailableBalance" >Select All</label >
-                  </div>
-              <label for="Amount" class="required-label">Amount</label>
-              <input type="number" name="amount" 
-                  [(ngModel)]="model.amount" #amount="ngModel"
-                  [disabled]="model.allAvailableBalance"  
-                  (ngModelChange)="getTotalAmount();"
-                  id="Amount" placeholder="0.00" required>
-            </div>
-          <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback red-text">Amount is required!</div>  
-          <div *ngIf="feeInform.baseFee" class="send-amount-inform">
-            <div>You enter: {{model.amount * coeficient | amountTranform: 12 : 'KRB'}}</div>
-            <div>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}</div>
-            <div>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}</div>
-          </div>           
-          <div class="input-field">
-              <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
-                  <span>Generate</span>
-                </button>
-              <label for="PaymentId">Payment Id:</label>
-              <input type="text" name="paymentId" 
-                  placeholder="Enter Payment Id or click on generate button"
-                  [(ngModel)]="model.paymentId" #paymentId="ngModel" 
-                  id="PaymentId">                
-              
-          </div>
-          <hr>
-          <div class="center">
-            <!-- <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button> -->
-            <button type="submit" class="btn blue">Send<i class="material-icons right">send</i></button>
-          </div>
-        </form>
-      </div>
+      <send [walletData]="data" (updateWalletData)="loadWalletData()"></send>      
     </div>
   </div>
 </div>
 <nav class="main-footer blue">
   <div class="nav-wrapper">
       <div class="container">
-      <div class="row">
-          <div class="col s1 m3 l3"></div>
+      <div class="row footer-nav center">
+          <!-- <div class="col s1 m3 l3"></div>
           <div class="col s10 m6 l6">
             <ul class="center" materialize="tabs">
               <li class="tab col s4"><a class=""  href="#receive"><i class="material-icons">input</i><span>Receive</span></a></li>
@@ -91,8 +33,11 @@
               <li class="tab col s4"><a class="" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
             </ul>
           </div>
-          <div class="col s1 m3 l3"></div>
-        </div>
+          <div class="col s1 m3 l3"></div> -->
+          <div><a href="#"><i class="material-icons">&#xE890;</i><span>Receive</span></a></div>
+          <div><a href="#"><i class="material-icons">&#xE896;</i><span>History</span></a></div>
+          <div><a href="#"><i class="material-icons">&#xE163;</i><span>Send</span></a></div>
+      </div>
     </div>
   </div>
 </nav>

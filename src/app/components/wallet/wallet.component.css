@@ -43,6 +43,11 @@
     margin-left: 5px;
 }
 
+.footer-nav > div {
+    display: inline-block;
+    padding: 0 20px;
+}
+
 @media screen and (max-width: 1200px) {
     .wallet-container {
         /* max-width: 1200px;
