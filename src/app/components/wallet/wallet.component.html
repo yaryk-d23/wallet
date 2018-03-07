@@ -1,7 +1,7 @@
 <navbar (updateWalletData)="loadWalletData()" (setSendFormFromQRCode)="setSendForm($event)"></navbar>
 <div class="container wallet-container">
   <div class="row" >
-    <div id="receive">
+    <!-- <div id="receive">
       <h5 class="blue-text">Address</h5>
       <p style="word-wrap: break-word;" 
         *ngFor="let wallet of data.wallets; let i = index">
@@ -18,7 +18,8 @@
     </div>
     <div id="send">
       <send [walletData]="data" (updateWalletData)="loadWalletData()"></send>      
-    </div>
+    </div> -->
+    
   </div>
 </div>
 <nav class="main-footer blue">
@@ -34,11 +35,12 @@
             </ul>
           </div>
           <div class="col s1 m3 l3"></div> -->
-          <div><a href="#"><i class="material-icons">&#xE890;</i><span>Receive</span></a></div>
-          <div><a href="#"><i class="material-icons">&#xE896;</i><span>History</span></a></div>
-          <div><a href="#"><i class="material-icons">&#xE163;</i><span>Send</span></a></div>
+          <div><a [routerLink]="['./receive']"><i class="material-icons">&#xE890;</i><span>Receive</span></a></div>
+          <div><a [routerLink]="['./history']"><i class="material-icons">&#xE896;</i><span>History</span></a></div>
+          <div><a [routerLink]="['./send']"><i class="material-icons">&#xE163;</i><span>Send</span></a></div>
       </div>
     </div>
   </div>
 </nav>
 
+<router-outlet></router-outlet>
