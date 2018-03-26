@@ -2,51 +2,24 @@
 .wallet-container .table td {
     word-break: break-all;
 }
-.transactions-table td {
-    vertical-align: middle;
-}
 
-.my-wallets-container table td {
-    min-width: 150px;
-}
-
-:host .all-transactions-container ::ng-deep pagination-controls ul.ngx-pagination{
-    padding-left: 0px;
-}
-:host .all-transactions-container ::ng-deep pagination-controls .ngx-pagination .current {
-    background-color: #007bff!important;
-}
-
-.total-count {
-    padding: 5px;
-}
-
-.collection .collection-item p>span {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    display: block;
-    overflow: hidden;
-}
-.send-amount-inform {
-    padding-bottom: 5px;
-}
-.send-amount-inform div {
-    padding-bottom: 10px;
-}
 
 .main-footer {
 	height: auto;
 }
-.copy-to-clipboard {
-    cursor: pointer;
-    position: absolute;
-    margin-left: 5px;
+.footer-nav ul {
+    display: block;
+    line-height: normal;
+}
+.footer-nav ul>li.indicator{
+    display: none;
+}
+.footer-nav ul>li {
+    float: none;
+    display: inline-block;
+    width: 70px;
 }
 
-.footer-nav > div {
-    display: inline-block;
-    padding: 0 20px;
-}
 
 @media screen and (max-width: 1200px) {
     .wallet-container {

@@ -1,7 +1,7 @@
 <navbar (updateWalletData)="loadWalletData()" (setSendFormFromQRCode)="setSendForm($event)"></navbar>
 <div class="container wallet-container">
   <div class="row" >
-    <!-- <div id="receive">
+    <div id="receive">
       <h5 class="blue-text">Address</h5>
       <p style="word-wrap: break-word;" 
         *ngFor="let wallet of data.wallets; let i = index">
@@ -18,29 +18,23 @@
     </div>
     <div id="send">
       <send [walletData]="data" (updateWalletData)="loadWalletData()"></send>      
-    </div> -->
-    
+    </div>
+    <div id="gift">
+      <create-gift></create-gift>      
+    </div>
   </div>
 </div>
 <nav class="main-footer blue">
   <div class="nav-wrapper">
       <div class="container">
       <div class="row footer-nav center">
-          <!-- <div class="col s1 m3 l3"></div>
-          <div class="col s10 m6 l6">
-            <ul class="center" materialize="tabs">
-              <li class="tab col s4"><a class=""  href="#receive"><i class="material-icons">input</i><span>Receive</span></a></li>
-              <li class="tab col s4"><a class="active" href="#history"><i class="material-icons">list</i><span>History</span></a></li>
-              <li class="tab col s4"><a class="" href="#send"><i class="material-icons">send</i><span>Send</span></a></li>
-            </ul>
-          </div>
-          <div class="col s1 m3 l3"></div> -->
-          <div><a [routerLink]="['./receive']"><i class="material-icons">&#xE890;</i><span>Receive</span></a></div>
-          <div><a [routerLink]="['./history']"><i class="material-icons">&#xE896;</i><span>History</span></a></div>
-          <div><a [routerLink]="['./send']"><i class="material-icons">&#xE163;</i><span>Send</span></a></div>
+        <ul class="center" materialize="tabs">
+          <li class="tab"><a class=""  href="#receive"><i class="material-icons">&#xE890;</i><span>Receive</span></a></li>
+          <li class="tab"><a class="active" href="#history"><i class="material-icons">&#xE896;</i><span>History</span></a></li>
+          <li class="tab"><a class="" href="#send"><i class="material-icons">&#xE163;</i><span>Send</span></a></li>
+          <li class="tab"><a class="" href="#gift"><i class="material-icons">&#xE8F6;</i><span>Gift</span></a></li>
+        </ul>
       </div>
     </div>
   </div>
 </nav>
-
-<router-outlet></router-outlet>

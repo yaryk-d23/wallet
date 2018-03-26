@@ -1,0 +1,17 @@
+:host .all-transactions-container ::ng-deep pagination-controls ul.ngx-pagination{
+    padding-left: 0px;
+}
+:host .all-transactions-container ::ng-deep pagination-controls .ngx-pagination .current {
+    background-color: #007bff!important;
+}
+
+.total-count {
+    padding: 5px;
+}
+
+.collection .collection-item p>span {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: block;
+    overflow: hidden;
+}

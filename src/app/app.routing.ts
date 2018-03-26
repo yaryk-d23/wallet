@@ -9,9 +9,8 @@ import { RestorePasswordComponent } from './components/restore-password/restore-
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
-    { path: '', redirectTo: 'wallet', pathMatch: 'full' },
     { 
-        path: 'wallet', 
+        path: '', 
         component: WalletComponent, 
         canActivate: [AuthGuard], 
         pathMatch: 'full',
