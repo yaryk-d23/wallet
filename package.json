@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.config.json --open",
+    "start": "ng serve --proxy-config proxy.config.json  --ssl 1 --ssl-key \"C:\\Users\\YaroslavMasiuk(Skill\\Documents\\Project\\wallet\\node_modules\\browser-sync\\certs\\server.key\" --ssl-cert \"C:\\Users\\YaroslavMasiuk(Skill\\Documents\\Project\\wallet\\node_modules\\browser-sync\\certs\\server.crt\" --open",
     "build": "ng build --prod -d dist/",
     "test": "ng test",
     "lint": "ng lint",

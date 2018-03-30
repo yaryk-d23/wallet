@@ -1,35 +1,58 @@
 <div class="col s12 m8 l6 offset-m2 offset-l3">
   <h5 class="blue-text center">Create gift</h5>
   <hr>
-  <form name="createGiftForm" class="" (ngSubmit)="f.form.valid && sendData(f)" #f="ngForm">
-      <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amount.valid }">
+  <form name="createGiftForm" class="" (ngSubmit)="f.form.valid && createGift(f)" #f="ngForm">
+      <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amountGift.valid }">
           <div class="postfix">
-              <input type="checkbox" class="filled-in blue" name="allAvailableBalance"  id="AllAvailableBalance"
-                  [(ngModel)]="model.allAvailableBalance" #allAvailableBalance="ngModel" 
+              <input type="checkbox" class="filled-in blue" name="allAvailableBalanceGift"  id="AllAvailableBalanceGift"
+                  [(ngModel)]="model.allAvailableBalance" #allAvailableBalanceGift="ngModel" 
                   (ngModelChange)="setFullAmount();">
-              <label for="AllAvailableBalance" >Select All</label >
+              <label for="AllAvailableBalanceGift" >Select All</label >
             </div>
-        <label for="Amount" class="required-label">Amount</label>
-        <input type="number" name="amount" 
-            [(ngModel)]="model.amount" #amount="ngModel"
+        <label for="AmountGift" class="required-label">Amount</label>
+        <input type="number" name="amountGift" 
+            [(ngModel)]="model.amount" #amountGift="ngModel"
             [disabled]="model.allAvailableBalance"  
             (ngModelChange)="getTotalAmount();"
-            id="Amount" placeholder="0.00" required>
+            id="AmountGift" placeholder="0.00" required>
       </div>
-    <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback red-text">Amount is required!</div>  
+    <div *ngIf="f.submitted && amountGift.invalid" class="invalid-feedback red-text">Amount is required!</div>  
     <div *ngIf="feeInform.baseFee" class="send-amount-inform">
       <div>You enter: {{model.amount * coeficient | amountTranform: 12 : 'KRB'}}</div>
       <div>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}</div>
       <div>Total amount: {{amountWithFee.amount | amountTranform: 12 : 'KRB'}}</div>
-    </div>           
+    </div>   
+    <br/>     
+    <div class="row">
+      <div class="input-field col s6">
+        <label for="GiftExpiriedDate">Gift Expiried Date</label>
+        <input id="GiftExpiriedDate" name="GiftExpiriedDate" 
+          [(ngModel)]="model.GiftExpiriedDate"
+          #GiftExpiriedDate="ngModel"
+          materialize="pickadate"
+          [materializeParams]="[{format: 'dd/mm/yyyy'}]"
+          type="text" 
+        />
+      </div>
+      <div class="input-field col s6">
+        <label for="GiftExpiriedTime">Gift Expiried Time</label>
+        <input id="GiftExpiriedTime" name="GiftExpiriedTime" 
+          [(ngModel)]="model.GiftExpiriedTime"
+          #GiftExpiriedTime="ngModel"
+          materialize="pickatime"
+          [materializeParams]="[{format: 'dd/mm/yyyy'}]"
+          type="text" 
+        />
+      </div>
+    </div> 
     <div class="input-field">
         <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
             <span>Generate</span>
           </button>
         <label for="PaymentId">Payment Id:</label>
-        <input type="text" name="paymentId" 
+        <input type="text" name="paymentIdGift" 
             placeholder="Enter Payment Id or click on generate button"
-            [(ngModel)]="model.paymentId" #paymentId="ngModel" 
+            [(ngModel)]="model.paymentId" #paymentIdGift="ngModel" 
             id="PaymentId">                
         
     </div>

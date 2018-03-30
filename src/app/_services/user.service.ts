@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import 'rxjs/add/operator/catch';
 import { forkJoin } from "rxjs/observable/forkJoin";
-import { User, Wallet, SendRequest, NewPassword } from '../_models/index';
+import { User, Wallet, SendRequest, NewPassword, Gift } from '../_models/index';
 import { Router } from '@angular/router';
 import { error } from 'util';
 
@@ -121,6 +121,17 @@ export class UserService {
         return this.http.get('/api/v1/wallet/send/confirm?token=' + token, this.jwt(false))
             .map((response: Response) => {
                 // this.logoutAfterError(response);                        
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
+    };
+
+    createGift(data: Gift){
+        return this.http.post('/api/v1/gift/create', data, this.jwt(true))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                    
                 return response.json();
             }).catch((response: Response) => {
                 this.logoutAfterError(response); 

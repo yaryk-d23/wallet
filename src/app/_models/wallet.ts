@@ -62,3 +62,20 @@ export class Fee {
     address: string;
     comment?: string;
 }
+
+export class Gift{
+    
+    additionalFee?: number;
+    amount: number;
+    expiration?: string;
+    fee?: number;
+    paymentId?: string;
+    transactionInfo?: TransactionInfo;
+    url?: string;
+}
+
+export class TransactionInfo {
+    message?: string;
+    status?: string;
+    transactionHash?: string;
+}
