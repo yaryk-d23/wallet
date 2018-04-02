@@ -30,9 +30,15 @@
           [(ngModel)]="model.GiftExpiriedDate"
           #GiftExpiriedDate="ngModel"
           materialize="pickadate"
-          [materializeParams]="[{format: 'dd/mm/yyyy'}]"
+          [materializeParams]="[{format: 'dd/mm/yyyy', isRTL: true}]"
           type="text" 
         />
+        <!-- <p-calendar  id="GiftExpiriedDate" name="GiftExpiriedDate"
+          [(ngModel)]="model.GiftExpiriedDate" 
+          #GiftExpiriedDate="ngModel"
+          showTime="true"
+          placeholder="Enter Gift Expiried Date">
+        </p-calendar> -->
       </div>
       <div class="input-field col s6">
         <label for="GiftExpiriedTime">Gift Expiried Time</label>
@@ -40,7 +46,7 @@
           [(ngModel)]="model.GiftExpiriedTime"
           #GiftExpiriedTime="ngModel"
           materialize="pickatime"
-          [materializeParams]="[{format: 'dd/mm/yyyy'}]"
+          [materializeParams]="[{twelvehour: false}]"
           type="text" 
         />
       </div>

@@ -1,0 +1,79 @@
+<nav class="nav-extended blue hide-on-med-and-down main-nav">
+    <div class="container nav-wrapper center">
+      <a class="logo btn hide-on-small-and-down left material-icons circle medium" href="#">
+        Ҝ
+      </a>
+      <ul class="right">
+        <li class="current-account">
+          <a class="dropdown-button chip blue darken-1 white-text" href="#!" materialize="dropdown" data-activates="account-dropdown">
+            Settings
+            <i class="material-icons right">arrow_drop_down</i>
+          </a>
+          <ul id="account-dropdown" class="dropdown-content blue">
+              <li class="divider"></li>
+              <li>
+                <a class="white-text" [routerLink]="['/login']">Login</a>
+              </li>
+            </ul>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  
+  <nav class="nav-extended blue hide-on-large-only second-nav">
+      <div class="container nav-wrapper center">
+        <ul id="slide-out" class="side-nav fixed blue">
+          <li class="center">
+            <a class="logo btn center material-icons circle medium" href="#">
+              Ҝ
+            </a>
+          </li>
+          <li class="no-padding">
+            <ul>
+              <li><div class="chip blue darken-1 white-text"><span>Settings</span></div></li>
+              <li><a class="btn white black-text" [routerLink]="['/login']">Login</a></li>
+              <li><a class="white-text" href="/help">Help</a></li>
+            </ul>
+          </li>
+        </ul>
+        <a href="#" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="slide-out"
+            class="button-collapse">
+            <i class="material-icons">menu</i>
+        </a>
+      </div>
+  </nav>
+  <div class="container wallet-container">
+    <div class="row">
+      <div class="col s12 m8 l6 offset-m2 offset-l3">
+        <h5 class="blue-text center">Gift confirmation</h5>
+        <hr>
+        <form name="sendForm" class="" (ngSubmit)="f.form.valid && sendData(f)" #f="ngForm">
+          <!-- <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
+            <label for="ToWalletAddress" class="required-label">To address:</label>
+            <textarea class="materialize-textarea" name="ToWalletAddress"  
+                [(ngModel)]="address" #address="ngModel" 
+                id="ToWalletAddress" required placeholder="Enter address" 
+                pattern="^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$"></textarea>
+            <div *ngIf="f.submitted && !address.valid" class="invalid-feedback red-text">Address must start from 'K' and have 95 characters</div>
+          </div> -->
+          <div>
+              <label>Amount:</label>
+              <div>{{model.amount}}</div>
+          </div>
+          <div>
+              <label>Payment Id:</label>
+              <div>{{model.paymentId}}</div>
+          </div>
+          <div>
+            <label>Expiration:</label>
+            <div>{{expTime}}</div>
+          </div>
+          <hr>
+          <div class="center">
+            <!-- <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button> -->
+            <button type="submit" class="btn blue">Send<i class="material-icons right">send</i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

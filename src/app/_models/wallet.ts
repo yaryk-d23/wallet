@@ -63,8 +63,22 @@ export class Fee {
     comment?: string;
 }
 
+export class GiftRequest{
+    constructor(){
+        this.allAvailableBalance = false;
+        this.amount = 0;
+        this.paymentId = null;
+        this.GiftExpiriedDate = '';
+        this.GiftExpiriedTime = '';
+    }
+    allAvailableBalance: boolean;
+    amount: number;
+    paymentId?: string;
+    GiftExpiriedDate: string;
+    GiftExpiriedTime?: string;
+}
+
 export class Gift{
-    
     additionalFee?: number;
     amount: number;
     expiration?: string;

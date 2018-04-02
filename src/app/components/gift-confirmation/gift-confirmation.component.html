@@ -1,0 +1,8 @@
+<br>
+<div class="container col-md-3">
+  <div class="text-center">
+    <p>{{message.message | json}}</p>
+    <p *ngIf="message.status == 'SUCCESS'">Click <a [routerLink]="['/']">this</a> for go main page.</p>
+    <p *ngIf="message.status == 'ERROR'">Click <a [routerLink]="['/']">this</a> for go main page.</p>
+  </div>
+</div>

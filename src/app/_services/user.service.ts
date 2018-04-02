@@ -139,6 +139,31 @@ export class UserService {
             });
     };
 
+    confirmGift(token: string){
+        return this.http.get('/api/v1/gift/confirm?token=' + token, this.jwt(true))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                    
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
+    };
+
+    getGift(token: string, address?: string){
+        let reuestUrl = '/api/v1/gift?token=' + token;
+        if(address) 
+            reuestUrl += '&address=' + address;
+        return this.http.get(reuestUrl, this.jwt(true))
+            .map((response: Response) => {
+                // this.logoutAfterError(response.status);                    
+                return response.json();
+            }).catch((response: Response) => {
+                this.logoutAfterError(response); 
+                return response.json();
+            });
+    };
+
     changePassword(data: NewPassword){
         return this.http.put('/api/v1/user/password', data, this.jwt(true))
             .map((response: Response) => {

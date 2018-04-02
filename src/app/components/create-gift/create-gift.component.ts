@@ -1,13 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { User, Wallet, SendRequest, Fee, Gift } from '../../_models/index';
+import { User, Wallet, SendRequest, Fee, GiftRequest, Gift } from '../../_models/index';
 import { AlertService, UserService, PreloaderService } from '../../_services/index';
+
 @Component({
   selector: 'create-gift',
   templateUrl: './create-gift.component.html',
   styleUrls: ['./create-gift.component.css']
 })
 export class CreateGiftComponent implements OnInit {
-  model: SendRequest = new SendRequest();
+  model: GiftRequest = new GiftRequest();
   sendForm: any;
   feeInform: Fee = new Fee();
   amountWithFee: any = {
@@ -15,6 +16,7 @@ export class CreateGiftComponent implements OnInit {
       fee: 0
   };
   coeficient: number = 1000000000000;
+
   constructor(
     private userService: UserService,
     private alertService: AlertService,
@@ -75,16 +77,22 @@ export class CreateGiftComponent implements OnInit {
   }
 
   public setFullAmount(): void {
-    this.model.amount = this.walletData.balance.available * 1000000000000;
+    this.model.amount = this.walletData.balance.available * this.coeficient;
     this.getTotalAmount();
+  }
+
+  public test(date){
+      console.log(date)
   }
 
   public createGift(form: any): void {
     this.preloaderService.show();
-    console.log(form, this.model);
+    let _giftExpiriedDate = this.model.GiftExpiriedDate.split('/')[2] +'-'+  this.model.GiftExpiriedDate.split('/')[1] +'-'+ this.model.GiftExpiriedDate.split('/')[0];
+    let _giftExpiriedTime = this.model.GiftExpiriedTime.split(':');
     let newGift: Gift = {
-      amount: this.model.amount,
-      paymentId: this.model.paymentId ? this.model.paymentId : ''
+      amount: this.model.amount * this.coeficient,
+      paymentId: this.model.paymentId ? this.model.paymentId : '',
+      expiration: new Date(_giftExpiriedDate+'T'+this.model.GiftExpiriedTime).toISOString()
     };
     this.userService.createGift(newGift).subscribe(data => { 
       this.alertService.success(data);
@@ -98,7 +106,7 @@ export class CreateGiftComponent implements OnInit {
         if(error._body == ""){
             error._body = {status: 'ERROR', message: error.statusText}; 
         }
-        this.alertService.error(error._body);;
+        this.alertService.error(error._body);
     });
   }
 }

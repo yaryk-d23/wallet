@@ -36,6 +36,8 @@ import { RestorePasswordComponent } from './components/restore-password/restore-
 import { QrcodeScanerComponent } from './components/qrcode-scaner/qrcode-scaner.component';
 import { HistoryComponent } from './components/history/history.component';
 import { CreateGiftComponent } from './components/create-gift/create-gift.component';
+import { GiftConfirmationComponent } from './components/gift-confirmation/gift-confirmation.component';
+import { GiftComponent } from './components/gift/gift.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { CreateGiftComponent } from './components/create-gift/create-gift.compon
     RestorePasswordComponent,
     QrcodeScanerComponent,
     HistoryComponent,
-    CreateGiftComponent
+    CreateGiftComponent,
+    GiftConfirmationComponent,
+    GiftComponent
     
   ],
   imports: [
