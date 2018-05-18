@@ -10,9 +10,9 @@ import { Gift } from '../../_models/index';
 export class GiftComponent implements OnInit {
   token: string;
   model: Gift;
-  expTime: string;
   address: string;
-
+  expTime: string = '';
+  coeficient: number = 1000000000000;
   constructor(    
     private route: ActivatedRoute,
     private router: Router,
@@ -21,6 +21,10 @@ export class GiftComponent implements OnInit {
     private preloaderService: PreloaderService) { 
       this.token = this.route.snapshot.queryParams['token'] || '/';
       this. address = '';
+      this.model = {
+        amount: 0,
+        paymentId: '',
+      };
     }
 
 
@@ -28,13 +32,12 @@ export class GiftComponent implements OnInit {
     this.GetGift();
   }
 
-  public GetGiftExpiration(expDate: string){
+  public GetGiftExpiration =(expDate: string)=>{
     // Set the date we're counting down to
     var countDownDate = new Date(expDate).getTime();
 
     // Update the count down every 1 second
-    var x = setInterval(function() {
-
+    var x = setInterval(() => {
       // Get todays date and time
       var now = new Date().getTime();
 
@@ -48,8 +51,7 @@ export class GiftComponent implements OnInit {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
-      this.expTime = days + "d " + hours + "h "
-      + minutes + "m " + seconds + "s ";
+      this.expTime = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
 
       // If the count down is finished, write some text 
       if (distance < 0) {
@@ -62,10 +64,11 @@ export class GiftComponent implements OnInit {
   public GetGift(){
     this.preloaderService.show(); 
     this.userService.getGift(this.token).subscribe(res => {
-      this.preloaderService.hide();
-      this.model.amount = res.amount;
+      this.model.amount = res.amount / this.coeficient;
       this.model.paymentId = res.paymentId;
       this.model.expiration = res.expiration;
+      this.GetGiftExpiration(this.model.expiration);
+      this.preloaderService.hide();
     }, error => {
       this.preloaderService.hide();       
       if(error._body == ""){

@@ -34,11 +34,13 @@ export class GiftConfirmationComponent implements OnInit {
   public ConfirmGift(): void {
     this.preloaderService.show();     
     this.userService.confirmGift(this.token).subscribe(res => {
+      console.log(res);
       this.message.message = res.transactionInfo.message;
       this.message.status = "SUCCESS";
+      this.alertService.success(this.message);
       this.preloaderService.hide();
       setTimeout(() => {
-        this.router.navigateByUrl("/");
+        this.router.navigateByUrl(res.url);
       }, 3000);
     }, error => {
       if(error._body == ""){

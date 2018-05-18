@@ -132,8 +132,10 @@ export class UserService {
         return this.http.post('/api/v1/gift/create', data, this.jwt(true))
             .map((response: Response) => {
                 // this.logoutAfterError(response.status);                    
+                console.log(response);
                 return response.json();
             }).catch((response: Response) => {
+                console.log(response);
                 this.logoutAfterError(response); 
                 return response.json();
             });

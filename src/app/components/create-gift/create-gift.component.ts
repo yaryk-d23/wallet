@@ -81,10 +81,6 @@ export class CreateGiftComponent implements OnInit {
     this.getTotalAmount();
   }
 
-  public test(date){
-      console.log(date)
-  }
-
   public createGift(form: any): void {
     this.preloaderService.show();
     let _giftExpiriedDate = this.model.GiftExpiriedDate.split('/')[2] +'-'+  this.model.GiftExpiriedDate.split('/')[1] +'-'+ this.model.GiftExpiriedDate.split('/')[0];
@@ -95,7 +91,11 @@ export class CreateGiftComponent implements OnInit {
       expiration: new Date(_giftExpiriedDate+'T'+this.model.GiftExpiriedTime).toISOString()
     };
     this.userService.createGift(newGift).subscribe(data => { 
-      this.alertService.success(data);
+        let message = {
+            status: 'SUCCESS',
+            message: 'Gift has been created, please check your email for confirmation!'
+        };
+      this.alertService.success('Gift has been created, please check your email for confirmation!');
       //this.model = new SendRequest();
       form.onReset();
       //this.switchActiveTab('History');
