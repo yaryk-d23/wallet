@@ -31,16 +31,6 @@ nav i.balance-lock {
     display: inline-block;
     font-size: 12px;
 }
-.wallet-balance {
-	font-size: 1.6em;
-}
-.wallet-balance div {
-    display: inline-block;
-}
-.wallet-balance div:first-child {
-    margin-top: 10px;
-}
-
 .current-account i {
     line-height: inherit;
 }
@@ -53,24 +43,14 @@ nav i.balance-lock {
 .current-account .dropdown-content {
     top: 55px!important;
 }
-#expiration-time > div > div:not(.clearfix){
-    color: #fff;
-	padding: 10px;
-	border-radius: 3px;
-    background: rgba(33, 150, 243, 0.6);
-    border-left: 5px solid #fff;
+.current-account .dropdown-button>span {
+    vertical-align: top;
 }
-#expiration-time > div > div:not(.clearfix):first-child{
-    border-left: 0px;
+.current-account .dropdown-button>span:first-child{
+    display: inline-block;
+    margin-top: 3px;
 }
-#expiration-time > div > div:not(.clearfix) > span{
-    padding: 10px 0;
-	border-radius: 3px;
-	background: #2196F3;
-    display: block;
-    margin-bottom: 5px;
-    font-size: 30px;
-}
-.break-word{
-    word-break: break-word;
+.current-account >>> canvas {
+    border: 1px solid #fff;
+    border-radius: 5px;
 }

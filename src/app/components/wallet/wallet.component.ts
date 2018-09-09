@@ -15,6 +15,7 @@ export class WalletComponent implements OnInit {
   currentUser: User;
   
   data: Wallet = new Wallet();
+  qrData: SendRequest = new SendRequest();
   
   
   constructor(
@@ -79,31 +80,57 @@ export class WalletComponent implements OnInit {
     newActiveTab.click();
   }
 
-//   public setSendForm(qrData:string){
-//     this.switchActiveTab("Send");
-//     this.model = {...this.parseQRStringToObject(qrData)};
-//     if(this.model.amount)
-//         this.getTotalAmount();
-//   }
+  public setSendForm(qrData:string){
+    this.switchActiveTab("Send");
+    this.qrData = {...this.parseQRStringToObject(qrData)};
+    // if(this.qrData.amount)
+    //     this.getTotalAmount();
+  }
 
   private parseQRStringToObject(qrString: string): SendRequest{
     let tmpString = qrString;
     let newSendData = new SendRequest();
     let tmoObj: any = {};
-    tmoObj[tmpString.split(":")[0]] = tmpString.split(":")[1].split("?")[0];
-    tmpString = tmpString.split(":")[1].split("?")[1];
+    let address: string;
+    if(tmpString.indexOf('karbowanec:') != -1){
+      address = tmpString.split('?')[0].split(":")[1];
+    }
+    else {
+      address = tmpString.split('?')[0];
+    }
+    tmoObj["karbowanec"] = this.validateQrcodeParams(address, 'address');
+    tmpString = tmpString.split("?")[1];
     if(tmpString){
         tmpString.split("&").forEach((param) => {
             let name = param.split("=")[0],
                 value = param.split("=")[1];
             if(name && value)
-                tmoObj[name] = value;
+                tmoObj[name] = this.validateQrcodeParams(value, name);
         })
     }
     newSendData.address = tmoObj.karbowanec ? tmoObj.karbowanec : "";
     newSendData.amount = tmoObj.amount ? tmoObj.amount : 0;
     newSendData.paymentId = tmoObj.payment_id ? tmoObj.payment_id : "";
     return newSendData;
+  }
+
+  private validateQrcodeParams(value:string, type:string){
+    let validValue = "";
+    switch(type){
+      case "address":
+        validValue = /^K[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz]{94}$/.test(value) ? value : "";
+        break;
+      case "amount":
+      validValue = /^[+]?\d+(\.\d+)?$/.test(value) ? value : "";
+        break;
+      case "paimantId":
+        validValue = /^[0-9A-Fa-f]{64}$/.test(value) ? value : "";
+        break;
+      default:
+        validValue = value
+        break;
+    }
+    return validValue;
   }
 
 }

@@ -33,7 +33,7 @@
             (ngModelChange)="getTotalAmount();"
             id="Amount" placeholder="0.00" required>
       </div>
-    <div *ngIf="f.submitted && !amount.valid" class="invalid-feedback red-text">Amount is required!</div>  
+    <div *ngIf="f.submitted && amount.invalid" class="invalid-feedback red-text">Amount is required!</div>  
     <div *ngIf="feeInform.baseFee" class="send-amount-inform">
       <div>You enter: {{model.amount * coeficient | amountTranform: 12 : 'KRB'}}</div>
       <div>Full fee: {{amountWithFee.fee | amountTranform: 12 : 'KRB'}}</div>

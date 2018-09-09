@@ -9,6 +9,7 @@ import { ManageAccountComponent } from './components/manage-account/manage-accou
 import { RestorePasswordComponent } from './components/restore-password/restore-password.component';
 import { GiftConfirmationComponent } from './components/gift-confirmation/gift-confirmation.component';
 import { GiftComponent } from './components/gift/gift.component';
+import { PaymentComponent } from './components/payment/payment.component'
 import { AuthGuard } from './_guards/index';
 
 const appRoutes: Routes = [
@@ -31,6 +32,7 @@ const appRoutes: Routes = [
     { path: 'restore-password', component: RestorePasswordComponent },
     { path: 'giftconfirmation', component: GiftConfirmationComponent },
     { path: 'gift', component: GiftComponent },
+    { path: 'user/:userName', component: PaymentComponent },
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
 ];

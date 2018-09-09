@@ -1,0 +1,97 @@
+<nav class="nav-extended blue hide-on-med-and-down main-nav">
+  <div class="container nav-wrapper center">
+    <a class="logo btn hide-on-small-and-down left material-icons circle medium" href="#">
+      Ҝ
+    </a>
+    <ul class="right">
+      <li class="current-account">
+        <a class="dropdown-button chip blue darken-1 white-text" materialize="dropdown" data-activates="account-dropdown">
+          <span>
+            <angular-blockies [options]="blockiesOptions"></angular-blockies>
+          </span>
+          <span>{{userName}}</span>
+          <i class="material-icons right">arrow_drop_down</i>
+        </a>
+        <ul id="account-dropdown" class="dropdown-content blue">
+            <li class="divider"></li>
+            <li>
+              <a class="white-text" [routerLink]="['/login']">Login</a>
+            </li>
+          </ul>
+      </li>
+    </ul>
+  </div>
+</nav>
+<nav class="nav-extended blue hide-on-large-only second-nav">
+    <div class="container nav-wrapper center">
+      <ul id="slide-out" class="side-nav fixed blue">
+        <li class="center">
+          <a class="logo btn center material-icons circle medium" href="#">
+            Ҝ
+          </a>
+        </li>
+        <li class="no-padding">
+          <ul>
+            <li><div class="chip blue darken-1 white-text"><span>{{userName}}</span></div></li>
+            <li><a class="btn white black-text" [routerLink]="['/login']">Login</a></li>
+            <li><a class="white-text" href="/help">Help</a></li>
+          </ul>
+        </li>
+      </ul>
+      <a href="#" materialize="sideNav" [materializeParams]="[{edge:'left'}]" data-activates="slide-out"
+          class="button-collapse">
+          <i class="material-icons">menu</i>
+      </a>
+    </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col s12 m4">
+      <div class="center">
+        <br/>
+        <ngx-qrcode [qrc-element-type]="elementType" [qrc-value] = "qrValue">
+          </ngx-qrcode>
+      </div>
+    </div>
+    <div class="col s12 m8">
+      <div class="col s12 m12 l12">
+        <h5 class="blue-text">Address</h5>
+        <p style="word-wrap: break-word;">
+          <span>{{data.address}}</span>
+        </p>
+      </div>
+      <div *ngIf="userName != 'Not Found'">
+        <form name="receiveForm" class="" (ngSubmit)="f.form.valid && generateQRcode()" #f="ngForm">
+          <div class="col s12 m12 l12">
+            <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amount.valid }">
+              <label for="Amount">Amount</label>
+              <input type="number" name="amount" 
+                  [(ngModel)]="data.amount" #amount="ngModel"
+                  id="Amount" placeholder="0.00">
+              <!-- <span *ngIf="f.submitted && !amount.valid" 
+                    class="invalid-feedback red-text">
+                    Amount is required!
+              </span> -->
+            </div>
+          </div>
+          <div class="col s12 m12 l12">
+            <div class="input-field">
+                <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
+                    <span>Generate</span>
+                  </button>
+                <label for="PaymentId">Payment Id:</label>
+                <input type="text" name="paymentId" 
+                    [(ngModel)]="data.paymentId" #paymentId="ngModel" 
+                    id="PaymentId"  placeholder="Enter Payment Id or click on generate button">                
+                
+            </div>
+          </div>
+          <br>
+          <div class="center col s12 m12 l12">
+              <button type="submit" class="btn blue">Receive<i class="material-icons right">input</i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

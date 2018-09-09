@@ -16,7 +16,12 @@ export class CreateGiftComponent implements OnInit {
       fee: 0
   };
   coeficient: number = 1000000000000;
-
+  currentDate: Date = new Date();
+  datePickerOption = {
+      format: 'dd/mm/yyyy', 
+      isRTL: true, 
+      min: this.currentDate
+    };
   constructor(
     private userService: UserService,
     private alertService: AlertService,
@@ -86,16 +91,16 @@ export class CreateGiftComponent implements OnInit {
     let _giftExpiriedDate = this.model.GiftExpiriedDate.split('/')[2] +'-'+  this.model.GiftExpiriedDate.split('/')[1] +'-'+ this.model.GiftExpiriedDate.split('/')[0];
     let _giftExpiriedTime = this.model.GiftExpiriedTime.split(':');
     let newGift: Gift = {
-      amount: this.model.amount * this.coeficient,
-      paymentId: this.model.paymentId ? this.model.paymentId : '',
-      expiration: new Date(_giftExpiriedDate+'T'+this.model.GiftExpiriedTime).toISOString()
+        amount: this.model.amount * this.coeficient,
+        expiration: new Date(_giftExpiriedDate+'T'+this.model.GiftExpiriedTime).toISOString()
     };
+    this.model.paymentId ? newGift["paymentId"] = this.model.paymentId : null;
     this.userService.createGift(newGift).subscribe(data => { 
         let message = {
             status: 'SUCCESS',
             message: 'Gift has been created, please check your email for confirmation!'
         };
-      this.alertService.success('Gift has been created, please check your email for confirmation!');
+      this.alertService.success(message);
       //this.model = new SendRequest();
       form.onReset();
       //this.switchActiveTab('History');
@@ -103,8 +108,9 @@ export class CreateGiftComponent implements OnInit {
     },
     error => {
         this.preloaderService.hide();
-        if(error._body == ""){
-            error._body = {status: 'ERROR', message: error.statusText}; 
+        console.log(error);
+        if(!error._body){
+            error._body = {status: 'ERROR', message: "Error! Sorry something's wrong."}; 
         }
         this.alertService.error(error._body);
     });

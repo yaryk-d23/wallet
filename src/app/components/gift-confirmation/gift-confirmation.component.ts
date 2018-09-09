@@ -34,19 +34,18 @@ export class GiftConfirmationComponent implements OnInit {
   public ConfirmGift(): void {
     this.preloaderService.show();     
     this.userService.confirmGift(this.token).subscribe(res => {
-      console.log(res);
-      this.message.message = res.transactionInfo.message;
+      this.message.message = "Gift has been confirmed";
       this.message.status = "SUCCESS";
-      this.alertService.success(this.message);
       this.preloaderService.hide();
       setTimeout(() => {
-        this.router.navigateByUrl(res.url);
+        location.href = res.url;
       }, 3000);
     }, error => {
+      console.log(error);
       if(error._body == ""){
         error._body = error.statusText; 
       }
-      this.message.message = error._body;
+      this.message.message = "Error! Sorry something's wrong.";
       this.message.status = "ERROR";
       this.preloaderService.hide(); 
     });

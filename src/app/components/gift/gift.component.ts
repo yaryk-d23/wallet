@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertService, UserService, PreloaderService } from '../../_services/index';
-import { Gift } from '../../_models/index';
+import { Gift, ExpirationTime } from '../../_models/index';
 @Component({
   selector: 'gift',
   templateUrl: './gift.component.html',
@@ -10,8 +10,8 @@ import { Gift } from '../../_models/index';
 export class GiftComponent implements OnInit {
   token: string;
   model: Gift;
-  address: string;
-  expTime: string = '';
+  sendAddress: string  = '';
+  expTime: ExpirationTime;
   coeficient: number = 1000000000000;
   constructor(    
     private route: ActivatedRoute,
@@ -20,7 +20,6 @@ export class GiftComponent implements OnInit {
     private alertService: AlertService,
     private preloaderService: PreloaderService) { 
       this.token = this.route.snapshot.queryParams['token'] || '/';
-      this. address = '';
       this.model = {
         amount: 0,
         paymentId: '',
@@ -29,6 +28,7 @@ export class GiftComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log(this.expTime);
     this.GetGift();
   }
 
@@ -51,12 +51,18 @@ export class GiftComponent implements OnInit {
       var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
       // Display the result in the element with id="demo"
-      this.expTime = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+      this.expTime = {
+        days: days,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+        status: "Valid"
+      };
 
       // If the count down is finished, write some text 
       if (distance < 0) {
         clearInterval(x);
-        this.expTime = "EXPIRED";
+        this.expTime.status = "EXPIRED";
       }
     }, 1000);
   }
@@ -66,7 +72,14 @@ export class GiftComponent implements OnInit {
     this.userService.getGift(this.token).subscribe(res => {
       this.model.amount = res.amount / this.coeficient;
       this.model.paymentId = res.paymentId;
-      this.model.expiration = res.expiration;
+      /*check if date not have time zone */
+      if(res.expiration.length <= 19){
+        let timeZone = new Date().getTimezoneOffset()* 60000;
+        this.model.expiration = new Date(new Date(res.expiration).getTime() - timeZone).toISOString();
+      }
+      else {
+        this.model.expiration = res.expiration;
+      }
       this.GetGiftExpiration(this.model.expiration);
       this.preloaderService.hide();
     }, error => {
@@ -77,6 +90,21 @@ export class GiftComponent implements OnInit {
       this.alertService.error(error._body);
     });
   }
+
+  public ApplyGift(){
+    this.preloaderService.show();
+    this.userService.getGift(this.token, this.sendAddress).subscribe(res => {
+      this.preloaderService.hide();
+      this.alertService.error({message:"Gift has been send!",status:"SUCCESS"});
+      this.router.navigate(['']);
+    }, error => {
+      this.preloaderService.hide();  
+      console.log(error);     
+      this.alertService.error(error.message);
+    });
+  }
+
+
 
 
 }

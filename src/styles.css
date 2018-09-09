@@ -206,3 +206,35 @@ nav .nav-wrapper .qr-code i {
     width: 100%;
 }
 
+/*date and time pickers style*/
+.picker__date-display {
+    background-color: #2196F3;
+}
+.picker__day--selected, 
+.picker__day--selected:hover, 
+.picker--focused .picker__day--selected {
+    background-color: #2196F3;
+}
+.picker__close, 
+.picker__today, 
+.picker__clear {
+    color: #2196F3;
+}
+.picker__day.picker__day--today {
+    color: #2196F3;
+}
+button.picker__today:focus, 
+button.picker__clear:focus, 
+button.picker__close:focus,
+.clockpicker-tick.active, 
+.clockpicker-tick:hover {
+    background-color: #cde7fb;
+}
+.clockpicker-canvas-bg,
+.clockpicker-canvas-bearing {
+    fill: #cde7fb;
+}
+.clockpicker-canvas line {
+    stroke: #cde7fb;
+}
+

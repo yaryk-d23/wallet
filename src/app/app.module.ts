@@ -6,7 +6,8 @@ import { HttpModule } from '@angular/http';
 import { LoadingModule } from 'ngx-loading';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { NgxQRCodeModule } from 'ngx-qrcode3';
-import { NgQrScannerModule } from 'angular2-qrscanner';
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+
 // used to create fake backend
 import { BaseRequestOptions } from '@angular/http';
 
@@ -38,6 +39,8 @@ import { HistoryComponent } from './components/history/history.component';
 import { CreateGiftComponent } from './components/create-gift/create-gift.component';
 import { GiftConfirmationComponent } from './components/gift-confirmation/gift-confirmation.component';
 import { GiftComponent } from './components/gift/gift.component';
+import { PaymentComponent } from './components/payment/payment.component';
+import { BlockiesModule } from 'angular-blockies';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,8 @@ import { GiftComponent } from './components/gift/gift.component';
     HistoryComponent,
     CreateGiftComponent,
     GiftConfirmationComponent,
-    GiftComponent
+    GiftComponent,
+    PaymentComponent
     
   ],
   imports: [
@@ -74,7 +78,8 @@ import { GiftComponent } from './components/gift/gift.component';
     NgxPaginationModule,
     MaterializeModule,
     NgxQRCodeModule,
-    NgQrScannerModule
+    ZXingScannerModule,
+    BlockiesModule
   ],
   providers: [
     AuthGuard,

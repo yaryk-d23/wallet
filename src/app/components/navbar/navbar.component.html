@@ -29,6 +29,10 @@
             </li>
             <li class="divider"></li>
             <li>
+              <a class="white-text" [routerLink]="['/payment']">Payment</a>
+            </li>
+            <li class="divider"></li>
+            <li>
               <a class="white-text" [routerLink]="['/login']">Logout</a>
             </li>
           </ul>
@@ -81,7 +85,7 @@
   [materializeActions]="modalActions">
   <div class="modal-content">
     <h4>Scan QR-Code</h4>
-    <qrcode-scaner [visible]="showScanModal" (scanQRCode)="getQRCodeData($event)"></qrcode-scaner>
+    <qrcode-scaner *ngIf="showScanModal" [visible]="showScanModal" (scanQRCode)="getQRCodeData($event)"></qrcode-scaner>
   </div>
   <div class="modal-footer">
     <a class="waves-effect waves-green btn-flat" (click)="closeScanModal()">Close</a>

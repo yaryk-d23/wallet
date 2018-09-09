@@ -17,7 +17,7 @@
       <history [transactions]="data.transactions"></history>
     </div>
     <div id="send">
-      <send [walletData]="data" (updateWalletData)="loadWalletData()"></send>      
+      <send [walletData]="data" (updateWalletData)="loadWalletData()" [qrCodeData]="qrData"></send>      
     </div>
     <div id="gift">
       <create-gift [walletData]="data"></create-gift>      
@@ -30,9 +30,9 @@
       <div class="row footer-nav center">
         <ul class="center" materialize="tabs">
           <li class="tab"><a class=""  href="#receive"><i class="material-icons">&#xE890;</i><span>Receive</span></a></li>
-          <li class="tab"><a class="" href="#history"><i class="material-icons">&#xE896;</i><span>History</span></a></li>
+          <li class="tab"><a class="active" href="#history"><i class="material-icons">&#xE896;</i><span>History</span></a></li>
           <li class="tab"><a class="" href="#send"><i class="material-icons">&#xE163;</i><span>Send</span></a></li>
-          <li class="tab"><a class="active" href="#gift"><i class="material-icons">&#xE8F6;</i><span>Gift</span></a></li>
+          <li class="tab"><a class="" href="#gift"><i class="material-icons">&#xE8F6;</i><span>Gift</span></a></li>
         </ul>
       </div>
     </div>

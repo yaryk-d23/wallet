@@ -5,6 +5,7 @@ import { forkJoin } from "rxjs/observable/forkJoin";
 import { User, Wallet, SendRequest, NewPassword, Gift } from '../_models/index';
 import { Router } from '@angular/router';
 import { error } from 'util';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class UserService {
@@ -173,6 +174,13 @@ export class UserService {
                 return response.json();
             }).catch((response: Response) => {
                 this.logoutAfterError(response); 
+                return response.json();
+            });
+    }
+
+    getAddressByUserName(userName: string):Observable<any>{
+        return this.http.get('/api/v1/wallet/address?txt='+userName+'.karbo.me')
+            .map((response: Response) => {
                 return response.json();
             });
     }

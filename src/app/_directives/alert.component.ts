@@ -42,6 +42,7 @@ export class AlertComponent {
         this.alertService.getMessage().subscribe(message => { 
             if(message){
                 this.message = message.text; 
+                console.log(message);
                 setTimeout(() => {
                     this.message = undefined;
                 },5000);

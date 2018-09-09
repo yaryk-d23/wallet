@@ -27,6 +27,11 @@ export class SendComponent implements OnInit {
 
   @Input() 
     walletData: any;
+  @Input() 
+    set qrCodeData(value: SendRequest){
+        this.model = value;
+        this.getTotalAmount();
+    };
   @Output()
     updateWalletData = new EventEmitter();
 

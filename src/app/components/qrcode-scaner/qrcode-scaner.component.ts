@@ -1,22 +1,46 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import {Subject} from 'rxjs/Subject';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewChecked } from '@angular/core';
+import { ZXingScannerComponent } from '@zxing/ngx-scanner';
+import { Result } from '@zxing/library';
 
 @Component({
   selector: 'qrcode-scaner',
   templateUrl: './qrcode-scaner.component.html',
   styleUrls: ['./qrcode-scaner.component.css']
 })
-export class QrcodeScanerComponent implements OnInit {
-  cameraStarted: boolean = false;
-  qrResult: string;
-  selectedDevice: any;
-  availableDevices: object = [];
+export class QrcodeScanerComponent implements AfterViewChecked  {
+  @ViewChild('scanner')
+    scanner: ZXingScannerComponent;
 
-  chosenCameraSubject = new Subject();
+  hasCameras = false;
+  hasPermission: boolean;
+  qrResultString: string;
+  qrResult: Result;
+  availableDevices: MediaDeviceInfo[];
+  selectedDevice: MediaDeviceInfo;
 
-  constructor() { }
+  ngAfterViewChecked(): void  {
+    this.scanner.camerasFound.subscribe((devices: MediaDeviceInfo[]) => {
+      this.hasCameras = true;
+      this.availableDevices = devices;
+      if(devices.length) {
+        this.selectedDevice = devices[0];
+      }
+      // for (const device of devices) {
+      //   if (/back|rear|environment/gi.test(device.label)) {
+      //       this.scanner.changeDevice(device);
+      //       this.selectedDevice = device;
+      //       break;
+      //   }
+      // }
 
-  ngOnInit() {
+    });
+
+    this.scanner.scanComplete.subscribe((result: Result) => {
+        this.qrResult = result;
+    });
+    this.scanner.permissionResponse.subscribe((answer: boolean) => {
+      this.hasPermission = answer;
+    });
   }
 
   @Input()
@@ -24,33 +48,17 @@ export class QrcodeScanerComponent implements OnInit {
 
   @Output()
     scanQRCode = new EventEmitter();
-  
-  displayCameras(cameras: object[]) {
 
-      this.availableDevices = cameras;
-
-      if (cameras && cameras.length > 0) {
-          this.selectedDevice = cameras[0];
-          this.cameraStarted = true;
-      }
+  onDeviceSelectChange(selectedValue: string) {
+      console.debug('Selection changed: ', selectedValue);
+      this.selectedDevice = this.scanner.getDeviceById(selectedValue);
   }
 
   handleQrCodeResult(result: string) {
-      this.qrResult = result;
-      this.scanQRCode.emit(this.qrResult);
+    this.qrResultString = result;
+    this.scanQRCode.emit(this.qrResultString);
 
   }
 
-  listCameras($event: MediaDeviceInfo[]) {
-    console.log($event);
-    this.chosenCameraSubject.next($event.filter(device => device.kind === 'videoinput')[0])
-  }
-
-  onChange(selectedValue: string) {
-
-      this.cameraStarted = false;
-      this.selectedDevice = selectedValue;
-      this.cameraStarted = true;
-  }
 
 }

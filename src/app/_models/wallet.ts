@@ -93,3 +93,18 @@ export class TransactionInfo {
     status?: string;
     transactionHash?: string;
 }
+
+export class ExpirationTime {
+    constructor(){
+        this.days = 0;
+        this.hours = 0;
+        this.minutes = 0;
+        this.seconds = 0;
+        this.status = '';
+    }
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    status: string;
+}

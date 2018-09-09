@@ -4,11 +4,11 @@
   <form name="createGiftForm" class="" (ngSubmit)="f.form.valid && createGift(f)" #f="ngForm">
       <div class="input-field" [ngClass]="{ 'has-error': f.submitted && !amountGift.valid }">
           <div class="postfix">
-              <input type="checkbox" class="filled-in blue" name="allAvailableBalanceGift"  id="AllAvailableBalanceGift"
-                  [(ngModel)]="model.allAvailableBalance" #allAvailableBalanceGift="ngModel" 
-                  (ngModelChange)="setFullAmount();">
-              <label for="AllAvailableBalanceGift" >Select All</label >
-            </div>
+            <input type="checkbox" class="filled-in blue" name="allAvailableBalanceGift"  id="AllAvailableBalanceGift"
+                [(ngModel)]="model.allAvailableBalance" #allAvailableBalanceGift="ngModel" 
+                (ngModelChange)="setFullAmount();">
+            <label for="AllAvailableBalanceGift" >Select All</label >
+          </div>
         <label for="AmountGift" class="required-label">Amount</label>
         <input type="number" name="amountGift" 
             [(ngModel)]="model.amount" #amountGift="ngModel"
@@ -24,14 +24,16 @@
     </div>   
     <br/>     
     <div class="row">
-      <div class="input-field col s6">
+      <div class="input-field col s6" 
+        [ngClass]="{ 'has-error': f.submitted && !GiftExpiriedDate.valid }">
         <label for="GiftExpiriedDate">Gift Expiried Date</label>
         <input id="GiftExpiriedDate" name="GiftExpiriedDate" 
           [(ngModel)]="model.GiftExpiriedDate"
           #GiftExpiriedDate="ngModel"
           materialize="pickadate"
-          [materializeParams]="[{format: 'dd/mm/yyyy', isRTL: true}]"
+          [materializeParams]="[datePickerOption]"
           type="text" 
+          required
         />
         <!-- <p-calendar  id="GiftExpiriedDate" name="GiftExpiriedDate"
           [(ngModel)]="model.GiftExpiriedDate" 
@@ -40,7 +42,8 @@
           placeholder="Enter Gift Expiried Date">
         </p-calendar> -->
       </div>
-      <div class="input-field col s6">
+      <div class="input-field col s6" 
+        [ngClass]="{ 'has-error': f.submitted && !GiftExpiriedTime.valid }">
         <label for="GiftExpiriedTime">Gift Expiried Time</label>
         <input id="GiftExpiriedTime" name="GiftExpiriedTime" 
           [(ngModel)]="model.GiftExpiriedTime"
@@ -48,24 +51,28 @@
           materialize="pickatime"
           [materializeParams]="[{twelvehour: false}]"
           type="text" 
+          required
         />
+      </div>
+      <div *ngIf="f.submitted && (!GiftExpiriedDate.valid || !GiftExpiriedTime.valid)" 
+        class="col clearfix invalid-feedback red-text">
+        Set the expiration date and time
       </div>
     </div> 
     <div class="input-field">
-        <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
-            <span>Generate</span>
-          </button>
-        <label for="PaymentId">Payment Id:</label>
-        <input type="text" name="paymentIdGift" 
-            placeholder="Enter Payment Id or click on generate button"
-            [(ngModel)]="model.paymentId" #paymentIdGift="ngModel" 
-            id="PaymentId">                
-        
+      <button type="button" class="btn grey darken-1 postfix" (click)="generatePaymentId()">
+          <span>Generate</span>
+        </button>
+      <label for="PaymentId">Payment Id:</label>
+      <input type="text" name="paymentIdGift" 
+          placeholder="Enter Payment Id or click on generate button"
+          [(ngModel)]="model.paymentId" #paymentIdGift="ngModel" 
+          id="PaymentId">                
     </div>
     <hr>
     <div class="center">
       <!-- <button type="reset" class="btn red">Clear<i class="material-icons right">clear</i></button> -->
-      <button type="submit" class="btn blue">Send<i class="material-icons right">send</i></button>
+      <button type="submit" class="btn blue">Create<i class="material-icons right">send</i></button>
     </div>
   </form>
 </div>
